@@ -17,6 +17,12 @@ import {
 
 jest.mock("axios");
 jest.mock("../../components/MessageModal");
+jest.mock("../../components/ClientWindow", () => ({ children }) => (
+  <div>{children}</div>
+));
+jest.mock("react-router-dom", () => ({
+  Link: ({ children, ...props }) => <a {...props}>{children}</a>,
+}));
 jest.useFakeTimers();
 describe("CartView component", () => {
   beforeEach(() => {

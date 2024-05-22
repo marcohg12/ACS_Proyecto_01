@@ -81,7 +81,7 @@ function CartView() {
   };
 
   return (
-    <>
+    <ClientWindow>
       <MessageModal
         message={modalMessage}
         is_open={showModal}
@@ -98,6 +98,19 @@ function CartView() {
                 {Intl.NumberFormat("en-US").format(cartPrice)}
               </p>
             </div>
+          </div>
+          <div className="float-end">
+            {products.length > 0 ? (
+              <Link
+                to="/pay_cart"
+                className="btn"
+                style={{ backgroundColor: "#73E2A7", width: "150px" }}
+              >
+                Comprar carrito
+              </Link>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
         <div className="mt-4">
@@ -193,7 +206,7 @@ function CartView() {
           })}
         </div>
       </div>
-    </>
+    </ClientWindow>
   );
 }
 

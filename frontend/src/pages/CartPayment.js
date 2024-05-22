@@ -111,7 +111,7 @@ function CartPayment() {
   };
 
   return (
-    <>
+    <ClientWindow>
       <MessageModal
         message={modalMessage}
         is_open={showModal}
@@ -215,6 +215,9 @@ function CartPayment() {
             </p>
 
             <div className="d-flex mt-4">
+              <Link to="/my_cart" className="btn btn-danger me-4">
+                Cancelar
+              </Link>
               <button
                 type="submit"
                 form="paymentForm"
@@ -242,7 +245,7 @@ function CartPayment() {
           </div>
         </div>
       </div>
-    </>
+    </ClientWindow>
   );
 }
 
