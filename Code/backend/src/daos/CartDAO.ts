@@ -1,7 +1,8 @@
 import Cart from "../schemas/cartS";
 import Order from "../schemas/orderS";
+import { ICartDAO } from "../controllers/_tests_/ICartDAO";
 
-class CartDAO {
+class CartDAO implements ICartDAO {
   constructor() {}
 
   //Obtiene el carrito de un usuario
@@ -102,7 +103,7 @@ class CartDAO {
     orderDate: Date,
     address: string,
     priceWithDelivery: Number,
-    lineProducts: [{ _id: string; name: string; units: Number; price: Number }],
+    lineProducts: { id: string; name: string; units: Number; price: Number }[],
     state: Number
   ) {
     const order = new Order({

@@ -37,12 +37,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CartAdmin = void 0;
-var CartDAO_1 = require("../daos/CartDAO");
 var ToManyProductsInCart = require("../exceptions/exceptions").ToManyProductsInCart;
 var fs = require("fs");
 var CartAdmin = /** @class */ (function () {
-    function CartAdmin() {
-        this.cartDAO = new CartDAO_1.CartDAO();
+    function CartAdmin(cartDAO) {
+        this.cartDAO = cartDAO;
     }
     // Agrega un producto al carrito
     // Valida que no hayan más de 5 unidades del producto en el carrito

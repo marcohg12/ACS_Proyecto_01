@@ -10,6 +10,7 @@ import { User } from "../models/User";
 import { CalendarAdmin } from "./CalendarAdmin";
 import { NotificationAdmin } from "./NotificationAdmin";
 import { CalendarEvent } from "../models/CalendarEvent";
+import { CartDAO } from "../daos/CartDAO";
 
 class Controller {
   private static instance: Controller | null = null;
@@ -19,7 +20,7 @@ class Controller {
   private orderAdmin: OrderAdmin = new OrderAdmin();
   private categoryAdmin: CategoryAdmin = new CategoryAdmin();
   private productAdmin: ProductAdmin = new ProductAdmin();
-  private cartAdmin: CartAdmin = new CartAdmin();
+  private cartAdmin: CartAdmin = new CartAdmin(new CartDAO());
   private calendarAdmin: CalendarAdmin = new CalendarAdmin();
   private notificationAdmin: NotificationAdmin = new NotificationAdmin();
 

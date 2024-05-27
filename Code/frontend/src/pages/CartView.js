@@ -119,7 +119,11 @@ function CartView() {
         <div className="mt-4">
           {products.map((product) => {
             return (
-              <div className="card mb-3" key={product._id}>
+              <div
+                className="card mb-3"
+                key={product._id}
+                data-testid={product._id}
+              >
                 <div className="row g-0">
                   <div
                     className="col-md-4"

@@ -39,9 +39,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+process.env.TZ = "America/Costa_Rica";
 var cors = require("cors");
 var cookieParser = require("cookie-parser");
 var session = require("express-session");
+var MemoryStore = require("memorystore")(session);
 var bodyParser = require("body-parser");
 var passport = require("passport");
 var mongo_config_1 = require("./mongo-config");
@@ -64,14 +66,22 @@ app.use(cors({
     credentials: true,
 }));
 app.use(session({
+    store: new MemoryStore({
+        checkPeriod: 86400000,
+    }),
     secret: "secretcode",
     resave: true,
     saveUninitialized: true,
+    cookie: {
+        secure: false,
+        sameSite: "lax",
+    },
 }));
 app.use(cookieParser("secretcode"));
 app.use(passport.initialize());
 app.use(passport.session());
 initializePassport(passport);
+app.enable("trust proxy");
 // Rutas ----------------------------------------------------------------------------------------
 app.post("/login", passport.authenticate("local"), function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {

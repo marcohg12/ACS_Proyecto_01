@@ -19,6 +19,10 @@ class CalendarDAO {
   }
 
   public async updateEvent(event: CalendarEventI) {
+    console.log("EN EL DAO");
+    console.log(new Date());
+    const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    console.log("User Time Zone:", userTimeZone);
     return await CalendarEvent.updateOne(
       { _id: event.getEventId() },
       {
