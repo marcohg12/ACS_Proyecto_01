@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc",
     "start": "node ./build/server.js",
-    "start:dev": "npx nodemon"
+    "start:dev": "npx nodemon",
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",

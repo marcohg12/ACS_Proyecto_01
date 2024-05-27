@@ -1,11 +1,14 @@
+import { ICartDAO } from "./_tests_/ICartDAO";
 import { CartDAO } from "../daos/CartDAO";
 const { ToManyProductsInCart } = require("../exceptions/exceptions");
 const fs = require("fs");
 
 class CartAdmin {
-  private cartDAO: CartDAO = new CartDAO();
+  private cartDAO: ICartDAO;
 
-  constructor() {}
+  constructor(cartDAO: ICartDAO) {
+    this.cartDAO = cartDAO;
+  }
 
   // Agrega un producto al carrito
   // Valida que no hayan más de 5 unidades del producto en el carrito
@@ -89,7 +92,7 @@ class CartAdmin {
     await this.cartDAO.deleteAll(userId);
 
     // Actualizamos el nombre de la foto en el sistema de archivos
-    await fs.renameSync(photoPath, "photos/payments/" + orderId + ".png");
+    //await fs.renameSync(photoPath, "photos/payments/" + orderId + ".png");
 
     return orderId;
   }
