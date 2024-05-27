@@ -39,8 +39,8 @@ app.use(
     resave: true,
     saveUninitialized: true,
     cookie: {
-      secure: true,
-      sameSite: "none",
+      secure: false,
+      sameSite: "lax",
     },
   })
 );

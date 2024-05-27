@@ -49,6 +49,7 @@ var User_1 = require("../models/User");
 var CalendarAdmin_1 = require("./CalendarAdmin");
 var NotificationAdmin_1 = require("./NotificationAdmin");
 var CalendarEvent_1 = require("../models/CalendarEvent");
+var CartDAO_1 = require("../daos/CartDAO");
 var Controller = /** @class */ (function () {
     function Controller() {
         this.viewableFactory = new ViewableFactory_1.ViewableFactory();
@@ -57,7 +58,7 @@ var Controller = /** @class */ (function () {
         this.orderAdmin = new OrderAdmin_1.OrderAdmin();
         this.categoryAdmin = new CategoryAdmin_1.CategoryAdmin();
         this.productAdmin = new ProductAdmin_1.ProductAdmin();
-        this.cartAdmin = new CartAdmin_1.CartAdmin();
+        this.cartAdmin = new CartAdmin_1.CartAdmin(new CartDAO_1.CartDAO());
         this.calendarAdmin = new CalendarAdmin_1.CalendarAdmin();
         this.notificationAdmin = new NotificationAdmin_1.NotificationAdmin();
         // Susbribe el centro de notificaciones al centro de ordenes

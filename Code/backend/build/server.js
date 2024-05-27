@@ -73,8 +73,8 @@ app.use(session({
     resave: true,
     saveUninitialized: true,
     cookie: {
-        secure: true,
-        sameSite: "none",
+        secure: false,
+        sameSite: "lax",
     },
 }));
 app.use(cookieParser("secretcode"));

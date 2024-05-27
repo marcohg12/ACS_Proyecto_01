@@ -37,12 +37,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CartAdmin = void 0;
-var CartDAO_1 = require("../daos/CartDAO");
 var ToManyProductsInCart = require("../exceptions/exceptions").ToManyProductsInCart;
 var fs = require("fs");
 var CartAdmin = /** @class */ (function () {
-    function CartAdmin() {
-        this.cartDAO = new CartDAO_1.CartDAO();
+    function CartAdmin(cartDAO) {
+        this.cartDAO = cartDAO;
     }
     // Agrega un producto al carrito
     // Valida que no hayan más de 5 unidades del producto en el carrito
@@ -126,10 +125,7 @@ var CartAdmin = /** @class */ (function () {
                         // Vaciamos el carrito
                         _a.sent();
                         // Actualizamos el nombre de la foto en el sistema de archivos
-                        return [4 /*yield*/, fs.renameSync(photoPath, "photos/payments/" + orderId + ".png")];
-                    case 4:
-                        // Actualizamos el nombre de la foto en el sistema de archivos
-                        _a.sent();
+                        //await fs.renameSync(photoPath, "photos/payments/" + orderId + ".png");
                         return [2 /*return*/, orderId];
                 }
             });
