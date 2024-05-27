@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1716833041996" clover="3.2.0">
-  <project timestamp="1716833041997" name="All files">
+<coverage generated="1716834184803" clover="3.2.0">
+  <project timestamp="1716834184804" name="All files">
     <metrics statements="120" coveredstatements="99" conditionals="32" coveredconditionals="18" methods="36" coveredmethods="27" elements="188" coveredelements="144" complexity="0" loc="120" ncloc="120" packages="4" files="4" classes="4"/>
     <package name="controllers">
       <metrics statements="29" coveredstatements="22" conditionals="13" coveredconditionals="7" methods="7" coveredmethods="5"/>
-      <file name="CartAdmin.ts" path="C:\Users\Jeffrey Leiva\Documents\GitHub\ACS_Proyecto_01\backend\src\controllers\CartAdmin.ts">
+      <file name="CartAdmin.ts" path="C:\Users\Jeffrey Leiva\Documents\GitHub\ACS_Proyecto_01\Code\backend\src\controllers\CartAdmin.ts">
         <metrics statements="29" coveredstatements="22" conditionals="13" coveredconditionals="7" methods="7" coveredmethods="5"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
@@ -39,7 +39,7 @@
     </package>
     <package name="controllers._tests_">
       <metrics statements="25" coveredstatements="22" conditionals="0" coveredconditionals="0" methods="12" coveredmethods="9"/>
-      <file name="CartDaoStub.ts" path="C:\Users\Jeffrey Leiva\Documents\GitHub\ACS_Proyecto_01\backend\src\controllers\_tests_\CartDaoStub.ts">
+      <file name="CartDaoStub.ts" path="C:\Users\Jeffrey Leiva\Documents\GitHub\ACS_Proyecto_01\Code\backend\src\controllers\_tests_\CartDaoStub.ts">
         <metrics statements="25" coveredstatements="22" conditionals="0" coveredconditionals="0" methods="12" coveredmethods="9"/>
         <line num="2" count="1" type="stmt"/>
         <line num="8" count="1" type="stmt"/>
@@ -70,7 +70,7 @@
     </package>
     <package name="daos._tests_">
       <metrics statements="42" coveredstatements="40" conditionals="11" coveredconditionals="10" methods="9" coveredmethods="8"/>
-      <file name="DataBaseStub.ts" path="C:\Users\Jeffrey Leiva\Documents\GitHub\ACS_Proyecto_01\backend\src\daos\_tests_\DataBaseStub.ts">
+      <file name="DataBaseStub.ts" path="C:\Users\Jeffrey Leiva\Documents\GitHub\ACS_Proyecto_01\Code\backend\src\daos\_tests_\DataBaseStub.ts">
         <metrics statements="42" coveredstatements="40" conditionals="11" coveredconditionals="10" methods="9" coveredmethods="8"/>
         <line num="3" count="1" type="stmt"/>
         <line num="8" count="18" type="stmt"/>
@@ -118,7 +118,7 @@
     </package>
     <package name="exceptions">
       <metrics statements="24" coveredstatements="15" conditionals="8" coveredconditionals="1" methods="8" coveredmethods="5"/>
-      <file name="exceptions.ts" path="C:\Users\Jeffrey Leiva\Documents\GitHub\ACS_Proyecto_01\backend\src\exceptions\exceptions.ts">
+      <file name="exceptions.ts" path="C:\Users\Jeffrey Leiva\Documents\GitHub\ACS_Proyecto_01\Code\backend\src\exceptions\exceptions.ts">
         <metrics statements="24" coveredstatements="15" conditionals="8" coveredconditionals="1" methods="8" coveredmethods="5"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="0" type="cond" truecount="0" falsecount="2"/>
