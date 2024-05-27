@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.73% </span>
+                <span class="strong">95.34% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>36/38</span>
+                <span class='fraction'>41/43</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.73% </span>
+                <span class="strong">95.23% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>36/38</span>
+                <span class='fraction'>40/42</span>
             </div>
         
             
@@ -157,7 +157,13 @@
 <a name='L92'></a><a href='#L92'>92</a>
 <a name='L93'></a><a href='#L93'>93</a>
 <a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -166,6 +172,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">1800x</span>
+<span class="cline-any cline-yes">1800x</span>
+<span class="cline-any cline-yes">1800x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -177,15 +189,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">4005x</span>
+<span class="cline-any cline-yes">5805x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4004x</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">5804x</span>
+<span class="cline-any cline-yes">188x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4004x</span>
+<span class="cline-any cline-yes">5804x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -251,19 +262,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { IDataBase } from "./IDataBase";
 &nbsp;
 class DataBaseStub implements IDataBase {
   cartData: { [userId: string]: { products: { productRef: string; units: number }[] } };
-  orderData: any[]; 
+  orderData: any[];
 &nbsp;
   constructor() {
     this.cartData = {};
     this.orderData = [];
+&nbsp;
+    for (let i = 1; i &lt;= 100; i++) {
+      const productId = `product${i}`;
+      const userId = `user${i % 10 + 1}`;
+      this.addProduct(productId, 5, userId);
+    }
   }
 &nbsp;
   async getCart(idUser: string): Promise&lt;{ products: any[] }&gt; {
-    if (idUser.includes("user"))  {
+    if (idUser.includes("user")) {
       const cart = this.cartData[idUser] || { products: [] };
       return cart;
     } else {
@@ -271,13 +289,12 @@ class DataBaseStub implements IDataBase {
     }
   }
 &nbsp;
-&nbsp;
   async addProduct(idProduct: string, units: number, idUser: string): Promise&lt;any&gt; {
     if (!idUser.includes("user")) {
-        throw new Error("Invalid User");
+      throw new Error("Invalid User");
     }
     if (!this.cartData[idUser]) {
-        this.cartData[idUser] = { products: [] };
+      this.cartData[idUser] = { products: [] };
     }
     this.cartData[idUser].products.push({ productRef: idProduct, units });
   }
@@ -290,24 +307,24 @@ class DataBaseStub implements IDataBase {
 &nbsp;
   async updateUnits(idProduct: string, units: number, idUser: string): Promise&lt;any&gt; {
     if (!idUser.includes("user")) {
-        throw new Error("Invalid User");
+      throw new Error("Invalid User");
     }
     const filter = {
-        client: idUser,
-        "products.productRef": idProduct,
+      client: idUser,
+      "products.productRef": idProduct,
     };
     const update = {
-        $set: {
-            "products.$.units": units,
-        },
+      $set: {
+        "products.$.units": units,
+      },
     };
   }
 &nbsp;
   async findProduct(idProduct: string, idUser: string): Promise&lt;number&gt; {
     if (!idUser.includes("user")) {
-        throw new Error("Invalid User");
+      throw new Error("Invalid User");
     }
-    return 2
+    return 2;
   }
 &nbsp;
 <span class="fstat-no" title="function not covered" >  async d</span>eleteAll(idUser: string): Promise&lt;any&gt; {
@@ -327,7 +344,7 @@ class DataBaseStub implements IDataBase {
     if (!client.includes("user")) {
       throw new Error("Invalid User");
     }
-    const orderId = this.orderData.length + 1; 
+    const orderId = this.orderData.length + 1;
     const order = {
       _id: orderId,
       clientRef: client,
@@ -345,6 +362,7 @@ class DataBaseStub implements IDataBase {
 &nbsp;
 export default DataBaseStub;
 &nbsp;
+&nbsp;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -352,7 +370,7 @@ export default DataBaseStub;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-04-27T21:56:49.435Z
+                at 2024-05-27T18:04:01.915Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
