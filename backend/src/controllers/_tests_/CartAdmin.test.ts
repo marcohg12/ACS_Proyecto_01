@@ -44,9 +44,9 @@ describe("CartAdmin", () => {
 
     cartDaoStub.setFindProductValue(1);
 
-      await expect(async () => {
+    await expect(async () => {
       await cartAdmin.addProductToCart(userId, productId, units);
-      }).rejects.toThrow(ToManyProductsInCart);
+    }).rejects.toThrow(ToManyProductsInCart);
   });
 
   //Test Case ID: 4
@@ -61,38 +61,51 @@ describe("CartAdmin", () => {
 
     cartDaoStub.setGetCartValue(-1);
 
-    const result = await cartAdmin.sendOrder(userId, address, totalPrice, photoPath);
+    const result = await cartAdmin.sendOrder(
+      userId,
+      address,
+      totalPrice,
+      photoPath
+    );
     expect(result).toBe(-1);
-   });
+  });
 
-   //Test Case ID: 6
-   it("Test should generate an order whit products in the cart", async () => {
+  //Test Case ID: 6
+  it("Test should generate an order whit products in the cart", async () => {
     const userId = "user1";
     const address = "Guacima";
     const totalPrice = 5000;
     const photoPath = "Hello.png";
- 
+
     cartDaoStub.setGetCartValue({ products: [] });
     cartDaoStub.setRegisterOrderValue(1);
- 
-    const result = await cartAdmin.sendOrder(userId, address, totalPrice, photoPath);
-    expect(result).toBe("1");
-   });
 
-     //Test Case ID: 7
+    const result = await cartAdmin.sendOrder(
+      userId,
+      address,
+      totalPrice,
+      photoPath
+    );
+    expect(result).toBe("1");
+  });
+
+  //Test Case ID: 7
   it("Test should generate an order whit products in the car and handle error when registering the order.", async () => {
     const userId = "user1";
     const address = "Guacima";
     const totalPrice = 5000;
     const photoPath = "Hello.png";
- 
+
     cartDaoStub.setGetCartValue({ products: [] });
     cartDaoStub.setRegisterOrderValue(-1);
- 
-    const result = await cartAdmin.sendOrder(userId, address, totalPrice, photoPath);
- 
+
+    const result = await cartAdmin.sendOrder(
+      userId,
+      address,
+      totalPrice,
+      photoPath
+    );
+
     expect(result).toBe("1");
-   });
-
-
+  });
 });
