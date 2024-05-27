@@ -125,7 +125,10 @@ var CartAdmin = /** @class */ (function () {
                         // Vaciamos el carrito
                         _a.sent();
                         // Actualizamos el nombre de la foto en el sistema de archivos
-                        //await fs.renameSync(photoPath, "photos/payments/" + orderId + ".png");
+                        return [4 /*yield*/, fs.renameSync(photoPath, "photos/payments/" + orderId + ".png")];
+                    case 4:
+                        // Actualizamos el nombre de la foto en el sistema de archivos
+                        _a.sent();
                         return [2 /*return*/, orderId];
                 }
             });

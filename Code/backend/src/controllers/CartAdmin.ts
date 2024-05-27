@@ -92,7 +92,7 @@ class CartAdmin {
     await this.cartDAO.deleteAll(userId);
 
     // Actualizamos el nombre de la foto en el sistema de archivos
-    //await fs.renameSync(photoPath, "photos/payments/" + orderId + ".png");
+    await fs.renameSync(photoPath, "photos/payments/" + orderId + ".png");
 
     return orderId;
   }
