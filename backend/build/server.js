@@ -62,7 +62,7 @@ var port = 5000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors({
-    origin: "https://frontend-5glq.onrender.com",
+    origin: "http://localhost:3000",
     credentials: true,
 }));
 app.use(session({
