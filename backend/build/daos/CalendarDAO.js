@@ -68,15 +68,21 @@ var CalendarDAO = /** @class */ (function () {
     };
     CalendarDAO.prototype.updateEvent = function (event) {
         return __awaiter(this, void 0, void 0, function () {
+            var userTimeZone;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, calendarEventS_1.default.updateOne({ _id: event.getEventId() }, {
-                            date: event.getDate(),
-                            duration: event.getDuration(),
-                            description: event.getDescription(),
-                            type: event.getType(),
-                            customFields: event.getCustomFields(),
-                        })];
+                    case 0:
+                        console.log("EN EL DAO");
+                        console.log(new Date());
+                        userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                        console.log("User Time Zone:", userTimeZone);
+                        return [4 /*yield*/, calendarEventS_1.default.updateOne({ _id: event.getEventId() }, {
+                                date: event.getDate(),
+                                duration: event.getDuration(),
+                                description: event.getDescription(),
+                                type: event.getType(),
+                                customFields: event.getCustomFields(),
+                            })];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });

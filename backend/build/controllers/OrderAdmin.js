@@ -159,7 +159,7 @@ var OrderAdmin = /** @class */ (function () {
                         }
                         orderProductsField = new DecoratedCalendarEvent_1.DecoratedCalendarEvent(orderClientNameField, "Productos", productsString);
                         orderAddressField = new DecoratedCalendarEvent_1.DecoratedCalendarEvent(orderProductsField, "Dirección", order.address);
-                        orderPriceField = new DecoratedCalendarEvent_1.DecoratedCalendarEvent(orderAddressField, "Precio", order.price);
+                        orderPriceField = new DecoratedCalendarEvent_1.DecoratedCalendarEvent(orderAddressField, "Precio", "₡" + Intl.NumberFormat("en-US").format(order.price));
                         // Registramos el evento en la agenda
                         this.calendarAdmin.registerEvent(orderPriceField);
                         return [3 /*break*/, 6];
