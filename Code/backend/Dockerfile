@@ -60,6 +60,7 @@ COPY package.json .
 # the built application from the build stage into the image.
 COPY --from=deps /usr/src/Code/backend/node_modules ./node_modules
 COPY --from=build /usr/src/Code/backend/build ./build
+COPY photos ./photos
 
 
 # Expose the port that the application listens on.
