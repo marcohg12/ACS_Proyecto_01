@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  backend:
+    image: gravehg/backend-aseguramiento:latest
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:5000 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  frontend:
+    image: gravehg/frontend-aseguramiento:latest
+    ports:
+      - "3000:3000"
+    depends_on:
+      backend:
+        condition: service_started
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
