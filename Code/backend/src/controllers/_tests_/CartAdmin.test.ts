@@ -1,6 +1,8 @@
 import { CartAdmin } from "../CartAdmin";
 import CartDAOStub from "./CartDaoStub"; // Importamos el stub
 const { ToManyProductsInCart } = require("../../exceptions/exceptions");
+import * as fs from "fs";
+jest.mock("fs");
 
 describe("CartAdmin", () => {
   let cartAdmin: CartAdmin;
@@ -57,9 +59,9 @@ describe("CartAdmin", () => {
     const userId = "user1";
     const address = "Guacima";
     const totalPrice = 5000;
-    const photoPath = "/images";
+    const photoPath = "image";
 
-    cartDaoStub.setGetCartValue(-1);
+    cartDaoStub.setGetCartValue({ products: [] });
 
     const result = await cartAdmin.sendOrder(
       userId,
@@ -67,7 +69,7 @@ describe("CartAdmin", () => {
       totalPrice,
       photoPath
     );
-    expect(result).toBe(-1);
+    expect(result).toBe("1");
   });
 
   //Test Case ID: 6
