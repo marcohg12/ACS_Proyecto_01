@@ -78,6 +78,33 @@ export const axiosStubSendFormErrorEqualToTrue = () => {
   });
 };
 
+export const axiosGetProductViewerProducts = () => {
+  const mockProducts = [
+    {
+      _id: "1",
+      name: "Product 1",
+      price: "1000",
+      photo: "/images/product.jpg",
+      toLink: "/product/1",
+    },
+    {
+      _id: "2",
+      name: "Product 2",
+      price: "2000",
+      photo: "/images/product.jpg",
+      toLink: "/product/1",
+    },
+  ];
+  jest.spyOn(axios, "get").mockImplementationOnce(() =>
+    Promise.resolve({
+      data: {
+        result: mockProducts,
+        error: false,
+      },
+    })
+  );
+};
+
 /*export const testingSomethingFunney = () => {
   const mockCartData = {
     products: [
