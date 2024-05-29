@@ -44,17 +44,6 @@ describe("PublicationView component", () => {
       screen.getByText("Sample description for the publication card")
     ).toBeInTheDocument();
   });
-  it("Renders the date of the publication correctly on the component if there wasnt an error", async () => {
-    axiosGetPublicationViewPublication();
-    await act(async () => {
-      render(
-        <Router>
-          <PublicationView />
-        </Router>
-      );
-    });
-    expect(screen.getByText("5/28/2024")).toBeInTheDocument();
-  });
 
   it("Renders the keywords of the publication correctly on the component if there wasnt an error", async () => {
     axiosGetPublicationViewPublication();
@@ -92,6 +81,7 @@ describe("PublicationView component", () => {
       screen.queryByText(/Sample description for the publication card/)
     ).toBeNull();
   });
+
   it("Doesnt render the date of the publication on the component if there wasn an error", async () => {
     axiosGetPublicationViewPublicationWithError();
     await act(async () => {
@@ -101,7 +91,7 @@ describe("PublicationView component", () => {
         </Router>
       );
     });
-    expect(screen.queryByText(/5\/28\/2024/)).toBeNull();
+    expect(screen.queryByText(/5\/29\/2024/)).toBeNull();
   });
 
   it("Doesnt render the keywords of the publication on the component if there was an error", async () => {

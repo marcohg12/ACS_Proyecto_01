@@ -153,7 +153,7 @@ export const axiosGetPublicationViewPublication = () => {
     name: "Test publication",
     photo: "/images/sample.jpg",
     description: "Sample description for the publication card",
-    date: "2024-05-29",
+    date: "2024-05-28",
     category: { name: "News" },
     toLink: "/publication/1",
     tags: ["azul", "rojo", "verde"],
