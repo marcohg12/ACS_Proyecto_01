@@ -105,6 +105,49 @@ export const axiosGetProductViewerProducts = () => {
   );
 };
 
+export const axiosGetProductViewProduct = () => {
+  const mockProduct = {
+    _id: "1",
+    name: "Product 1",
+    price: "1000",
+    photo: "/images/product.jpg",
+    description: "Test description",
+  };
+  jest.spyOn(axios, "get").mockImplementationOnce(() =>
+    Promise.resolve({
+      data: {
+        result: mockProduct,
+        error: false,
+      },
+    })
+  );
+};
+
+export const axiosGetProductViewProductWithError = () => {
+  jest.spyOn(axios, "get").mockImplementationOnce(() =>
+    Promise.resolve({
+      data: {
+        error: true,
+      },
+    })
+  );
+};
+
+export const axiosStubSendFormErrorEqualToFalseProductView = () => {
+  axios.mockResolvedValueOnce({
+    data: { error: false, message: "Producto agregado al carrito" },
+  });
+};
+
+export const axiosStubSendFormErrorEqualToTrueProductView = () => {
+  axios.mockResolvedValueOnce({
+    data: {
+      error: true,
+      message: "Ocurrió un error inesperado, intente de nuevo",
+    },
+  });
+};
+
 /*export const testingSomethingFunney = () => {
   const mockCartData = {
     products: [

@@ -103,7 +103,11 @@ function ProductView() {
             <p> ₡{Intl.NumberFormat("en-US").format(price)}</p>
           </div>
           <div className="row mb-4 md-4">
-            <form onSubmit={addProductToCart} className="d-flex">
+            <form
+              onSubmit={addProductToCart}
+              className="d-flex"
+              data-testid="productViewForm"
+            >
               <div className="col mb-4 me-3">
                 <input
                   type="number"
