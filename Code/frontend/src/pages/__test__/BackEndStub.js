@@ -148,6 +148,36 @@ export const axiosStubSendFormErrorEqualToTrueProductView = () => {
   });
 };
 
+export const axiosGetPublicationViewPublication = () => {
+  const defaultProps = {
+    name: "Test publication",
+    photo: "/images/sample.jpg",
+    description: "Sample description for the publication card",
+    date: "2024-05-29",
+    category: { name: "News" },
+    toLink: "/publication/1",
+    tags: ["azul", "rojo", "verde"],
+  };
+  jest.spyOn(axios, "get").mockImplementationOnce(() =>
+    Promise.resolve({
+      data: {
+        result: defaultProps,
+        error: false,
+      },
+    })
+  );
+};
+
+export const axiosGetPublicationViewPublicationWithError = () => {
+  jest.spyOn(axios, "get").mockImplementationOnce(() =>
+    Promise.resolve({
+      data: {
+        error: true,
+      },
+    })
+  );
+};
+
 /*export const testingSomethingFunney = () => {
   const mockCartData = {
     products: [

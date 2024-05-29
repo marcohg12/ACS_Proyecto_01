@@ -19,7 +19,6 @@ function PublicationView() {
     }).then((res) => {
       if (!res.data.error) {
         const publication = res.data.result;
-        console.log(publication.category);
         setDescription(publication.description);
         setCategory(publication.category.name);
         setPhotoURL(publication.photo);
