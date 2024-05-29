@@ -106,4 +106,44 @@ describe("ProductViewer component", () => {
     let link = links[0];
     expect(link).toHaveAttribute("to", "/edit_product/1");
   });
+
+  it("The component is rendered in an acceptable time for the user (0 to 5 seconds) when there isnt an error for admin user", async () => {
+    const renderTimeRangeMin = 0; // 0 segundos
+    const renderTimeRangeMax = 5000; // 5 segundos
+
+    let renderStartTime;
+    let renderEndTime;
+    renderStartTime = Date.now();
+    axiosGetProductViewerProducts();
+    await act(async () => {
+      render(<ProductViewer forUser="admin" />);
+    });
+    renderEndTime = Date.now();
+
+    const renderingTimeSeconds = (renderEndTime - renderStartTime) / 1000;
+
+    // Ver que el tiempo de renderizado caiga entre los dos límites
+    expect(renderingTimeSeconds).toBeGreaterThanOrEqual(renderTimeRangeMin);
+    expect(renderingTimeSeconds).toBeLessThanOrEqual(renderTimeRangeMax);
+  });
+
+  it("The component is rendered in an acceptable time for the user (0 to 5 seconds) when there isnt an error for non-admin user", async () => {
+    const renderTimeRangeMin = 0; // 0 segundos
+    const renderTimeRangeMax = 5000; // 5 segundos
+
+    let renderStartTime;
+    let renderEndTime;
+    renderStartTime = Date.now();
+    axiosGetProductViewerProducts();
+    await act(async () => {
+      render(<ProductViewer forUser="user" />);
+    });
+    renderEndTime = Date.now();
+
+    const renderingTimeSeconds = (renderEndTime - renderStartTime) / 1000;
+
+    // Ver que el tiempo de renderizado caiga entre los dos límites
+    expect(renderingTimeSeconds).toBeGreaterThanOrEqual(renderTimeRangeMin);
+    expect(renderingTimeSeconds).toBeLessThanOrEqual(renderTimeRangeMax);
+  });
 });

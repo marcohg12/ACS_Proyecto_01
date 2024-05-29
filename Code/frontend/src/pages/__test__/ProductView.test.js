@@ -19,7 +19,11 @@ jest.mock(
   () =>
     ({ message, is_open, close, error }) =>
       (
-        <div data-testid="mocked-message-modal">
+        <div
+          data-testid="mocked-message-modal"
+          is_open={is_open.toString()}
+          error={error.toString()}
+        >
           {error ? (
             <div className="mocked-alert-danger">{message}</div>
           ) : (
@@ -202,5 +206,231 @@ describe("ProductView component", () => {
     expect(
       screen.getByText("Ocurrió un error inesperado, intente de nuevo")
     ).toBeInTheDocument();
+  });
+
+  it("Sets the error state of the modal to false after success on adding a product", async () => {
+    axiosGetProductViewProduct();
+    await act(async () => {
+      render(
+        <Router>
+          <ProductView />
+        </Router>
+      );
+    });
+
+    // Simulate changing the input value
+    const inputElement = screen.getByRole("spinbutton");
+    fireEvent.change(inputElement, { target: { value: "5" } });
+
+    // Mock the Axios request to return a successful response
+    axiosStubSendFormErrorEqualToFalseProductView();
+
+    // Simulate submitting the form
+    await act(async () => {
+      fireEvent.submit(screen.getByTestId("productViewForm"));
+    });
+
+    // Assert that the success message is rendered
+    let modal = screen.getByTestId("mocked-message-modal");
+    expect(modal).toHaveAttribute("error", "false");
+  });
+
+  it("Sets the error state of the modal to true after success on adding a product", async () => {
+    axiosGetProductViewProduct();
+    await act(async () => {
+      render(
+        <Router>
+          <ProductView />
+        </Router>
+      );
+    });
+
+    // Simulate changing the input value
+    const inputElement = screen.getByRole("spinbutton");
+    fireEvent.change(inputElement, { target: { value: "5" } });
+
+    // Mock the Axios request to return a successful response
+    axiosStubSendFormErrorEqualToTrueProductView();
+
+    // Simulate submitting the form
+    await act(async () => {
+      fireEvent.submit(screen.getByTestId("productViewForm"));
+    });
+
+    // Assert that the success message is rendered
+    let modal = screen.getByTestId("mocked-message-modal");
+    expect(modal).toHaveAttribute("error", "true");
+  });
+
+  it("Checks that the modal is open after a successful addition of a product", async () => {
+    axiosGetProductViewProduct();
+    await act(async () => {
+      render(
+        <Router>
+          <ProductView />
+        </Router>
+      );
+    });
+
+    // Simulate changing the input value
+    const inputElement = screen.getByRole("spinbutton");
+    fireEvent.change(inputElement, { target: { value: "5" } });
+
+    // Mock the Axios request to return a successful response
+    axiosStubSendFormErrorEqualToFalseProductView();
+
+    // Simulate submitting the form
+    await act(async () => {
+      fireEvent.submit(screen.getByTestId("productViewForm"));
+    });
+
+    // Assert that the success message is rendered
+    let modal = screen.getByTestId("mocked-message-modal");
+    expect(modal).toHaveAttribute("is_open", "true");
+  });
+
+  it("Checks that the modal is open after a failed addition of a product", async () => {
+    axiosGetProductViewProduct();
+    await act(async () => {
+      render(
+        <Router>
+          <ProductView />
+        </Router>
+      );
+    });
+
+    // Simulate changing the input value
+    const inputElement = screen.getByRole("spinbutton");
+    fireEvent.change(inputElement, { target: { value: "5" } });
+
+    // Mock the Axios request to return a successful response
+    axiosStubSendFormErrorEqualToTrueProductView();
+
+    // Simulate submitting the form
+    await act(async () => {
+      fireEvent.submit(screen.getByTestId("productViewForm"));
+    });
+
+    // Assert that the success message is rendered
+    let modal = screen.getByTestId("mocked-message-modal");
+    expect(modal).toHaveAttribute("is_open", "true");
+  });
+
+  it("The component is rendered in an acceptable time for the user (0 to 5 seconds) when there isnt an error", async () => {
+    const renderTimeRangeMin = 0; // 0 segundos
+    const renderTimeRangeMax = 5000; // 5 segundos
+
+    let renderStartTime;
+    let renderEndTime;
+    renderStartTime = Date.now();
+    axiosGetProductViewProduct();
+    await act(async () => {
+      render(
+        <Router>
+          <ProductView />
+        </Router>
+      );
+    });
+    renderEndTime = Date.now();
+
+    const renderingTimeSeconds = (renderEndTime - renderStartTime) / 1000;
+
+    // Ver que el tiempo de renderizado caiga entre los dos límites
+    expect(renderingTimeSeconds).toBeGreaterThanOrEqual(renderTimeRangeMin);
+    expect(renderingTimeSeconds).toBeLessThanOrEqual(renderTimeRangeMax);
+  });
+
+  it("The component is rendered in an acceptable time for the user (0 to 5 seconds) when there is an error", async () => {
+    const renderTimeRangeMin = 0; // 0 segundos
+    const renderTimeRangeMax = 5000; // 5 segundos
+
+    let renderStartTime;
+    let renderEndTime;
+    renderStartTime = Date.now();
+    axiosGetProductViewProductWithError();
+    await act(async () => {
+      render(
+        <Router>
+          <ProductView />
+        </Router>
+      );
+    });
+    renderEndTime = Date.now();
+
+    const renderingTimeSeconds = (renderEndTime - renderStartTime) / 1000;
+
+    // Ver que el tiempo de renderizado caiga entre los dos límites
+    expect(renderingTimeSeconds).toBeGreaterThanOrEqual(renderTimeRangeMin);
+    expect(renderingTimeSeconds).toBeLessThanOrEqual(renderTimeRangeMax);
+  });
+
+  it("The component renders the succes message after sending a form in an acceptable time for the user (0 to 5 seconds) when there isnt an error on adding a product", async () => {
+    const renderTimeRangeMin = 0; // 0 segundos
+    const renderTimeRangeMax = 5000; // 5 segundos
+    axiosGetProductViewProduct();
+    await act(async () => {
+      render(
+        <Router>
+          <ProductView />
+        </Router>
+      );
+    });
+
+    // Mock user input
+    let renderStartTime;
+    let renderEndTime;
+    // Simulate changing the input value
+    const inputElement = screen.getByRole("spinbutton");
+    fireEvent.change(inputElement, { target: { value: "5" } });
+
+    // Mock the Axios request to return a successful response
+    axiosStubSendFormErrorEqualToFalseProductView();
+
+    // Simulate submitting the form
+    renderStartTime = Date.now();
+    await act(async () => {
+      fireEvent.submit(screen.getByTestId("productViewForm"));
+    });
+    renderEndTime = Date.now();
+    const renderingTimeSeconds = (renderEndTime - renderStartTime) / 1000;
+
+    // Ver que el tiempo de renderizado caiga entre los dos límites
+    expect(renderingTimeSeconds).toBeGreaterThanOrEqual(renderTimeRangeMin);
+    expect(renderingTimeSeconds).toBeLessThanOrEqual(renderTimeRangeMax);
+  });
+
+  it("The component renders the succes message after sending a form in an acceptable time for the user (0 to 5 seconds) when there is an error on adding a product", async () => {
+    const renderTimeRangeMin = 0; // 0 segundos
+    const renderTimeRangeMax = 5000; // 5 segundos
+    axiosGetProductViewProduct();
+    await act(async () => {
+      render(
+        <Router>
+          <ProductView />
+        </Router>
+      );
+    });
+
+    // Mock user input
+    let renderStartTime;
+    let renderEndTime;
+    // Simulate changing the input value
+    const inputElement = screen.getByRole("spinbutton");
+    fireEvent.change(inputElement, { target: { value: "5" } });
+
+    // Mock the Axios request to return a successful response
+    axiosStubSendFormErrorEqualToTrueProductView();
+
+    // Simulate submitting the form
+    renderStartTime = Date.now();
+    await act(async () => {
+      fireEvent.submit(screen.getByTestId("productViewForm"));
+    });
+    renderEndTime = Date.now();
+    const renderingTimeSeconds = (renderEndTime - renderStartTime) / 1000;
+
+    // Ver que el tiempo de renderizado caiga entre los dos límites
+    expect(renderingTimeSeconds).toBeGreaterThanOrEqual(renderTimeRangeMin);
+    expect(renderingTimeSeconds).toBeLessThanOrEqual(renderTimeRangeMax);
   });
 });
