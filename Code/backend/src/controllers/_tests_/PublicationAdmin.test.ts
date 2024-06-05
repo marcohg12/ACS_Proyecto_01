@@ -1,7 +1,7 @@
 import { PublicationDAOStub } from "./PublicationDaoStub";
 import { PublicationAdmin } from "../PublicationAdmin";
 import { Publication} from "../../models/Publication";
-import fs from "fs";
+jest.mock("fs")
 
 describe('PublicationService', () => {
   let publicationAdmin: PublicationAdmin;
@@ -14,7 +14,7 @@ describe('PublicationService', () => {
 
   //Test Case ID: 121
   it('should get a publication with an existing ID', async () => {
-    const publicationId = "60d9fbbf2b7e4e3a5c8e4f5b"; // Ensure this ID exists in your stub
+    const publicationId = "60d9fbbf2b7e4e3a5c8e4f5b"; 
     const publication = await publicationAdmin.getPublication(publicationId);
     expect(publication).toBeTruthy();
     expect(publication._id).toBe(publicationId);
@@ -36,7 +36,6 @@ describe('PublicationService', () => {
     const endTime = Date.now();
     const elapsedTime = endTime - startTime;
     
-    // Check if the elapsed time is between 0 and 2000 milliseconds (2 seconds)
     expect(elapsedTime).toBeLessThanOrEqual(2000);
     expect(elapsedTime).toBeGreaterThanOrEqual(0);
     expect(publications).toBeTruthy();
@@ -45,10 +44,11 @@ describe('PublicationService', () => {
 
   //Test Case ID: 124
   it('should get all publications with an existing category', async () => {
-    const categoryId = "1234567890abcdef12345678"; // Ensure this ID exists in your stub
+    const categoryId = "1234567890abcdef12345678"; 
     const publications = await publicationAdmin.getPublicationsByCategory(categoryId);
     expect(publications).toBeTruthy();
     expect(publications.length).toBeGreaterThan(0);
+
     publications.forEach(publication => {
       expect(publication.categoryId).toBe(categoryId);
     });
@@ -65,12 +65,12 @@ describe('PublicationService', () => {
 
   //Test Case ID: 126
   it('should get all publications with an existing tag', async () => {
-    const tags = ["test"]; 
+    const tags = ["tag1", "tag2"];
     const publications = await publicationAdmin.getPublicationsByTags(tags);
-    expect(publications).toBeTruthy();
+
     expect(publications.length).toBeGreaterThan(0);
     publications.forEach(publication => {
-      expect(publication.tags.some((tag: string) => tags.includes(tag)).toBe(true));
+        expect(publication.tags.some((tag: string) => tags.includes(tag))).toBe(true);
     });
   });
 
@@ -100,16 +100,14 @@ describe('PublicationService', () => {
 
   //Test Case ID: 129
   it('should reject to register a publication if receiving an object different from publication', async () => {
-    const invalidObject = new Publication(
-      "1234567890abcdef12345678", 
-      new Date(),                  
-      "Invalid object",            
-      "",                         
-      []                           
-    );
-    await expect(publicationAdmin.registerPublication(invalidObject))
-      .rejects
-      .toThrow("Invalid publication object");
+  const invalidObject: any = {
+    getDescription: () => "Description",
+    getTags: () => ["tag1", "tag2"]
+  };
+
+  await expect(publicationAdmin.registerPublication(invalidObject))
+    .rejects
+    .toThrow("Invalid publication object");
   });
 
   //Test Case ID: 130
@@ -130,14 +128,11 @@ describe('PublicationService', () => {
 
   //Test Case ID: 131
   it('should reject to update a publication if receiving an object different from publication', async () => {
-    const invalidObject = new Publication(
-      "1234567890abcdef12345678", 
-      new Date(),                 
-      "Invalid object",            
-      "",                          
-      []                           
-    );
-  
+    const invalidObject: any = {
+      getDescription: () => "Description",
+      getTags: () => ["tag1", "tag2"]
+    };
+
     await expect(publicationAdmin.updatePublication(invalidObject))
       .rejects
       .toThrow("Invalid publication object");
@@ -153,12 +148,12 @@ describe('PublicationService', () => {
   });
 
   //Test Case ID: 133
-  it('should reject to delete a publication with a non existence ID', async () => {
-    const nonExistentPublicationId = "nonexistentid"; // ID que no existe
+  it('should reject to delete a publication with a non-existent ID', async () => {
+    const nonExistentPublicationId = "nonexistentid"; 
 
     await expect(publicationAdmin.deletePublication(nonExistentPublicationId))
-      .rejects
-      .toThrow("Publication not found");
+        .rejects
+        .toThrow("Publication not found");
   });
 
 });

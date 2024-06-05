@@ -10,6 +10,20 @@ class PublicationAdmin {
     this.publicationDAO = publicationDAO;
   }
 
+  //Revisar si se recibe una publicación válida
+  private isValidPublication(publication: any): boolean {
+    return (
+      publication &&
+      typeof publication.getCategoryID === 'function' &&
+      typeof publication.getDescription === 'function' &&
+      typeof publication.getTags === 'function' &&
+      Array.isArray(publication.getTags()) &&
+      typeof publication.getCategoryID() === 'string' &&
+      typeof publication.getDescription() === 'string' &&
+      publication.getTags().every((tag: any) => typeof tag === 'string')
+    );
+  }
+
   // Obtiene una publicación por su Id
   public async getPublication(publicationId: string) {
     const publication = await this.publicationDAO.getPublication(publicationId);
@@ -44,7 +58,7 @@ class PublicationAdmin {
 
   // Registra una publicación
   public async registerPublication(publication: Publication) {
-    if (!(publication instanceof Publication)) {
+    if (!this.isValidPublication(publication)) {
       throw new Error("Invalid publication object");
     }
     const publicationId = await this.publicationDAO.registerPublication(publication);
@@ -56,7 +70,10 @@ class PublicationAdmin {
 
   // Actualiza una publicación
   public async updatePublication(publication: Publication) {
-    // Si hay una foto nueva
+    if (!this.isValidPublication(publication)) {
+      throw new Error("Invalid publication object");
+    }
+
     if (publication.getPhoto() !== "") {
       // Eliminamos la foto anterior
       await fs.unlink(
@@ -73,14 +90,18 @@ class PublicationAdmin {
   }
 
   // Elimina una publicación por su Id
-  public async deletePublication(publicationId: string) {
+  public async deletePublication(publicationId: string): Promise<void> {
     try {
         await fs.unlink("photos/publications/" + publicationId + ".png");
         await this.publicationDAO.deletePublication(publicationId);
     } catch (error) {
         // Manejar errores
-        console.error("Error deleting publication:", error);
-        throw error;
+        if (error.message === 'Publication not found') {
+            throw new Error('Publication not found');
+        } else {
+            console.error("Error deleting publication:", error);
+            throw error;
+        }
     }
   }
 }
