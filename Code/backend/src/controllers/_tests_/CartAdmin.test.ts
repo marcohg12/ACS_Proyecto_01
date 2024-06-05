@@ -1,7 +1,6 @@
 import { CartAdmin } from "../CartAdmin";
 import CartDAOStub from "./CartDaoStub"; // Importamos el stub
 const { ToManyProductsInCart } = require("../../exceptions/exceptions");
-import * as fs from "fs";
 jest.mock("fs");
 
 describe("CartAdmin", () => {

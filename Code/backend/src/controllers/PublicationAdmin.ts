@@ -1,14 +1,22 @@
 import { PublicationDAO } from "../daos/PublicationDAO";
 import { Publication } from "../models/Publication";
+import { IPublicationDAO } from "./_tests_/IPublicationDAO";
 const fs = require("fs");
 
 class PublicationAdmin {
   private publicationDAO: PublicationDAO = new PublicationDAO();
-  constructor() {}
+
+  constructor(publicationDAO: IPublicationDAO) {
+    this.publicationDAO = publicationDAO;
+  }
 
   // Obtiene una publicación por su Id
   public async getPublication(publicationId: string) {
-    return await this.publicationDAO.getPublication(publicationId);
+    const publication = await this.publicationDAO.getPublication(publicationId);
+    if (!publication) {
+      throw new Error(`Publication with ID ${publicationId} not found`);
+    }
+    return publication;
   }
 
   // Obtiene todas las publicaciones registradas
@@ -18,20 +26,28 @@ class PublicationAdmin {
 
   // Obtiene todas las publicaciones de una categoría
   public async getPublicationsByCategory(categoryId: string) {
-    return await this.publicationDAO.getPublicationsByCategory(categoryId);
+    const publications = await this.publicationDAO.getPublicationsByCategory(categoryId);
+    if (publications.length === 0) {
+      throw new Error(`No publications found for category ID ${categoryId}`);
+    }
+    return publications;
   }
 
   // Obtiene todas las publicaciones de un conjunto de palabras clave
   public async getPublicationsByTags(tags: string[]) {
-    return await this.publicationDAO.getPublicationsByTags(tags);
+    const publications = await this.publicationDAO.getPublicationsByTags(tags);
+    if (publications.length === 0) {
+      throw new Error(`No publications found for tags ${tags.join(', ')}`);
+    }
+    return publications;
   }
 
   // Registra una publicación
   public async registerPublication(publication: Publication) {
-    const publicationId = await this.publicationDAO.registerPublication(
-      publication
-    );
-    // Guardamos la foto en el sistema de archivos
+    if (!(publication instanceof Publication)) {
+      throw new Error("Invalid publication object");
+    }
+    const publicationId = await this.publicationDAO.registerPublication(publication);
     await fs.renameSync(
       publication.getPhoto(),
       "photos/publications/" + publicationId + ".png"
@@ -58,8 +74,14 @@ class PublicationAdmin {
 
   // Elimina una publicación por su Id
   public async deletePublication(publicationId: string) {
-    await fs.unlink("photos/publications/" + publicationId + ".png", () => {});
-    return await this.publicationDAO.deletePublication(publicationId);
+    try {
+        await fs.unlink("photos/publications/" + publicationId + ".png");
+        await this.publicationDAO.deletePublication(publicationId);
+    } catch (error) {
+        // Manejar errores
+        console.error("Error deleting publication:", error);
+        throw error;
+    }
   }
 }
 
