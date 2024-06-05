@@ -42,6 +42,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var CartAdmin_1 = require("../CartAdmin");
 var CartDaoStub_1 = __importDefault(require("./CartDaoStub")); // Importamos el stub
 var ToManyProductsInCart = require("../../exceptions/exceptions").ToManyProductsInCart;
+jest.mock("fs");
 describe("CartAdmin", function () {
     var cartAdmin;
     var cartDaoStub;
@@ -123,12 +124,12 @@ describe("CartAdmin", function () {
                     userId = "user1";
                     address = "Guacima";
                     totalPrice = 5000;
-                    photoPath = "/images";
-                    cartDaoStub.setGetCartValue(-1);
+                    photoPath = "image";
+                    cartDaoStub.setGetCartValue({ products: [] });
                     return [4 /*yield*/, cartAdmin.sendOrder(userId, address, totalPrice, photoPath)];
                 case 1:
                     result = _a.sent();
-                    expect(result).toBe(-1);
+                    expect(result).toBe("1");
                     return [2 /*return*/];
             }
         });

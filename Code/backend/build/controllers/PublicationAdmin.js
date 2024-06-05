@@ -40,16 +40,34 @@ exports.PublicationAdmin = void 0;
 var PublicationDAO_1 = require("../daos/PublicationDAO");
 var fs = require("fs");
 var PublicationAdmin = /** @class */ (function () {
-    function PublicationAdmin() {
+    function PublicationAdmin(publicationDAO) {
         this.publicationDAO = new PublicationDAO_1.PublicationDAO();
+        this.publicationDAO = publicationDAO;
     }
+    //Revisar si se recibe una publicación válida
+    PublicationAdmin.prototype.isValidPublication = function (publication) {
+        return (publication &&
+            typeof publication.getCategoryID === 'function' &&
+            typeof publication.getDescription === 'function' &&
+            typeof publication.getTags === 'function' &&
+            Array.isArray(publication.getTags()) &&
+            typeof publication.getCategoryID() === 'string' &&
+            typeof publication.getDescription() === 'string' &&
+            publication.getTags().every(function (tag) { return typeof tag === 'string'; }));
+    };
     // Obtiene una publicación por su Id
     PublicationAdmin.prototype.getPublication = function (publicationId) {
         return __awaiter(this, void 0, void 0, function () {
+            var publication;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.publicationDAO.getPublication(publicationId)];
-                    case 1: return [2 /*return*/, _a.sent()];
+                    case 1:
+                        publication = _a.sent();
+                        if (!publication) {
+                            throw new Error("Publication with ID ".concat(publicationId, " not found"));
+                        }
+                        return [2 /*return*/, publication];
                 }
             });
         });
@@ -68,10 +86,16 @@ var PublicationAdmin = /** @class */ (function () {
     // Obtiene todas las publicaciones de una categoría
     PublicationAdmin.prototype.getPublicationsByCategory = function (categoryId) {
         return __awaiter(this, void 0, void 0, function () {
+            var publications;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.publicationDAO.getPublicationsByCategory(categoryId)];
-                    case 1: return [2 /*return*/, _a.sent()];
+                    case 1:
+                        publications = _a.sent();
+                        if (publications.length === 0) {
+                            throw new Error("No publications found for category ID ".concat(categoryId));
+                        }
+                        return [2 /*return*/, publications];
                 }
             });
         });
@@ -79,10 +103,16 @@ var PublicationAdmin = /** @class */ (function () {
     // Obtiene todas las publicaciones de un conjunto de palabras clave
     PublicationAdmin.prototype.getPublicationsByTags = function (tags) {
         return __awaiter(this, void 0, void 0, function () {
+            var publications;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.publicationDAO.getPublicationsByTags(tags)];
-                    case 1: return [2 /*return*/, _a.sent()];
+                    case 1:
+                        publications = _a.sent();
+                        if (publications.length === 0) {
+                            throw new Error("No publications found for tags ".concat(tags.join(', ')));
+                        }
+                        return [2 /*return*/, publications];
                 }
             });
         });
@@ -93,13 +123,15 @@ var PublicationAdmin = /** @class */ (function () {
             var publicationId;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.publicationDAO.registerPublication(publication)];
+                    case 0:
+                        if (!this.isValidPublication(publication)) {
+                            throw new Error("Invalid publication object");
+                        }
+                        return [4 /*yield*/, this.publicationDAO.registerPublication(publication)];
                     case 1:
                         publicationId = _a.sent();
-                        // Guardamos la foto en el sistema de archivos
                         return [4 /*yield*/, fs.renameSync(publication.getPhoto(), "photos/publications/" + publicationId + ".png")];
                     case 2:
-                        // Guardamos la foto en el sistema de archivos
                         _a.sent();
                         return [2 /*return*/];
                 }
@@ -112,6 +144,9 @@ var PublicationAdmin = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        if (!this.isValidPublication(publication)) {
+                            throw new Error("Invalid publication object");
+                        }
                         if (!(publication.getPhoto() !== "")) return [3 /*break*/, 3];
                         // Eliminamos la foto anterior
                         return [4 /*yield*/, fs.unlink("photos/publications/" + publication.getID() + ".png", function () { })];
@@ -135,13 +170,30 @@ var PublicationAdmin = /** @class */ (function () {
     // Elimina una publicación por su Id
     PublicationAdmin.prototype.deletePublication = function (publicationId) {
         return __awaiter(this, void 0, void 0, function () {
+            var error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, fs.unlink("photos/publications/" + publicationId + ".png", function () { })];
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, fs.unlink("photos/publications/" + publicationId + ".png")];
                     case 1:
                         _a.sent();
                         return [4 /*yield*/, this.publicationDAO.deletePublication(publicationId)];
-                    case 2: return [2 /*return*/, _a.sent()];
+                    case 2:
+                        _a.sent();
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_1 = _a.sent();
+                        // Manejar errores
+                        if (error_1.message === 'Publication not found') {
+                            throw new Error('Publication not found');
+                        }
+                        else {
+                            console.error("Error deleting publication:", error_1);
+                            throw error_1;
+                        }
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
                 }
             });
         });

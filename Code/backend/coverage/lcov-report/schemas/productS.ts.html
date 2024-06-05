@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for schemas/publicationS.ts</title>
+    <title>Code coverage report for schemas/productS.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">schemas</a> publicationS.ts</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">schemas</a> productS.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -94,17 +94,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Schema, InferSchemaType } from "mongoose";
 import mongoose from "mongoose";
 &nbsp;
-const publicationSchema: Schema = new Schema({
-  categoryId: { type: Schema.Types.ObjectId, required: true },
-  date: { type: Date, required: true },
+const productSchema: Schema = new Schema({
+  name: { type: String, required: true },
   description: { type: String, required: true },
+  units: { type: Number, required: true },
+  price: { type: Number, required: true },
   photo: { type: String, required: true },
-  tags: { type: [String], required: true }, //Collection
 });
 &nbsp;
-export type PublicationT = InferSchemaType&lt;typeof publicationSchema&gt;;
+export type ProductT = InferSchemaType&lt;typeof productSchema&gt;;
 &nbsp;
-export default mongoose.model("Publication", publicationSchema);
+export default mongoose.model("Product", productSchema);
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->

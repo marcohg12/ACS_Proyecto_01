@@ -11,15 +11,17 @@ import { CalendarAdmin } from "./CalendarAdmin";
 import { NotificationAdmin } from "./NotificationAdmin";
 import { CalendarEvent } from "../models/CalendarEvent";
 import { CartDAO } from "../daos/CartDAO";
+import { PublicationDAO } from "../daos/PublicationDAO";
+import { ProductDAO } from "../daos/ProductDAO";
 
 class Controller {
   private static instance: Controller | null = null;
   private viewableFactory: ViewableFactory = new ViewableFactory();
-  private publicationAdmin: PublicationAdmin = new PublicationAdmin();
+  private publicationAdmin: PublicationAdmin = new PublicationAdmin(new PublicationDAO);
   private userAdmin: UserAdmin = new UserAdmin();
   private orderAdmin: OrderAdmin = new OrderAdmin();
   private categoryAdmin: CategoryAdmin = new CategoryAdmin();
-  private productAdmin: ProductAdmin = new ProductAdmin();
+  private productAdmin: ProductAdmin = new ProductAdmin(new ProductDAO);
   private cartAdmin: CartAdmin = new CartAdmin(new CartDAO());
   private calendarAdmin: CalendarAdmin = new CalendarAdmin();
   private notificationAdmin: NotificationAdmin = new NotificationAdmin();

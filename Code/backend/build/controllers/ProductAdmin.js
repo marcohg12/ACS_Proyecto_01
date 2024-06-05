@@ -38,22 +38,36 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductAdmin = void 0;
 var ProductDAO_1 = require("../daos/ProductDAO");
+var Product_1 = require("../models/Product");
 var fs = require("fs");
 var ProductAdmin = /** @class */ (function () {
-    function ProductAdmin() {
+    function ProductAdmin(productDAO) {
         this.productDAO = new ProductDAO_1.ProductDAO();
+        this.productDAO = productDAO;
     }
+    ProductAdmin.prototype.isValidProduct = function (product) {
+        return (product instanceof Product_1.Product &&
+            typeof product.getName === 'function' &&
+            typeof product.getDescription === 'function' &&
+            typeof product.getUnits === 'function' &&
+            typeof product.getPrice === 'function' &&
+            typeof product.getPhoto === 'function');
+    };
     // Registra un producto
     ProductAdmin.prototype.registerProduct = function (product) {
         return __awaiter(this, void 0, void 0, function () {
             var productId;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.productDAO.registerProduct(product)];
+                    case 0:
+                        if (!this.isValidProduct(product)) {
+                            throw new Error("Invalid product object");
+                        }
+                        return [4 /*yield*/, this.productDAO.registerProduct(product)];
                     case 1:
                         productId = _a.sent();
                         // Guardamos la foto en el sistema de archivos
-                        return [4 /*yield*/, fs.renameSync(product.getPhoto(), "photos/products/" + productId + ".png")];
+                        return [4 /*yield*/, fs.rename(product.getPhoto(), "photos/products/" + productId + ".png")];
                     case 2:
                         // Guardamos la foto en el sistema de archivos
                         _a.sent();
@@ -68,6 +82,9 @@ var ProductAdmin = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        if (!this.isValidProduct(product)) {
+                            throw new Error("Invalid product object");
+                        }
                         if (!(product.getPhoto() !== "")) return [3 /*break*/, 3];
                         // Eliminamos la foto anterior
                         return [4 /*yield*/, fs.unlink("photos/products/" + product.getID() + ".png", function () { })];
@@ -89,17 +106,30 @@ var ProductAdmin = /** @class */ (function () {
     // Elimina un producto por su Id
     ProductAdmin.prototype.deleteProduct = function (productId) {
         return __awaiter(this, void 0, void 0, function () {
+            var product, err_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: 
-                    // Eliminamos la foto del sistema de archivos
-                    return [4 /*yield*/, fs.unlink("photos/products/" + productId + ".png", function () { })];
+                    case 0: return [4 /*yield*/, this.productDAO.getProduct(productId)];
                     case 1:
-                        // Eliminamos la foto del sistema de archivos
-                        _a.sent();
-                        // Eliminamos el producto de la BD
-                        return [4 /*yield*/, this.productDAO.deleteProduct(productId)];
+                        product = _a.sent();
+                        if (!product) {
+                            throw new Error("Product with ID ".concat(productId, " not found"));
+                        }
+                        _a.label = 2;
                     case 2:
+                        _a.trys.push([2, 4, , 5]);
+                        return [4 /*yield*/, fs.unlink("photos/products/".concat(productId, ".png"))];
+                    case 3:
+                        _a.sent();
+                        return [3 /*break*/, 5];
+                    case 4:
+                        err_1 = _a.sent();
+                        console.error("Failed to delete photo for product ID ".concat(productId, ": ").concat(err_1.message));
+                        return [3 /*break*/, 5];
+                    case 5: 
+                    // Eliminamos el producto de la BD
+                    return [4 /*yield*/, this.productDAO.deleteProduct(productId)];
+                    case 6:
                         // Eliminamos el producto de la BD
                         _a.sent();
                         return [2 /*return*/];
@@ -121,10 +151,16 @@ var ProductAdmin = /** @class */ (function () {
     // Retorna el producto con el Id enviado por parámetro
     ProductAdmin.prototype.getProduct = function (productId) {
         return __awaiter(this, void 0, void 0, function () {
+            var product;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.productDAO.getProduct(productId)];
-                    case 1: return [2 /*return*/, _a.sent()];
+                    case 1:
+                        product = _a.sent();
+                        if (!product) {
+                            throw new Error("Product with ID ".concat(productId, " not found"));
+                        }
+                        return [2 /*return*/, product];
                 }
             });
         });

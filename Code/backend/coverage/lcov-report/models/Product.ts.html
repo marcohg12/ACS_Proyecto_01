@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for models/Publication.ts</title>
+    <title>Code coverage report for models/Product.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">models</a> Publication.ts</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">models</a> Product.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.41% </span>
+                <span class="strong">73.52% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>27/34</span>
+                <span class='fraction'>25/34</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">35.71% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>7/14</span>
+                <span class='fraction'>5/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.78% </span>
+                <span class="strong">72.72% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>26/33</span>
+                <span class='fraction'>24/33</span>
             </div>
         
             
@@ -152,19 +152,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -176,15 +184,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -211,77 +211,77 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Viewable } from "./Viewable";
 &nbsp;
-class Publication extends Viewable {
-  publicationId: string | null;
-  categoryId: string;
-  date: Date | null;
-  tags: string[];
+class Product extends Viewable {
+  private productId: string | null;
+  private name: string;
+  private units: number;
+  private price: number;
 &nbsp;
   constructor(
-    categoryId: string,
-    date: Date,
     description: string,
     photo: string,
-    tags: string[],
-    publicationId?: string
+    name: string,
+    units: number,
+    price: number,
+    productId?: string
   ) {
     super(photo, description);
-    this.publicationId = publicationId || null;
-    this.categoryId = categoryId;
-    this.date = date;
-    this.tags = tags;
+    this.productId = productId;
+    this.name = name;
+    this.units = units;
+    this.price = price;
   }
 &nbsp;
   getID(): string {
-    return this.publicationId;
+    return this.productId;
   }
 &nbsp;
-  getCategoryID(): string {
-    return this.categoryId;
+<span class="fstat-no" title="function not covered" >  getName(</span>): string {
+<span class="cstat-no" title="statement not covered" >    return this.name;</span>
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  getDate(</span>): Date {
-<span class="cstat-no" title="statement not covered" >    return this.date;</span>
+<span class="fstat-no" title="function not covered" >  getDescription(</span>): string {
+<span class="cstat-no" title="statement not covered" >    return this.description;</span>
   }
 &nbsp;
-  getDescription(): string {
-    return this.description;
+<span class="fstat-no" title="function not covered" >  getUnits(</span>): number {
+<span class="cstat-no" title="statement not covered" >    return this.units;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  getPrice(</span>): number {
+<span class="cstat-no" title="statement not covered" >    return this.price;</span>
   }
 &nbsp;
   getPhoto(): string {
     return this.photo;
   }
 &nbsp;
-  getTags(): string[] {
-    return this.tags;
+  setId(newId: string) {
+    this.productId = newId;
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  setID(</span>newId: string) {
-<span class="cstat-no" title="statement not covered" >    this.publicationId = newId;</span>
-  }
-&nbsp;
-<span class="fstat-no" title="function not covered" >  setCategoryID(</span>newCategoryId: string) {
-<span class="cstat-no" title="statement not covered" >    this.categoryId = newCategoryId;</span>
-  }
-&nbsp;
-<span class="fstat-no" title="function not covered" >  setDate(</span>newDate: Date) {
-<span class="cstat-no" title="statement not covered" >    this.date = newDate;</span>
+<span class="fstat-no" title="function not covered" >  setName(</span>newName: string) {
+<span class="cstat-no" title="statement not covered" >    this.name = newName;</span>
   }
 &nbsp;
 <span class="fstat-no" title="function not covered" >  setDescription(</span>newDescription: string) {
 <span class="cstat-no" title="statement not covered" >    this.description = newDescription;</span>
   }
 &nbsp;
+<span class="fstat-no" title="function not covered" >  setUnits(</span>newUnits: number) {
+<span class="cstat-no" title="statement not covered" >    this.units = newUnits;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  setPrice(</span>newPrice: number) {
+<span class="cstat-no" title="statement not covered" >    this.price = newPrice;</span>
+  }
+&nbsp;
 <span class="fstat-no" title="function not covered" >  setPhoto(</span>newPhoto: string) {
 <span class="cstat-no" title="statement not covered" >    this.photo = newPhoto;</span>
   }
-&nbsp;
-<span class="fstat-no" title="function not covered" >  setTags(</span>newTags: [string]) {
-<span class="cstat-no" title="statement not covered" >    this.tags = newTags;</span>
-  }
 }
 &nbsp;
-export { Publication };
+export { Product };
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->

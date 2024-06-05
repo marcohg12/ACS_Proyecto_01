@@ -106,7 +106,7 @@ class PublicationDAOStub implements IPublicationDAO {
             } else {
                 resolve({ nDeleted: 1 });
             }
-        }, 1000);
+        }, 1000); 
     });
 }
 }
