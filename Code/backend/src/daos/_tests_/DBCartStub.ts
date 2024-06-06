@@ -1,12 +1,18 @@
-import { IDataBase } from "./IDataBase";
+import { IDBCart } from "./IDBCart";
+import { Publication as PublicationModel } from "../../models/Publication";
+import { Product as ProductModel } from "../../models/Product";
 
-class DataBaseStub implements IDataBase {
+class DBCartStub implements IDBCart {
   cartData: { [userId: string]: { products: { productRef: string; units: number }[] } };
+  products: ProductModel[];
+  publications: PublicationModel[]
   orderData: any[];
 
   constructor() {
     this.cartData = {};
     this.orderData = [];
+    this.products = [];
+    this.publications = [];
 
     for (let i = 1; i <= 100; i++) {
       const productId = `product${i}`;
@@ -93,8 +99,9 @@ class DataBaseStub implements IDataBase {
     this.orderData.push(order);
     return orderId;
   }
+  
 }
 
-export default DataBaseStub;
+export default DBCartStub;
 
 

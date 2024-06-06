@@ -39,12 +39,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var DataBaseStub_1 = __importDefault(require("./DataBaseStub"));
+var DBCartStub_1 = __importDefault(require("./DBCartStub"));
 var performance = require('perf_hooks').performance;
 describe('CartDAO Tests', function () {
     var cartDAO;
     beforeEach(function () {
-        cartDAO = new DataBaseStub_1.default();
+        cartDAO = new DBCartStub_1.default();
     });
     //Test Case ID: 8
     it('Test do not get a cart with an invalid user', function () { return __awaiter(void 0, void 0, void 0, function () {

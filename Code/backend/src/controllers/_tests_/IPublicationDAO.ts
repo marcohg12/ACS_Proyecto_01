@@ -7,5 +7,5 @@ export interface IPublicationDAO {
   getPublicationsByTags(tags: string[]): Promise<any[]>; 
   registerPublication(publicationToRegister: PublicationModel): Promise<any>; 
   updatePublication(publicationToUpdate: PublicationModel): Promise<any>;
-  deletePublication(publicationId: string): Promise<any>; // Agregado
+  deletePublication(publicationId: string): Promise<any>; 
 }

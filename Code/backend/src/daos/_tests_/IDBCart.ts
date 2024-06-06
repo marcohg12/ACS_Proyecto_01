@@ -1,4 +1,5 @@
-export interface IDataBase {
+export interface IDBCart {
+    //CartDAO Testing
     getCart(idUser: string): Promise<{ products: any[] }>;
     addProduct(idProduct: string, units: Number, idUser: string): Promise<any>;
     deleteProduct(idProduct: string, idUser: string): Promise<any>;
