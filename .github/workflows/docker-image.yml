@@ -79,8 +79,9 @@ jobs:
             sleep 5
           done
           echo 'Frontend server is up and running.'
+      - name: Change directory
+        run: cd Code/backend
       - name: Run Test Cafe tests
-        working-directory: Code/backend
         uses: DevExpress/testcafe-action@latest
         with:
           args: "chrome E2Etests.js"
