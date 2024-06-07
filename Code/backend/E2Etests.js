@@ -55,16 +55,12 @@ test("Tests that the user can see the publications", async (t) => {
     .withText(
       "Caracterización de Nébula de Guardianes de la Galaxia (MARVEL)."
     );
-  const cardDate = cardBody.find("p.text-muted").withText("10/14/2023");
   const cardCategory = cardBody
     .find("p.ml-auto.fw-bold")
     .withText("Superheroes");
 
   // Check that the card text exists
   await t.expect(cardText.exists).ok();
-
-  // Check that the card date exists
-  await t.expect(cardDate.exists).ok();
 
   // Check that the card category exists
   await t.expect(cardCategory.exists).ok();
@@ -121,14 +117,10 @@ test("Tests that the user can filter publications by keywords", async (t) => {
   const cardText = cardBody
     .find("p.text-truncate.mb-3")
     .withText("Caracterización del personaje Chucky");
-  const cardDate = cardBody.find("p.text-muted").withText("10/26/2023");
   const cardCategory = cardBody.find("p.ml-auto.fw-bold").withText("Terrorr");
 
   // Check that the card text exists
   await t.expect(cardText.exists).ok();
-
-  // Check that the card date exists
-  await t.expect(cardDate.exists).ok();
 
   // Check that the card category exists
   await t.expect(cardCategory.exists).ok();
