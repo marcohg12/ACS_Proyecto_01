@@ -44,6 +44,41 @@ jobs:
         run: npm ci
       - name: Test code
         run: npm run test
+  test_acceptance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install backend dependencies
+        working-directory: Code/backend
+        run: npm install
+      - name: install TestCafe
+        working-directory: Code/backend
+        run: npm install -g testcafe
+      - name: Build code
+        working-directory: Code/backend
+        run: npm run build
+      - name: Start backend server
+        working-directory: Code/backend
+        run: npm run start &
+      - name: Wait for backend to be up
+        run: sleep 10 # Adjust the sleep duration as needed
+      - name: Install frontend dependencies
+        working-directory: Code/frontend
+        run: npm install
+      - name: Start frontend app
+        working-directory: Code/frontend
+        run: npm run start &
+      - name: Wait for frontend to be up
+        run: sleep 10 # Adjust the sleep duration as needed
+      - name: Ping frontend server
+        run: |
+          # Wait until the frontend server is up by pinging it
+          until curl --output /dev/null --silent --head --fail http://localhost:3000; do
+            echo 'Waiting for the frontend server...'
+            sleep 5
+          done
+          echo 'Frontend server is up and running.
           
   dockerimage_frontend:
     needs: [test_backend, test_frontend]
