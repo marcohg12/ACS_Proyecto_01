@@ -84,7 +84,7 @@ jobs:
       - name: Run Test Cafe tests
         uses: DevExpress/testcafe-action@latest
         with:
-          args: "chrome E2Etests.js"
+          args: "chrome Code/backend/E2Etests.js"
 
   dockerimage_frontend:
     needs: [test_backend, test_frontend]
