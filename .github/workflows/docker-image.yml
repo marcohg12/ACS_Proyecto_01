@@ -87,7 +87,7 @@ jobs:
           args: "chrome Code/backend/E2Etests.js"
 
   dockerimage_frontend:
-    needs: [test_backend, test_frontend]
+    needs: [test_backend, test_frontend, test_acceptance]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -105,7 +105,7 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/frontend-aseguramiento:latest
 
   dockerimage_backend:
-    needs: [test_backend, test_frontend]
+    needs: [test_backend, test_frontend, test_acceptance]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
