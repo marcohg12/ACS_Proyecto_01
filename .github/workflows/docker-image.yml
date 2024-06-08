@@ -5,13 +5,13 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
-    
+
 jobs:
   test_backend:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: 'Code/backend'
+        working-directory: "Code/backend"
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -19,8 +19,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20.12.2
-          cache: 'npm'
-          cache-dependency-path: '**/package-lock.json'
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
       - name: Install nodejs dependencies
         run: npm ci
       - name: Test code
@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: 'Code/frontend'
+        working-directory: "Code/frontend"
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -38,15 +38,56 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20.12.2
-          cache: 'npm'
-          cache-dependency-path: '**/package-lock.json'
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
       - name: Install nodejs dependencies
         run: npm ci
       - name: Test code
         run: npm run test
-          
+  test_acceptance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install backend dependencies
+        working-directory: Code/backend
+        run: npm install
+      - name: install TestCafe
+        working-directory: Code/backend
+        run: npm install -g testcafe
+      - name: Build code
+        working-directory: Code/backend
+        run: npm run build
+      - name: Start backend server
+        working-directory: Code/backend
+        run: npm run start &
+      - name: Wait for backend to be up
+        run: sleep 10 # Adjust the sleep duration as needed
+      - name: Install frontend dependencies
+        working-directory: Code/frontend
+        run: npm install
+      - name: Start frontend app
+        working-directory: Code/frontend
+        run: npm run start &
+      - name: Wait for frontend to be up
+        run: sleep 10 # Adjust the sleep duration as needed
+      - name: Ping frontend server
+        run: |
+          # Wait until the frontend server is up by pinging it
+          until curl --output /dev/null --silent --head --fail http://localhost:3000; do
+            echo 'Waiting for the frontend server...'
+            sleep 5
+          done
+          echo 'Frontend server is up and running.'
+      - name: Change directory
+        run: cd Code/backend
+      - name: Run Test Cafe tests
+        uses: DevExpress/testcafe-action@latest
+        with:
+          args: "chrome Code/backend/E2Etests.js"
+
   dockerimage_frontend:
-    needs: [test_backend, test_frontend]
+    needs: [test_backend, test_frontend, test_acceptance]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -62,9 +103,9 @@ jobs:
           context: Code/frontend/
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/frontend-aseguramiento:latest
-        
+
   dockerimage_backend:
-    needs: [test_backend, test_frontend]
+    needs: [test_backend, test_frontend, test_acceptance]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -77,6 +118,6 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: Code/backend/  # Corrected this line
+          context: Code/backend/ # Corrected this line
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/backend-aseguramiento:latest

@@ -28,8 +28,18 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!@codemirror)/'",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "jest": {
+    "testMatch": [
+      "<rootDir>/src/pages/**/__tests__/**/*.js",
+      "<rootDir>/src/pages/**/*.test.js",
+      "<rootDir>/src/pages/**/*.spec.js"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!@codemirror)/"
+    ]
   },
   "eslintConfig": {
     "extends": [
