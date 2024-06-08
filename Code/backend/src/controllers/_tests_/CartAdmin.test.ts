@@ -72,7 +72,7 @@ describe("CartAdmin", () => {
   });
 
   //Test Case ID: 6
-  it("Test should generate an order whit products in the cart", async () => {
+  it("Test should generate an order with products in the cart", async () => {
     const userId = "user1";
     const address = "Guacima";
     const totalPrice = 5000;

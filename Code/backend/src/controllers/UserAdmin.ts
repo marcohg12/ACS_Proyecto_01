@@ -1,12 +1,15 @@
-import { UserDAO } from "../daos/UserDAO";
 import { User } from "../models/User";
-import { sendEmail } from "./EmailService";
-const bcrypt = require("bcryptjs");
+import { IEmailService } from "./_tests_/IEmailService";
+import { IUserDAO } from "./_tests_/IUserDAO";
 
 class UserAdmin {
-  private userDAO: UserDAO = new UserDAO();
+  private userDAO: IUserDAO;
+  private emailService: IEmailService;
 
-  constructor() {}
+  constructor(userDAO: IUserDAO, emailService: IEmailService) {
+    this.userDAO = userDAO;
+    this.emailService = emailService;
+  }
 
   // Funciones auxiliares -------------------------------------------------------------------
   private generateNumericPasswordRecoveryCode(length: number) {
@@ -62,7 +65,7 @@ class UserAdmin {
   public async updateRecoverCode(email: string) {
     const code = this.generateNumericPasswordRecoveryCode(8);
     const content = "El código de recuperación es: " + code;
-    sendEmail(
+    this.emailService.sendEmail(
       email,
       "Sistema Duende - Código de recuperación de contraseña",
       content

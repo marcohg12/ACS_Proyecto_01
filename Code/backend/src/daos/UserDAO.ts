@@ -1,10 +1,11 @@
 import User, { UserT } from "../schemas/userS";
 import Cart from "../schemas/cartS";
 import { User as UserModel } from "../models/User";
+import { IUserDAO } from "../controllers/_tests_/IUserDAO";
 const { EmailInUse } = require("../exceptions/exceptions");
 const bcrypt = require("bcryptjs");
 
-class UserDAO {
+class UserDAO implements IUserDAO {
   constructor() {}
 
   // Registra un usuario

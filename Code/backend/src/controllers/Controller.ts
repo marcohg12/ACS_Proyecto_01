@@ -13,15 +13,22 @@ import { CalendarEvent } from "../models/CalendarEvent";
 import { CartDAO } from "../daos/CartDAO";
 import { PublicationDAO } from "../daos/PublicationDAO";
 import { ProductDAO } from "../daos/ProductDAO";
+import { UserDAO } from "../daos/UserDAO";
+import { EmailService } from "./EmailService";
 
 class Controller {
   private static instance: Controller | null = null;
   private viewableFactory: ViewableFactory = new ViewableFactory();
-  private publicationAdmin: PublicationAdmin = new PublicationAdmin(new PublicationDAO);
-  private userAdmin: UserAdmin = new UserAdmin();
+  private publicationAdmin: PublicationAdmin = new PublicationAdmin(
+    new PublicationDAO()
+  );
+  private userAdmin: UserAdmin = new UserAdmin(
+    new UserDAO(),
+    new EmailService()
+  );
   private orderAdmin: OrderAdmin = new OrderAdmin();
   private categoryAdmin: CategoryAdmin = new CategoryAdmin();
-  private productAdmin: ProductAdmin = new ProductAdmin(new ProductDAO);
+  private productAdmin: ProductAdmin = new ProductAdmin(new ProductDAO());
   private cartAdmin: CartAdmin = new CartAdmin(new CartDAO());
   private calendarAdmin: CalendarAdmin = new CalendarAdmin();
   private notificationAdmin: NotificationAdmin = new NotificationAdmin();
