@@ -1,7 +1,8 @@
 import { CalendarEventI } from "../interfaces/interfaces";
 import { CalendarDAO } from "../daos/CalendarDAO";
+import { ICalendarAdmin } from "../interfaces/ICalendarAdmin";
 
-class CalendarAdmin {
+class CalendarAdmin implements ICalendarAdmin {
   private calendarDAO: CalendarDAO = new CalendarDAO();
 
   constructor() {}

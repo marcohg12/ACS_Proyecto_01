@@ -15,6 +15,7 @@ import { PublicationDAO } from "../daos/PublicationDAO";
 import { ProductDAO } from "../daos/ProductDAO";
 import { UserDAO } from "../daos/UserDAO";
 import { EmailService } from "./EmailService";
+import { OrderDAO } from "../daos/OrderDAO";
 
 class Controller {
   private static instance: Controller | null = null;
@@ -26,7 +27,11 @@ class Controller {
     new UserDAO(),
     new EmailService()
   );
-  private orderAdmin: OrderAdmin = new OrderAdmin();
+  private orderAdmin: OrderAdmin = new OrderAdmin(
+    new ProductDAO(),
+    new OrderDAO(),
+    new CalendarAdmin()
+  );
   private categoryAdmin: CategoryAdmin = new CategoryAdmin();
   private productAdmin: ProductAdmin = new ProductAdmin(new ProductDAO());
   private cartAdmin: CartAdmin = new CartAdmin(new CartDAO());

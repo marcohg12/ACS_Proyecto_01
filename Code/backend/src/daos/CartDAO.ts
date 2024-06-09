@@ -1,6 +1,6 @@
 import Cart from "../schemas/cartS";
 import Order from "../schemas/orderS";
-import { ICartDAO } from "../controllers/_tests_/ICartDAO";
+import { ICartDAO } from "../interfaces/ICartDAO";
 
 class CartDAO implements ICartDAO {
   constructor() {}

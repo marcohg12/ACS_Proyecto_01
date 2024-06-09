@@ -1,4 +1,4 @@
-import { User as UserModel } from "../../models/User";
+import { User as UserModel } from "../models/User";
 
 export interface IUserDAO {
   registerUser(userToRegister: UserModel): Promise<any>;

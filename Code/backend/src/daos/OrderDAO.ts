@@ -1,7 +1,8 @@
+import { IOrderDAO } from "../interfaces/IOrderDAO";
 import Order from "../schemas/orderS";
 import mongoose from "mongoose";
 
-class OrderDAO {
+class OrderDAO implements IOrderDAO {
   constructor() {}
 
   // Obtiene todas las ordenes

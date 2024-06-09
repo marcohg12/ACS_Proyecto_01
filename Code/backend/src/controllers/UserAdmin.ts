@@ -1,6 +1,6 @@
 import { User } from "../models/User";
-import { IEmailService } from "./_tests_/IEmailService";
-import { IUserDAO } from "./_tests_/IUserDAO";
+import { IEmailService } from "../interfaces/IEmailService";
+import { IUserDAO } from "../interfaces/IUserDAO";
 
 class UserAdmin {
   private userDAO: IUserDAO;

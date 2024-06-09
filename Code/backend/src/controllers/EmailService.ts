@@ -1,5 +1,5 @@
 import * as nodemailer from "nodemailer";
-import { IEmailService } from "./_tests_/IEmailService";
+import { IEmailService } from "../interfaces/IEmailService";
 
 class EmailService implements IEmailService {
   private transporter = nodemailer.createTransport({

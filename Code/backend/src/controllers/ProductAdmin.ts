@@ -1,23 +1,23 @@
 import { ProductDAO } from "../daos/ProductDAO";
 import { Product } from "../models/Product";
-import { IProductDAO } from "./_tests_/IProductDAO";
+import { IProductDAO } from "../interfaces/IProductDAO";
 const fs = require("fs");
 
 class ProductAdmin {
   private productDAO: ProductDAO = new ProductDAO();
 
   constructor(productDAO: IProductDAO) {
-    this.productDAO = productDAO
+    this.productDAO = productDAO;
   }
 
   private isValidProduct(product: any): boolean {
     return (
       product instanceof Product &&
-      typeof product.getName === 'function' &&
-      typeof product.getDescription === 'function' &&
-      typeof product.getUnits === 'function' &&
-      typeof product.getPrice === 'function' &&
-      typeof product.getPhoto === 'function'
+      typeof product.getName === "function" &&
+      typeof product.getDescription === "function" &&
+      typeof product.getUnits === "function" &&
+      typeof product.getPrice === "function" &&
+      typeof product.getPhoto === "function"
     );
   }
 
@@ -28,7 +28,10 @@ class ProductAdmin {
     }
     const productId = await this.productDAO.registerProduct(product);
     // Guardamos la foto en el sistema de archivos
-    await fs.rename(product.getPhoto(), "photos/products/" + productId + ".png");
+    await fs.rename(
+      product.getPhoto(),
+      "photos/products/" + productId + ".png"
+    );
   }
 
   // Actualiza los datos de un producto
@@ -60,7 +63,9 @@ class ProductAdmin {
     try {
       await fs.unlink(`photos/products/${productId}.png`);
     } catch (err) {
-      console.error(`Failed to delete photo for product ID ${productId}: ${err.message}`);
+      console.error(
+        `Failed to delete photo for product ID ${productId}: ${err.message}`
+      );
     }
 
     // Eliminamos el producto de la BD

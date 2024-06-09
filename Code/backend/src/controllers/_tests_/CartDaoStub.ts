@@ -1,8 +1,8 @@
-import { ICartDAO } from "./ICartDAO";
+import { ICartDAO } from "../../interfaces/ICartDAO";
 class CartDAOStub implements ICartDAO {
   private addProductValue: number;
   private findProductValue: number;
-  private getCartValue: any; 
+  private getCartValue: any;
   private registerOrderValue: any;
 
   async findProduct(productId: string, userId: string): Promise<number> {
@@ -12,7 +12,7 @@ class CartDAOStub implements ICartDAO {
   async addProduct(
     productId: string,
     units: number,
-    userId: string,
+    userId: string
   ): Promise<any> {
     // Simulamos la adición de un producto al carrito
     return Promise.resolve(this.addProductValue + units);
@@ -40,7 +40,7 @@ class CartDAOStub implements ICartDAO {
     return Promise.resolve(this.getCartValue);
   }
 
-  public setGetCartValue(val: any): void{
+  public setGetCartValue(val: any): void {
     this.getCartValue = val;
   }
 
@@ -66,7 +66,7 @@ class CartDAOStub implements ICartDAO {
     return Promise.resolve("1");
   }
 
-  public setRegisterOrderValue(val: any): void{
+  public setRegisterOrderValue(val: any): void {
     this.registerOrderValue = val;
   }
 }

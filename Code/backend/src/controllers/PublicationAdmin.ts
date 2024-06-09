@@ -1,6 +1,6 @@
 import { PublicationDAO } from "../daos/PublicationDAO";
 import { Publication } from "../models/Publication";
-import { IPublicationDAO } from "./_tests_/IPublicationDAO";
+import { IPublicationDAO } from "../interfaces/IPublicationDAO";
 const fs = require("fs");
 
 class PublicationAdmin {
@@ -14,13 +14,13 @@ class PublicationAdmin {
   private isValidPublication(publication: any): boolean {
     return (
       publication &&
-      typeof publication.getCategoryID === 'function' &&
-      typeof publication.getDescription === 'function' &&
-      typeof publication.getTags === 'function' &&
+      typeof publication.getCategoryID === "function" &&
+      typeof publication.getDescription === "function" &&
+      typeof publication.getTags === "function" &&
       Array.isArray(publication.getTags()) &&
-      typeof publication.getCategoryID() === 'string' &&
-      typeof publication.getDescription() === 'string' &&
-      publication.getTags().every((tag: any) => typeof tag === 'string')
+      typeof publication.getCategoryID() === "string" &&
+      typeof publication.getDescription() === "string" &&
+      publication.getTags().every((tag: any) => typeof tag === "string")
     );
   }
 
@@ -40,7 +40,9 @@ class PublicationAdmin {
 
   // Obtiene todas las publicaciones de una categoría
   public async getPublicationsByCategory(categoryId: string) {
-    const publications = await this.publicationDAO.getPublicationsByCategory(categoryId);
+    const publications = await this.publicationDAO.getPublicationsByCategory(
+      categoryId
+    );
     if (publications.length === 0) {
       throw new Error(`No publications found for category ID ${categoryId}`);
     }
@@ -51,7 +53,7 @@ class PublicationAdmin {
   public async getPublicationsByTags(tags: string[]) {
     const publications = await this.publicationDAO.getPublicationsByTags(tags);
     if (publications.length === 0) {
-      throw new Error(`No publications found for tags ${tags.join(', ')}`);
+      throw new Error(`No publications found for tags ${tags.join(", ")}`);
     }
     return publications;
   }
@@ -61,7 +63,9 @@ class PublicationAdmin {
     if (!this.isValidPublication(publication)) {
       throw new Error("Invalid publication object");
     }
-    const publicationId = await this.publicationDAO.registerPublication(publication);
+    const publicationId = await this.publicationDAO.registerPublication(
+      publication
+    );
     await fs.renameSync(
       publication.getPhoto(),
       "photos/publications/" + publicationId + ".png"
@@ -92,16 +96,16 @@ class PublicationAdmin {
   // Elimina una publicación por su Id
   public async deletePublication(publicationId: string): Promise<void> {
     try {
-        await fs.unlink("photos/publications/" + publicationId + ".png");
-        await this.publicationDAO.deletePublication(publicationId);
+      await fs.unlink("photos/publications/" + publicationId + ".png");
+      await this.publicationDAO.deletePublication(publicationId);
     } catch (error) {
-        // Manejar errores
-        if (error.message === 'Publication not found') {
-            throw new Error('Publication not found');
-        } else {
-            console.error("Error deleting publication:", error);
-            throw error;
-        }
+      // Manejar errores
+      if (error.message === "Publication not found") {
+        throw new Error("Publication not found");
+      } else {
+        console.error("Error deleting publication:", error);
+        throw error;
+      }
     }
   }
 }

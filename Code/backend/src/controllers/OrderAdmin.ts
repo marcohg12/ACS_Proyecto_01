@@ -1,23 +1,31 @@
-import { OrderDAO } from "../daos/OrderDAO";
-import { ProductDAO } from "../daos/ProductDAO";
 import { Observer } from "../interfaces/interfaces";
 import { Notification } from "../models/Notification";
 import { startOfDay, addDays, getDay } from "date-fns";
 import { CalendarEvent } from "../models/CalendarEvent";
 import { DecoratedCalendarEvent } from "../models/DecoratedCalendarEvent";
-import { CalendarAdmin } from "./CalendarAdmin";
 import {
   ProductDoesNotExists,
   ProductNotInStock,
 } from "../exceptions/exceptions";
+import { IProductDAO } from "../interfaces/IProductDAO";
+import { IOrderDAO } from "../interfaces/IOrderDAO";
+import { ICalendarAdmin } from "../interfaces/ICalendarAdmin";
 
 class OrderAdmin {
-  private productDAO: ProductDAO = new ProductDAO();
-  private orderDAO: OrderDAO = new OrderDAO();
+  private productDAO: IProductDAO;
+  private orderDAO: IOrderDAO;
   private suscribers: Observer[] = [];
-  private calendarAdmin: CalendarAdmin = new CalendarAdmin();
+  private calendarAdmin: ICalendarAdmin;
 
-  constructor() {}
+  constructor(
+    productDAO: IProductDAO,
+    orderDAO: IOrderDAO,
+    calendarAdmin: ICalendarAdmin
+  ) {
+    this.productDAO = productDAO;
+    this.orderDAO = orderDAO;
+    this.calendarAdmin = calendarAdmin;
+  }
 
   // Obtiene todos los pedidos registrados
   public async getOrders() {

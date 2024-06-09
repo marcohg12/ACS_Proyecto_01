@@ -1,5 +1,5 @@
 import { User } from "../../models/User";
-import { IUserDAO } from "./IUserDAO";
+import { IUserDAO } from "../../interfaces/IUserDAO";
 import { UserT } from "../../schemas/userS";
 
 class UserDAOStub implements IUserDAO {

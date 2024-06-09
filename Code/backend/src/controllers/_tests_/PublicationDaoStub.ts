@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
-import { IPublicationDAO } from "./IPublicationDAO";
+import { IPublicationDAO } from "../../interfaces/IPublicationDAO";
 import { Publication as PublicationModel } from "../../models/Publication";
 
 class PublicationDAOStub implements IPublicationDAO {
-  private publications: any[] = []; 
-  
+  private publications: any[] = [];
+
   constructor() {
     this.publications = [
       {
@@ -14,7 +14,7 @@ class PublicationDAOStub implements IPublicationDAO {
         description: "Test publication 1",
         photo: "/photos/publications/60d9fbbf2b7e4e3a5c8e4f5b.png",
         tags: ["test", "publication"],
-        category: { _id: "1234567890abcdef12345678", name: "TestCategory" }
+        category: { _id: "1234567890abcdef12345678", name: "TestCategory" },
       },
       {
         _id: "60d9fbbf2b7e4e3a5c8e4f5c",
@@ -23,7 +23,7 @@ class PublicationDAOStub implements IPublicationDAO {
         description: "Test publication 2",
         photo: "/photos/publications/60d9fbbf2b7e4e3a5c8e4f5c.png",
         tags: ["test", "publication2", "tag2"],
-        category: { _id: "1234567890abcdef12345678", name: "TestCategory" }
+        category: { _id: "1234567890abcdef12345678", name: "TestCategory" },
       },
       {
         _id: "60d9fbbf2b7e4e3a5c8e4f5d",
@@ -32,13 +32,13 @@ class PublicationDAOStub implements IPublicationDAO {
         description: "Test publication 1",
         photo: "/photos/publications/60d9fbbf2b7e4e3a5c8e4f5b.png",
         tags: ["test", "publication", "tag1"],
-        category: { _id: "1234567890abcdef12345678", name: "TestCategory" }
+        category: { _id: "1234567890abcdef12345678", name: "TestCategory" },
       },
     ];
   }
 
   async getPublication(publicationId: string): Promise<any> {
-    return this.publications.find(pub => pub._id === publicationId) || null;
+    return this.publications.find((pub) => pub._id === publicationId) || null;
   }
 
   async getPublications(): Promise<any[]> {
@@ -46,14 +46,15 @@ class PublicationDAOStub implements IPublicationDAO {
   }
 
   async getPublicationsByCategory(categoryId: string): Promise<any[]> {
-    return this.publications.filter(pub => 
-      pub.categoryId === categoryId || 
-      (pub.category && pub.category.fatherCategory === categoryId)
+    return this.publications.filter(
+      (pub) =>
+        pub.categoryId === categoryId ||
+        (pub.category && pub.category.fatherCategory === categoryId)
     );
   }
 
   async getPublicationsByTags(tags: string[]): Promise<any[]> {
-    return this.publications.filter(pub =>
+    return this.publications.filter((pub) =>
       pub.tags.some((tag: string) => tags.includes(tag))
     );
   }
@@ -70,7 +71,7 @@ class PublicationDAOStub implements IPublicationDAO {
       description: publication.getDescription(),
       photo: "/photos/publications/temp.png",
       tags: publication.getTags(),
-      category: { _id: publication.getCategoryID(), name: "TestCategory" }
+      category: { _id: publication.getCategoryID(), name: "TestCategory" },
     };
 
     this.publications.push(newPublication);
@@ -81,9 +82,9 @@ class PublicationDAOStub implements IPublicationDAO {
   private isValidPublication(publication: any): boolean {
     return (
       publication &&
-      typeof publication.getCategoryID === 'function' &&
-      typeof publication.getDescription === 'function' &&
-      typeof publication.getTags === 'function' &&
+      typeof publication.getCategoryID === "function" &&
+      typeof publication.getDescription === "function" &&
+      typeof publication.getTags === "function" &&
       Array.isArray(publication.getTags())
     );
   }
@@ -94,21 +95,21 @@ class PublicationDAOStub implements IPublicationDAO {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve({ nModified: 1 });
-      }, 1000); 
+      }, 1000);
     });
   }
 
   async deletePublication(publicationId: string): Promise<any> {
     return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (publicationId === "nonexistentid") {
-                reject(new Error('Publication not found'));
-            } else {
-                resolve({ nDeleted: 1 });
-            }
-        }, 1000); 
+      setTimeout(() => {
+        if (publicationId === "nonexistentid") {
+          reject(new Error("Publication not found"));
+        } else {
+          resolve({ nDeleted: 1 });
+        }
+      }, 1000);
     });
-}
+  }
 }
 
 export { PublicationDAOStub };
