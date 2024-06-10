@@ -3,7 +3,7 @@
 ## INTEGRANTES:
   - María Paula Bolaños Apú
   - Marco Herrera González
-  - Jeffrey Leiva Cascante
+  - Jeffrey Daniel Leiva Cascante
 
 ## DOCUMENTACIÓN:
 
