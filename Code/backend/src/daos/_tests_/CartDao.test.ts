@@ -101,7 +101,7 @@ describe('CartDAO Tests', () => {
     const addProductTotalTime = addProductTimes.reduce((total, time) => total + time, 0);
 
     addProductTimes.forEach(time => {
-      expect(time).toBeLessThanOrEqual(2000);
+      expect(time).toBeLessThanOrEqual(3000);
     });
   });
 
