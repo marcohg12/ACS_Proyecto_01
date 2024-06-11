@@ -135,7 +135,7 @@ describe("CartAdmin", function () {
         });
     }); });
     //Test Case ID: 6
-    it("Test should generate an order whit products in the cart", function () { return __awaiter(void 0, void 0, void 0, function () {
+    it("Test should generate an order with products in the cart", function () { return __awaiter(void 0, void 0, void 0, function () {
         var userId, address, totalPrice, photoPath, result;
         return __generator(this, function (_a) {
             switch (_a.label) {

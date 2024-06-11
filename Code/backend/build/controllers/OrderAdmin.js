@@ -37,20 +37,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OrderAdmin = void 0;
-var OrderDAO_1 = require("../daos/OrderDAO");
-var ProductDAO_1 = require("../daos/ProductDAO");
 var Notification_1 = require("../models/Notification");
 var date_fns_1 = require("date-fns");
 var CalendarEvent_1 = require("../models/CalendarEvent");
 var DecoratedCalendarEvent_1 = require("../models/DecoratedCalendarEvent");
-var CalendarAdmin_1 = require("./CalendarAdmin");
 var exceptions_1 = require("../exceptions/exceptions");
 var OrderAdmin = /** @class */ (function () {
-    function OrderAdmin() {
-        this.productDAO = new ProductDAO_1.ProductDAO();
-        this.orderDAO = new OrderDAO_1.OrderDAO();
+    function OrderAdmin(productDAO, orderDAO, calendarAdmin) {
         this.suscribers = [];
-        this.calendarAdmin = new CalendarAdmin_1.CalendarAdmin();
+        this.productDAO = productDAO;
+        this.orderDAO = orderDAO;
+        this.calendarAdmin = calendarAdmin;
     }
     // Obtiene todos los pedidos registrados
     OrderAdmin.prototype.getOrders = function () {

@@ -42,6 +42,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CartDAO = void 0;
 var cartS_1 = __importDefault(require("../schemas/cartS"));
 var orderS_1 = __importDefault(require("../schemas/orderS"));
+var mongoose_1 = __importDefault(require("mongoose"));
 var CartDAO = /** @class */ (function () {
     function CartDAO() {
     }
@@ -101,6 +102,9 @@ var CartDAO = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        if (!mongoose_1.default.Types.ObjectId.isValid(idUser)) {
+                            return [2 /*return*/, null];
+                        }
                         newProduct = { productRef: idProduct, units: units };
                         return [4 /*yield*/, cartS_1.default.updateOne({ client: idUser }, { $push: { products: newProduct } })];
                     case 1: return [2 /*return*/, _a.sent()];
@@ -113,7 +117,11 @@ var CartDAO = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, cartS_1.default.updateOne({ client: idUser }, { $pull: { products: { productRef: idProduct } } })];
+                    case 0:
+                        if (!mongoose_1.default.Types.ObjectId.isValid(idUser)) {
+                            return [2 /*return*/, null];
+                        }
+                        return [4 /*yield*/, cartS_1.default.updateOne({ client: idUser }, { $pull: { products: { productRef: idProduct } } })];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
@@ -126,6 +134,9 @@ var CartDAO = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        if (!mongoose_1.default.Types.ObjectId.isValid(idUser)) {
+                            return [2 /*return*/, null];
+                        }
                         filter = {
                             client: idUser,
                             "products.productRef": idProduct,
@@ -148,7 +159,11 @@ var CartDAO = /** @class */ (function () {
             var cart, product;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, cartS_1.default.findOne({ client: idUser }, { products: { $elemMatch: { productRef: idProduct } } })];
+                    case 0:
+                        if (!mongoose_1.default.Types.ObjectId.isValid(idUser)) {
+                            return [2 /*return*/, null];
+                        }
+                        return [4 /*yield*/, cartS_1.default.findOne({ client: idUser }, { products: { $elemMatch: { productRef: idProduct } } })];
                     case 1:
                         cart = _a.sent();
                         if (cart.products.length === 0) {
@@ -181,6 +196,9 @@ var CartDAO = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        if (!mongoose_1.default.Types.ObjectId.isValid(client)) {
+                            return [2 /*return*/, null];
+                        }
                         order = new orderS_1.default({
                             clientRef: client,
                             orderDate: orderDate,

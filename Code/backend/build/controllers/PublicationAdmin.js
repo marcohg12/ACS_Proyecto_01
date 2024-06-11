@@ -47,13 +47,13 @@ var PublicationAdmin = /** @class */ (function () {
     //Revisar si se recibe una publicación válida
     PublicationAdmin.prototype.isValidPublication = function (publication) {
         return (publication &&
-            typeof publication.getCategoryID === 'function' &&
-            typeof publication.getDescription === 'function' &&
-            typeof publication.getTags === 'function' &&
+            typeof publication.getCategoryID === "function" &&
+            typeof publication.getDescription === "function" &&
+            typeof publication.getTags === "function" &&
             Array.isArray(publication.getTags()) &&
-            typeof publication.getCategoryID() === 'string' &&
-            typeof publication.getDescription() === 'string' &&
-            publication.getTags().every(function (tag) { return typeof tag === 'string'; }));
+            typeof publication.getCategoryID() === "string" &&
+            typeof publication.getDescription() === "string" &&
+            publication.getTags().every(function (tag) { return typeof tag === "string"; }));
     };
     // Obtiene una publicación por su Id
     PublicationAdmin.prototype.getPublication = function (publicationId) {
@@ -110,7 +110,7 @@ var PublicationAdmin = /** @class */ (function () {
                     case 1:
                         publications = _a.sent();
                         if (publications.length === 0) {
-                            throw new Error("No publications found for tags ".concat(tags.join(', ')));
+                            throw new Error("No publications found for tags ".concat(tags.join(", ")));
                         }
                         return [2 /*return*/, publications];
                 }
@@ -185,8 +185,8 @@ var PublicationAdmin = /** @class */ (function () {
                     case 3:
                         error_1 = _a.sent();
                         // Manejar errores
-                        if (error_1.message === 'Publication not found') {
-                            throw new Error('Publication not found');
+                        if (error_1.message === "Publication not found") {
+                            throw new Error("Publication not found");
                         }
                         else {
                             console.error("Error deleting publication:", error_1);

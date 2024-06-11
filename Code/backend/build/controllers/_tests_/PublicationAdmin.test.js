@@ -40,7 +40,7 @@ var PublicationDaoStub_1 = require("./PublicationDaoStub");
 var PublicationAdmin_1 = require("../PublicationAdmin");
 var Publication_1 = require("../../models/Publication");
 jest.mock("fs");
-describe('PublicationService', function () {
+describe("PublicationService", function () {
     var publicationAdmin;
     var publicationDAOStub;
     beforeEach(function () {
@@ -48,7 +48,7 @@ describe('PublicationService', function () {
         publicationAdmin = new PublicationAdmin_1.PublicationAdmin(publicationDAOStub);
     });
     //Test Case ID: 121
-    it('should get a publication with an existing ID', function () { return __awaiter(void 0, void 0, void 0, function () {
+    it("should get a publication with an existing ID", function () { return __awaiter(void 0, void 0, void 0, function () {
         var publicationId, publication;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -64,15 +64,13 @@ describe('PublicationService', function () {
         });
     }); });
     //Test Case ID: 122
-    it('should throw an exception when trying to get a publication with a non-existing ID', function () { return __awaiter(void 0, void 0, void 0, function () {
+    it("should throw an exception when trying to get a publication with a non-existing ID", function () { return __awaiter(void 0, void 0, void 0, function () {
         var nonExistingId;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     nonExistingId = "nonexistingid";
-                    return [4 /*yield*/, expect(publicationAdmin.getPublication(nonExistingId))
-                            .rejects
-                            .toThrow("Publication with ID ".concat(nonExistingId, " not found"))];
+                    return [4 /*yield*/, expect(publicationAdmin.getPublication(nonExistingId)).rejects.toThrow("Publication with ID ".concat(nonExistingId, " not found"))];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
@@ -80,7 +78,7 @@ describe('PublicationService', function () {
         });
     }); });
     //Test Case ID: 123
-    it('should get all publications in an acceptable time (0 to 2 seconds)', function () { return __awaiter(void 0, void 0, void 0, function () {
+    it("should get all publications in an acceptable time (0 to 2 seconds)", function () { return __awaiter(void 0, void 0, void 0, function () {
         var startTime, publications, endTime, elapsedTime;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -100,7 +98,7 @@ describe('PublicationService', function () {
         });
     }); });
     //Test Case ID: 124
-    it('should get all publications with an existing category', function () { return __awaiter(void 0, void 0, void 0, function () {
+    it("should get all publications with an existing category", function () { return __awaiter(void 0, void 0, void 0, function () {
         var categoryId, publications;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -119,15 +117,13 @@ describe('PublicationService', function () {
         });
     }); });
     //Test Case ID: 125
-    it('should throw an exception when trying to get publications with a non-existing category ID', function () { return __awaiter(void 0, void 0, void 0, function () {
+    it("should throw an exception when trying to get publications with a non-existing category ID", function () { return __awaiter(void 0, void 0, void 0, function () {
         var nonExistingCategoryId;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     nonExistingCategoryId = "nonexistingcategoryid";
-                    return [4 /*yield*/, expect(publicationAdmin.getPublicationsByCategory(nonExistingCategoryId))
-                            .rejects
-                            .toThrow("No publications found for category ID ".concat(nonExistingCategoryId))];
+                    return [4 /*yield*/, expect(publicationAdmin.getPublicationsByCategory(nonExistingCategoryId)).rejects.toThrow("No publications found for category ID ".concat(nonExistingCategoryId))];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
@@ -135,7 +131,7 @@ describe('PublicationService', function () {
         });
     }); });
     //Test Case ID: 126
-    it('should get all publications with an existing tag', function () { return __awaiter(void 0, void 0, void 0, function () {
+    it("should get all publications with an existing tag", function () { return __awaiter(void 0, void 0, void 0, function () {
         var tags, publications;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -153,15 +149,13 @@ describe('PublicationService', function () {
         });
     }); });
     //Test Case ID: 127
-    it('should throw an exception when trying to get publications with a non-existing tag', function () { return __awaiter(void 0, void 0, void 0, function () {
+    it("should throw an exception when trying to get publications with a non-existing tag", function () { return __awaiter(void 0, void 0, void 0, function () {
         var nonExistingTag;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     nonExistingTag = "nonexistingtag";
-                    return [4 /*yield*/, expect(publicationAdmin.getPublicationsByTags([nonExistingTag]))
-                            .rejects
-                            .toThrow("No publications found for tags ".concat(nonExistingTag))];
+                    return [4 /*yield*/, expect(publicationAdmin.getPublicationsByTags([nonExistingTag])).rejects.toThrow("No publications found for tags ".concat(nonExistingTag))];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
@@ -169,15 +163,13 @@ describe('PublicationService', function () {
         });
     }); });
     //Test Case ID: 128
-    it('should register a publication if receiving a publication object', function () { return __awaiter(void 0, void 0, void 0, function () {
+    it("should register a publication if receiving a publication object", function () { return __awaiter(void 0, void 0, void 0, function () {
         var publication;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     publication = new Publication_1.Publication("1234567890abcdef12345678", new Date(), "Test publication", "test.jpg", ["test"]);
-                    return [4 /*yield*/, expect(publicationAdmin.registerPublication(publication))
-                            .resolves
-                            .not.toThrow()];
+                    return [4 /*yield*/, expect(publicationAdmin.registerPublication(publication)).resolves.not.toThrow()];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
@@ -185,18 +177,16 @@ describe('PublicationService', function () {
         });
     }); });
     //Test Case ID: 129
-    it('should reject to register a publication if receiving an object different from publication', function () { return __awaiter(void 0, void 0, void 0, function () {
+    it("should reject to register a publication if receiving an object different from publication", function () { return __awaiter(void 0, void 0, void 0, function () {
         var invalidObject;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     invalidObject = {
                         getDescription: function () { return "Description"; },
-                        getTags: function () { return ["tag1", "tag2"]; }
+                        getTags: function () { return ["tag1", "tag2"]; },
                     };
-                    return [4 /*yield*/, expect(publicationAdmin.registerPublication(invalidObject))
-                            .rejects
-                            .toThrow("Invalid publication object")];
+                    return [4 /*yield*/, expect(publicationAdmin.registerPublication(invalidObject)).rejects.toThrow("Invalid publication object")];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
@@ -204,15 +194,13 @@ describe('PublicationService', function () {
         });
     }); });
     //Test Case ID: 130
-    it('should update a publication if receiving a publication object', function () { return __awaiter(void 0, void 0, void 0, function () {
+    it("should update a publication if receiving a publication object", function () { return __awaiter(void 0, void 0, void 0, function () {
         var publication;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     publication = new Publication_1.Publication("1234567890abcdef12345678", new Date(), "Test publication", "test.jpg", ["test"], "60d9fbbf2b7e4e3a5c8e4f5b");
-                    return [4 /*yield*/, expect(publicationAdmin.updatePublication(publication))
-                            .resolves
-                            .not.toThrow()];
+                    return [4 /*yield*/, expect(publicationAdmin.updatePublication(publication)).resolves.not.toThrow()];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
@@ -220,18 +208,16 @@ describe('PublicationService', function () {
         });
     }); });
     //Test Case ID: 131
-    it('should reject to update a publication if receiving an object different from publication', function () { return __awaiter(void 0, void 0, void 0, function () {
+    it("should reject to update a publication if receiving an object different from publication", function () { return __awaiter(void 0, void 0, void 0, function () {
         var invalidObject;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     invalidObject = {
                         getDescription: function () { return "Description"; },
-                        getTags: function () { return ["tag1", "tag2"]; }
+                        getTags: function () { return ["tag1", "tag2"]; },
                     };
-                    return [4 /*yield*/, expect(publicationAdmin.updatePublication(invalidObject))
-                            .rejects
-                            .toThrow("Invalid publication object")];
+                    return [4 /*yield*/, expect(publicationAdmin.updatePublication(invalidObject)).rejects.toThrow("Invalid publication object")];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
@@ -239,15 +225,13 @@ describe('PublicationService', function () {
         });
     }); });
     //Test Case ID: 132
-    it('should delete a publication with an existence ID', function () { return __awaiter(void 0, void 0, void 0, function () {
+    it("should delete a publication with an existence ID", function () { return __awaiter(void 0, void 0, void 0, function () {
         var publicationId;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     publicationId = "60d9fbbf2b7e4e3a5c8e4f5b";
-                    return [4 /*yield*/, expect(publicationAdmin.deletePublication(publicationId))
-                            .resolves
-                            .not.toThrow()];
+                    return [4 /*yield*/, expect(publicationAdmin.deletePublication(publicationId)).resolves.not.toThrow()];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
@@ -255,15 +239,13 @@ describe('PublicationService', function () {
         });
     }); });
     //Test Case ID: 133
-    it('should reject to delete a publication with a non-existent ID', function () { return __awaiter(void 0, void 0, void 0, function () {
+    it("should reject to delete a publication with a non-existent ID", function () { return __awaiter(void 0, void 0, void 0, function () {
         var nonExistentPublicationId;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     nonExistentPublicationId = "nonexistentid";
-                    return [4 /*yield*/, expect(publicationAdmin.deletePublication(nonExistentPublicationId))
-                            .rejects
-                            .toThrow("Publication not found")];
+                    return [4 /*yield*/, expect(publicationAdmin.deletePublication(nonExistentPublicationId)).rejects.toThrow("Publication not found")];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];

@@ -23,31 +23,36 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.sendEmail = void 0;
+exports.EmailService = void 0;
 var nodemailer = __importStar(require("nodemailer"));
-var transporter = nodemailer.createTransport({
-    service: "Gmail",
-    auth: {
-        user: "codeduende@gmail.com",
-        pass: "btkhgxybyxemyqjq",
-    },
-});
-function sendEmail(email, subject, content) {
-    // Configura el contenido del correo
-    var mailOptions = {
-        from: "codeduende@gmail.com",
-        to: email,
-        subject: subject,
-        text: content,
+var EmailService = /** @class */ (function () {
+    function EmailService() {
+        this.transporter = nodemailer.createTransport({
+            service: "Gmail",
+            auth: {
+                user: "codeduende@gmail.com",
+                pass: "btkhgxybyxemyqjq",
+            },
+        });
+    }
+    EmailService.prototype.sendEmail = function (email, subject, content) {
+        // Configura el contenido del correo
+        var mailOptions = {
+            from: "codeduende@gmail.com",
+            to: email,
+            subject: subject,
+            text: content,
+        };
+        // Envía el correo
+        this.transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.error("Error al enviar el correo:", error);
+            }
+            else {
+                console.log("Correo electrónico enviado:", info.response);
+            }
+        });
     };
-    // Envía el correo
-    transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-            console.error("Error al enviar el correo:", error);
-        }
-        else {
-            console.log("Correo electrónico enviado:", info.response);
-        }
-    });
-}
-exports.sendEmail = sendEmail;
+    return EmailService;
+}());
+exports.EmailService = EmailService;

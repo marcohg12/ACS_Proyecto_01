@@ -52,7 +52,7 @@ var PublicationDAOStub = /** @class */ (function () {
                 description: "Test publication 1",
                 photo: "/photos/publications/60d9fbbf2b7e4e3a5c8e4f5b.png",
                 tags: ["test", "publication"],
-                category: { _id: "1234567890abcdef12345678", name: "TestCategory" }
+                category: { _id: "1234567890abcdef12345678", name: "TestCategory" },
             },
             {
                 _id: "60d9fbbf2b7e4e3a5c8e4f5c",
@@ -61,7 +61,7 @@ var PublicationDAOStub = /** @class */ (function () {
                 description: "Test publication 2",
                 photo: "/photos/publications/60d9fbbf2b7e4e3a5c8e4f5c.png",
                 tags: ["test", "publication2", "tag2"],
-                category: { _id: "1234567890abcdef12345678", name: "TestCategory" }
+                category: { _id: "1234567890abcdef12345678", name: "TestCategory" },
             },
             {
                 _id: "60d9fbbf2b7e4e3a5c8e4f5d",
@@ -70,7 +70,7 @@ var PublicationDAOStub = /** @class */ (function () {
                 description: "Test publication 1",
                 photo: "/photos/publications/60d9fbbf2b7e4e3a5c8e4f5b.png",
                 tags: ["test", "publication", "tag1"],
-                category: { _id: "1234567890abcdef12345678", name: "TestCategory" }
+                category: { _id: "1234567890abcdef12345678", name: "TestCategory" },
             },
         ];
     }
@@ -121,7 +121,7 @@ var PublicationDAOStub = /** @class */ (function () {
                     description: publication.getDescription(),
                     photo: "/photos/publications/temp.png",
                     tags: publication.getTags(),
-                    category: { _id: publication.getCategoryID(), name: "TestCategory" }
+                    category: { _id: publication.getCategoryID(), name: "TestCategory" },
                 };
                 this.publications.push(newPublication);
                 newPublication.photo = "/photos/publications/".concat(newPublication._id, ".png");
@@ -131,9 +131,9 @@ var PublicationDAOStub = /** @class */ (function () {
     };
     PublicationDAOStub.prototype.isValidPublication = function (publication) {
         return (publication &&
-            typeof publication.getCategoryID === 'function' &&
-            typeof publication.getDescription === 'function' &&
-            typeof publication.getTags === 'function' &&
+            typeof publication.getCategoryID === "function" &&
+            typeof publication.getDescription === "function" &&
+            typeof publication.getTags === "function" &&
             Array.isArray(publication.getTags()));
     };
     PublicationDAOStub.prototype.updatePublication = function (publicationToUpdate) {
@@ -156,7 +156,7 @@ var PublicationDAOStub = /** @class */ (function () {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
                         setTimeout(function () {
                             if (publicationId === "nonexistentid") {
-                                reject(new Error('Publication not found'));
+                                reject(new Error("Publication not found"));
                             }
                             else {
                                 resolve({ nDeleted: 1 });

@@ -37,12 +37,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserAdmin = void 0;
-var UserDAO_1 = require("../daos/UserDAO");
-var EmailService_1 = require("./EmailService");
-var bcrypt = require("bcryptjs");
 var UserAdmin = /** @class */ (function () {
-    function UserAdmin() {
-        this.userDAO = new UserDAO_1.UserDAO();
+    function UserAdmin(userDAO, emailService) {
+        this.userDAO = userDAO;
+        this.emailService = emailService;
     }
     // Funciones auxiliares -------------------------------------------------------------------
     UserAdmin.prototype.generateNumericPasswordRecoveryCode = function (length) {
@@ -125,7 +123,7 @@ var UserAdmin = /** @class */ (function () {
                     case 0:
                         code = this.generateNumericPasswordRecoveryCode(8);
                         content = "El código de recuperación es: " + code;
-                        (0, EmailService_1.sendEmail)(email, "Sistema Duende - Código de recuperación de contraseña", content);
+                        this.emailService.sendEmail(email, "Sistema Duende - Código de recuperación de contraseña", content);
                         return [4 /*yield*/, this.userDAO.updateRecoverCode(email, code)];
                     case 1:
                         _a.sent();

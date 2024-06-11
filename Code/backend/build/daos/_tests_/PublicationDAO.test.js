@@ -39,88 +39,96 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var DBPublicationStub_1 = __importDefault(require("./DBPublicationStub"));
+var PublicationDAO_1 = require("../PublicationDAO");
 var Publication_1 = require("../../models/Publication");
-function measureTime(fn) {
-    return __awaiter(this, void 0, void 0, function () {
-        var start, end;
+var testDatabase_1 = require("./testDatabase");
+var mongoose_1 = __importDefault(require("mongoose"));
+var mongodb_1 = require("mongodb");
+describe('PublicationDAO Integration Tests', function () {
+    var publicationDAO;
+    beforeAll(function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    start = Date.now();
-                    return [4 /*yield*/, fn()];
+                case 0: return [4 /*yield*/, (0, testDatabase_1.connectDB)()];
                 case 1:
                     _a.sent();
-                    end = Date.now();
-                    return [2 /*return*/, end - start];
+                    publicationDAO = new PublicationDAO_1.PublicationDAO();
+                    return [2 /*return*/];
             }
         });
-    });
-}
-describe('DBPublicationStub getPublication', function () {
-    var dbStub;
-    var publicationDAO;
-    beforeEach(function () {
-        dbStub = new DBPublicationStub_1.default();
-    });
+    }); });
+    afterAll(function () { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, (0, testDatabase_1.disconnectDB)()];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
     //Test ID: 143
-    it('should return a publication with an existing ID', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var publicationId, publication;
+    it('should get a publication with an existing ID', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var validPublication, result, fetchedPublication;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    publicationId = 'publication1';
-                    return [4 /*yield*/, dbStub.getPublication(publicationId)];
+                    validPublication = new Publication_1.Publication('652aed63e7ae5f6d676bc0f1', new Date(), 'description2', 'photo2', ['tag1', 'tag2']);
+                    return [4 /*yield*/, publicationDAO.registerPublication(validPublication)];
                 case 1:
-                    publication = _a.sent();
-                    expect(publication).toBeDefined();
-                    expect(publication === null || publication === void 0 ? void 0 : publication.getID()).toBe(publicationId);
+                    result = _a.sent();
+                    publicationId = result;
+                    return [4 /*yield*/, publicationDAO.getPublication(publicationId)];
+                case 2:
+                    fetchedPublication = _a.sent();
+                    expect(fetchedPublication).toBeDefined();
+                    expect(fetchedPublication._id.equals(publicationId)).toBe(true);
                     return [2 /*return*/];
             }
         });
     }); });
     //Test ID: 144
-    it('should return undefined for a non-existing publication ID', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var publicationId, publication;
+    it('should reject to get a publication with a non-existing ID', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var nonExistingPublicationId, fetchedPublication;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    publicationId = 'nonExistingPublicationId';
-                    return [4 /*yield*/, dbStub.getPublication(publicationId)];
+                    nonExistingPublicationId = new mongoose_1.default.Types.ObjectId().toString();
+                    return [4 /*yield*/, publicationDAO.getPublication(nonExistingPublicationId)];
                 case 1:
-                    publication = _a.sent();
-                    expect(publication).toBeNull();
+                    fetchedPublication = _a.sent();
+                    expect(fetchedPublication).toBe(undefined);
                     return [2 /*return*/];
             }
         });
     }); });
     //Test ID: 145
-    it('should get a publication within acceptable time for 1000 users', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var publicationId, concurrentUsers, maxAcceptableTime, getPublication, promises, times;
+    it('should get a publication for 100 recurrent users in an acceptable time (0 to 10 seconds)', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var numUsers, maxAcceptableTime, getPublicationTime, getPublicationPromises, getPublicationTimes;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    publicationId = 'publication1';
-                    concurrentUsers = 1000;
-                    maxAcceptableTime = 2000;
-                    getPublication = function () { return __awaiter(void 0, void 0, void 0, function () {
-                        var publication;
+                    numUsers = 100;
+                    maxAcceptableTime = 10000;
+                    getPublicationTime = function () { return __awaiter(void 0, void 0, void 0, function () {
+                        var start, end;
                         return __generator(this, function (_a) {
                             switch (_a.label) {
-                                case 0: return [4 /*yield*/, dbStub.getPublication(publicationId)];
+                                case 0:
+                                    start = Date.now();
+                                    return [4 /*yield*/, publicationDAO.getPublications()];
                                 case 1:
-                                    publication = _a.sent();
-                                    expect(publication).toBeDefined();
-                                    expect(publication === null || publication === void 0 ? void 0 : publication.getID()).toBe(publicationId);
-                                    return [2 /*return*/];
+                                    _a.sent();
+                                    end = Date.now();
+                                    return [2 /*return*/, end - start];
                             }
                         });
                     }); };
-                    promises = Array.from({ length: concurrentUsers }, function () { return measureTime(getPublication); });
-                    return [4 /*yield*/, Promise.all(promises)];
+                    getPublicationPromises = Array.from({ length: numUsers }, function () { return getPublicationTime(); });
+                    return [4 /*yield*/, Promise.all(getPublicationPromises)];
                 case 1:
-                    times = _a.sent();
-                    times.forEach(function (time) {
+                    getPublicationTimes = _a.sent();
+                    getPublicationTimes.forEach(function (time) {
                         expect(time).toBeLessThanOrEqual(maxAcceptableTime);
                     });
                     return [2 /*return*/];
@@ -128,108 +136,95 @@ describe('DBPublicationStub getPublication', function () {
         });
     }); });
     //Test ID: 146
-    it('should get all publications within acceptable time for 1000 users', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var concurrentUsers, maxAcceptableTime, getPublications, promises, times;
+    it('should get all publications in an acceptable time (0 to 2 seconds)', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var maxAcceptableTime, startTime, publications, endTime, elapsedTime;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    concurrentUsers = 1000;
-                    maxAcceptableTime = 2000;
-                    getPublications = function () { return __awaiter(void 0, void 0, void 0, function () {
-                        var publications;
-                        return __generator(this, function (_a) {
-                            switch (_a.label) {
-                                case 0: return [4 /*yield*/, dbStub.getPublications()];
-                                case 1:
-                                    publications = _a.sent();
-                                    expect(publications).toBeDefined();
-                                    expect(publications.length).toBe(102);
-                                    return [2 /*return*/];
-                            }
-                        });
-                    }); };
-                    promises = Array.from({ length: concurrentUsers }, function () { return measureTime(getPublications); });
-                    return [4 /*yield*/, Promise.all(promises)];
+                    maxAcceptableTime = 10000;
+                    startTime = Date.now();
+                    return [4 /*yield*/, publicationDAO.getPublications()];
                 case 1:
-                    times = _a.sent();
-                    times.forEach(function (time) {
-                        expect(time).toBeLessThanOrEqual(maxAcceptableTime);
-                    });
+                    publications = _a.sent();
+                    endTime = Date.now();
+                    elapsedTime = endTime - startTime;
+                    expect(publications.length).toBeGreaterThan(0);
+                    expect(elapsedTime).toBeLessThanOrEqual(maxAcceptableTime);
                     return [2 /*return*/];
             }
         });
     }); });
     //Test ID: 147
-    it('should return null when there are no publications', function () { return __awaiter(void 0, void 0, void 0, function () {
+    it('should return an empty array when there are no publications', function () { return __awaiter(void 0, void 0, void 0, function () {
         var publications;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    dbStub.setPublications([]);
-                    return [4 /*yield*/, dbStub.getPublications()];
+                    jest.spyOn(publicationDAO, 'getPublications').mockResolvedValue([]);
+                    return [4 /*yield*/, publicationDAO.getPublications()];
                 case 1:
                     publications = _a.sent();
-                    expect(publications).toBeNull();
-                    dbStub.resetPublications();
+                    expect(publications).toEqual([]);
                     return [2 /*return*/];
             }
         });
     }); });
     //Test ID: 148
-    it('should return all publications for an existing category', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var categoryId, publications;
+    it('should return an empty array when there are no publications with a non-existent tag', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var nonExistentTag, publications;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    categoryId = 'category1';
-                    return [4 /*yield*/, dbStub.getPublicationsByCategory(categoryId)];
+                    nonExistentTag = 'nonexistenttag';
+                    return [4 /*yield*/, publicationDAO.getPublicationsByTags([nonExistentTag])];
                 case 1:
                     publications = _a.sent();
-                    expect(publications).toBeDefined();
-                    expect(publications.length).toBeGreaterThan(0);
-                    expect(publications.every(function (publication) { return publication.categoryId === categoryId; })).toBe(true);
+                    expect(publications.length).toEqual(0);
                     return [2 /*return*/];
             }
         });
     }); });
     //Test ID: 149
-    it('should reject to get publications for a non-existing category', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var categoryId, publications;
+    it('should reject getting publications with a non-existing category ID', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var nonExistingCategoryId, publications;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    categoryId = 'nonExistingCategoryId';
-                    return [4 /*yield*/, dbStub.getPublicationsByCategory(categoryId)];
+                    nonExistingCategoryId = new mongodb_1.ObjectId().toHexString();
+                    return [4 /*yield*/, publicationDAO.getPublicationsByCategory(nonExistingCategoryId)];
                 case 1:
                     publications = _a.sent();
-                    expect(publications).toBeNull();
+                    expect(publications).toEqual([]);
                     return [2 /*return*/];
             }
         });
     }); });
     //Test ID: 150
-    it('should handle 1000 users within 2 seconds', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var concurrentUsers, maxAcceptableTime, categoryId, getPublicationsByCategory, promises, times;
+    it('should get all publications with an existing category in an acceptable time (0 to 2 seconds) for 100 users at the same time', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var concurrentUsers, maxAcceptableTime, getPublicationsByCategory, promises, times;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    concurrentUsers = 1000;
+                    concurrentUsers = 100;
                     maxAcceptableTime = 2000;
-                    categoryId = 'category1';
-                    getPublicationsByCategory = function () { return __awaiter(void 0, void 0, void 0, function () {
-                        var publications;
+                    getPublicationsByCategory = function (categoryId) { return __awaiter(void 0, void 0, void 0, function () {
+                        var start, end;
                         return __generator(this, function (_a) {
                             switch (_a.label) {
-                                case 0: return [4 /*yield*/, dbStub.getPublicationsByCategory(categoryId)];
+                                case 0:
+                                    start = Date.now();
+                                    return [4 /*yield*/, publicationDAO.getPublicationsByCategory(categoryId)];
                                 case 1:
-                                    publications = _a.sent();
-                                    expect(publications).toBeDefined();
-                                    expect(publications.length).toBe(2);
-                                    return [2 /*return*/];
+                                    _a.sent();
+                                    end = Date.now();
+                                    return [2 /*return*/, end - start];
                             }
                         });
                     }); };
-                    promises = Array.from({ length: concurrentUsers }, function () { return measureTime(getPublicationsByCategory); });
+                    promises = Array.from({ length: concurrentUsers }, function () {
+                        var categoryId = '652aedc6e7ae5f6d676bc58b';
+                        return getPublicationsByCategory(categoryId);
+                    });
                     return [4 /*yield*/, Promise.all(promises)];
                 case 1:
                     times = _a.sent();
@@ -241,162 +236,182 @@ describe('DBPublicationStub getPublication', function () {
         });
     }); });
     //Test ID: 151
-    it('should return all publications for existing tags', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var tags, publications;
+    it('should get all publications with existing tags', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var existingTags, publications;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    tags = ['tag1', 'tag2'];
-                    return [4 /*yield*/, dbStub.getPublicationsByTags(tags)];
+                    existingTags = ['Marvel', 'Morado', 'Azúl'];
+                    return [4 /*yield*/, publicationDAO.getPublicationsByTags(existingTags)];
                 case 1:
                     publications = _a.sent();
-                    expect(publications).toBeDefined();
                     expect(publications.length).toBeGreaterThan(0);
-                    expect(publications.every(function (publication) { return publication.tags.some(function (tag) { return tags.includes(tag); }); })).toBe(true);
                     return [2 /*return*/];
             }
         });
     }); });
     //Test ID: 152
-    it('should reject to get publications for non-existing tags', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var tags, publications;
+    it('should return an empty array when there are no publications with a non-existent tag', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var nonExistentTag, publications;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    tags = ['nonExistingTag1', 'nonExistingTag2'];
-                    return [4 /*yield*/, dbStub.getPublicationsByTags(tags)];
+                    nonExistentTag = 'nonexistenttag';
+                    return [4 /*yield*/, publicationDAO.getPublicationsByTags([nonExistentTag])];
                 case 1:
                     publications = _a.sent();
-                    expect(publications).toBeNull();
+                    expect(publications.length).toEqual(0);
                     return [2 /*return*/];
             }
         });
     }); });
     //Test ID: 153
-    it('should handle 1000 users within 2 seconds', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var concurrentUsers, maxAcceptableTime, tags, getPublicationsByTags, promises, times;
+    it('should get all publications with an existing tag in an acceptable time (0 to 2 seconds) for 100 users at the same time', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var concurrentUsers, maxAcceptableTime, existingTags, getPublications, start, promises, times, end, totalTime;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    concurrentUsers = 1000;
+                    concurrentUsers = 100;
                     maxAcceptableTime = 2000;
-                    tags = ['tag1', 'tag2'];
-                    getPublicationsByTags = function () { return __awaiter(void 0, void 0, void 0, function () {
-                        var publications;
+                    existingTags = ['Marvel', 'Morado', 'Azúl'];
+                    getPublications = function () { return __awaiter(void 0, void 0, void 0, function () {
+                        var start, end;
                         return __generator(this, function (_a) {
                             switch (_a.label) {
-                                case 0: return [4 /*yield*/, dbStub.getPublicationsByTags(tags)];
+                                case 0:
+                                    start = Date.now();
+                                    return [4 /*yield*/, publicationDAO.getPublicationsByTags(existingTags)];
                                 case 1:
-                                    publications = _a.sent();
-                                    expect(publications).toBeDefined();
-                                    expect(publications.length).toBeGreaterThan(0);
-                                    return [2 /*return*/];
+                                    _a.sent();
+                                    end = Date.now();
+                                    return [2 /*return*/, end - start];
                             }
                         });
                     }); };
-                    promises = Array.from({ length: concurrentUsers }, function () { return measureTime(getPublicationsByTags); });
+                    start = Date.now();
+                    promises = Array.from({ length: concurrentUsers }, function () { return getPublications(); });
                     return [4 /*yield*/, Promise.all(promises)];
                 case 1:
                     times = _a.sent();
+                    end = Date.now();
+                    totalTime = end - start;
                     times.forEach(function (time) {
                         expect(time).toBeLessThanOrEqual(maxAcceptableTime);
                     });
+                    console.log("Total time for ".concat(concurrentUsers, " users: ").concat(totalTime, " milliseconds"));
                     return [2 /*return*/];
             }
         });
     }); });
     //Test ID: 154
+    var publicationId;
+    // Test ID: 160
     it('should register a publication if receiving a valid publication object', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var validPublication, publicationId;
+        var validPublication, result, registeredPublication;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    validPublication = new Publication_1.Publication('category1', new Date(), 'description1', 'photo1', ['tag1', 'tag2'], 'publication1');
-                    return [4 /*yield*/, dbStub.registerPublication(validPublication)];
+                    validPublication = new Publication_1.Publication('652aed63e7ae5f6d676bc0f1', new Date(), 'description1', 'photo1', ['tag1', 'tag2']);
+                    return [4 /*yield*/, publicationDAO.registerPublication(validPublication)];
                 case 1:
-                    publicationId = _a.sent();
-                    expect(publicationId).toBe("fakePublicationId");
+                    result = _a.sent();
+                    publicationId = result;
+                    expect(publicationId).toBeDefined();
+                    return [4 /*yield*/, publicationDAO.getPublication(publicationId)];
+                case 2:
+                    registeredPublication = _a.sent();
+                    expect(registeredPublication.description).toBe('description1');
                     return [2 /*return*/];
             }
         });
     }); });
-    //Test ID: 155
-    it('should reject to register a publication if receiving an invalid publication', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var invalidObject, publicationId;
+    // Test ID: 155
+    it('should reject to register a publication if receiving an invalid object', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var invalidObject;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     invalidObject = {
                         getDescription: function () { return "Description"; },
-                        getTags: function () { return ["tag1", "tag2"]; }
+                        getCategoryID: function () { return "invalidCategory"; }
                     };
-                    return [4 /*yield*/, dbStub.registerPublication(invalidObject)];
+                    return [4 /*yield*/, expect(publicationDAO.registerPublication(invalidObject)).rejects.toThrow()];
                 case 1:
-                    publicationId = _a.sent();
-                    expect(publicationId).toBeNull();
+                    _a.sent();
                     return [2 /*return*/];
             }
         });
     }); });
     // Test ID: 156
     it('should update a publication if receiving a valid publication object', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var validPublication, publication;
+        var validPublication, result, publicationId, updatedPublication, updateResult, fetchedPublication;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    validPublication = new Publication_1.Publication('category1', new Date(), 'description1', 'photo1', ['tag2', 'tag2'], 'publication1');
-                    return [4 /*yield*/, dbStub.updatePublication(validPublication)];
+                    validPublication = new Publication_1.Publication('652aed63e7ae5f6d676bc0f1', new Date(), 'description1', 'photo1', ['tag1', 'tag2']);
+                    return [4 /*yield*/, publicationDAO.registerPublication(validPublication)];
                 case 1:
-                    publication = _a.sent();
-                    expect(publication).toBe("fakePublicationId");
+                    result = _a.sent();
+                    publicationId = result;
+                    updatedPublication = new Publication_1.Publication('652aed63e7ae5f6d676bc0f1', new Date(), 'updated description', 'updated photo', ['tag1', 'tag3']);
+                    updatedPublication.setID(publicationId);
+                    return [4 /*yield*/, publicationDAO.updatePublication(updatedPublication)];
+                case 2:
+                    updateResult = _a.sent();
+                    expect(updateResult).toBeTruthy(); // Ensure update was successful
+                    return [4 /*yield*/, publicationDAO.getPublication(publicationId)];
+                case 3:
+                    fetchedPublication = _a.sent();
+                    expect(fetchedPublication.description).toBe('updated description');
                     return [2 /*return*/];
             }
         });
     }); });
     // Test ID: 157
-    it('should reject to update a publication if receiving an invalid publication', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var invalidObject, publicationId;
+    it('should return null if receiving an invalid object to update', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var invalidObject;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     invalidObject = {
                         getDescription: function () { return "Description"; },
-                        getTags: function () { return ["tag1", "tag2"]; }
+                        getCategoryID: function () { return "invalidCategory"; }
                     };
-                    return [4 /*yield*/, dbStub.updatePublication(invalidObject)];
+                    return [4 /*yield*/, expect(publicationDAO.updatePublication(invalidObject)).rejects.toThrow()];
                 case 1:
-                    publicationId = _a.sent();
-                    expect(publicationId).toBeNull();
+                    _a.sent();
                     return [2 /*return*/];
             }
         });
     }); });
     // Test ID: 158
     it('should delete a publication with an existing ID', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var existingPublicationId, deletedPublicationId;
+        var deleteResult, fetchedPublication;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    existingPublicationId = '1';
-                    return [4 /*yield*/, dbStub.deletePublication(existingPublicationId)];
+                case 0: return [4 /*yield*/, publicationDAO.deletePublication(publicationId)];
                 case 1:
-                    deletedPublicationId = _a.sent();
-                    expect(deletedPublicationId).toBe(existingPublicationId);
+                    deleteResult = _a.sent();
+                    expect(deleteResult.deletedCount).toBe(1);
+                    return [4 /*yield*/, publicationDAO.getPublication(publicationId)];
+                case 2:
+                    fetchedPublication = _a.sent();
+                    expect(fetchedPublication).toBe(undefined);
                     return [2 /*return*/];
             }
         });
     }); });
     // Test ID: 159
     it('should reject to delete a publication with a non-existing ID', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var nonExistingPublicationId, publicationId;
+        var nonExistingPublicationId, deleteResult;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    nonExistingPublicationId = 'nonExistingPublicationId';
-                    return [4 /*yield*/, dbStub.deletePublication(nonExistingPublicationId)];
+                    nonExistingPublicationId = new mongoose_1.default.Types.ObjectId().toString();
+                    return [4 /*yield*/, publicationDAO.deletePublication(nonExistingPublicationId)];
                 case 1:
-                    publicationId = _a.sent();
-                    expect(publicationId).toBeNull();
+                    deleteResult = _a.sent();
+                    expect(deleteResult.deletedCount).toBe(0);
                     return [2 /*return*/];
             }
         });

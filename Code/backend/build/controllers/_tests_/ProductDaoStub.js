@@ -61,11 +61,11 @@ var ProductDAOStub = /** @class */ (function () {
     }
     ProductDAOStub.prototype.isValidProduct = function (product) {
         return (product instanceof Product_1.Product &&
-            typeof product.getName === 'function' &&
-            typeof product.getDescription === 'function' &&
-            typeof product.getUnits === 'function' &&
-            typeof product.getPrice === 'function' &&
-            typeof product.getPhoto === 'function');
+            typeof product.getName === "function" &&
+            typeof product.getDescription === "function" &&
+            typeof product.getUnits === "function" &&
+            typeof product.getPrice === "function" &&
+            typeof product.getPhoto === "function");
     };
     ProductDAOStub.prototype.registerProduct = function (productToRegister) {
         return __awaiter(this, void 0, void 0, function () {
@@ -106,7 +106,7 @@ var ProductDAOStub = /** @class */ (function () {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
                         setTimeout(function () {
                             if (productId === "nonexistentid") {
-                                reject(new Error('Publication not found'));
+                                reject(new Error("Publication not found"));
                             }
                             else {
                                 resolve({ nDeleted: 1 });

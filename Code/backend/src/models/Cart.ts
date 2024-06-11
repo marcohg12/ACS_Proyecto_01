@@ -33,3 +33,5 @@ class Cart {
         this.products = newProducts;
     }
 }
+
+export { Cart };

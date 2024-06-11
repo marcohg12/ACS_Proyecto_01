@@ -47,11 +47,11 @@ var ProductAdmin = /** @class */ (function () {
     }
     ProductAdmin.prototype.isValidProduct = function (product) {
         return (product instanceof Product_1.Product &&
-            typeof product.getName === 'function' &&
-            typeof product.getDescription === 'function' &&
-            typeof product.getUnits === 'function' &&
-            typeof product.getPrice === 'function' &&
-            typeof product.getPhoto === 'function');
+            typeof product.getName === "function" &&
+            typeof product.getDescription === "function" &&
+            typeof product.getUnits === "function" &&
+            typeof product.getPrice === "function" &&
+            typeof product.getPhoto === "function");
     };
     // Registra un producto
     ProductAdmin.prototype.registerProduct = function (product) {

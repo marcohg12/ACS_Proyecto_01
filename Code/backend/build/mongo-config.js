@@ -25,6 +25,16 @@ var Database = /** @class */ (function () {
             console.error("Database connection error");
         });
     };
+    Database.prototype.disconnect = function () {
+        return mongoose_1.default
+            .disconnect()
+            .then(function () {
+            console.log("Database disconnection successful");
+        })
+            .catch(function (err) {
+            console.error("Database disconnection error", err);
+        });
+    };
     return Database;
 }());
 exports.Database = Database;

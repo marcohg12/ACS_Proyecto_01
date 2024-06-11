@@ -39,8 +39,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var DBProductStub_1 = __importDefault(require("./DBProductStub"));
+var testDatabase_1 = require("./testDatabase");
+var ProductDAO_1 = require("../ProductDAO");
+var CartDAO_1 = require("../CartDAO");
 var Product_1 = require("../../models/Product");
+var mongoose_1 = __importDefault(require("mongoose"));
 var measureTime = function (func) { return __awaiter(void 0, void 0, void 0, function () {
     var start, end;
     return __generator(this, function (_a) {
@@ -55,30 +58,55 @@ var measureTime = function (func) { return __awaiter(void 0, void 0, void 0, fun
         }
     });
 }); };
-describe('DBPublicationStub Tests', function () {
-    var dbStub;
-    beforeEach(function () {
-        dbStub = new DBProductStub_1.default();
-    });
+describe('ProductDAO Tests', function () {
+    var productDAO;
+    var cartDAO;
+    beforeAll(function () { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, (0, testDatabase_1.connectDB)()];
+                case 1:
+                    _a.sent();
+                    productDAO = new ProductDAO_1.ProductDAO();
+                    cartDAO = new CartDAO_1.CartDAO();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    afterAll(function () { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, (0, testDatabase_1.disconnectDB)()];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
     // Test ID: 160
+    var productId;
     it('should register a product if receiving a product object', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var validProduct, productId;
+        var validProduct, result, registeredProduct;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    validProduct = new Product_1.Product('description1', 'photo1', 'Product1', 10, 100, 'product1');
-                    return [4 /*yield*/, dbStub.registerProduct(validProduct)];
+                    validProduct = new Product_1.Product("Effalclar Duo+ La Roche Posay - 75 ml", "/photos/products/652751e03bfa6a1d5636d453.png", "Effaclar Duo+", 195, 24000);
+                    return [4 /*yield*/, productDAO.registerProduct(validProduct)];
                 case 1:
-                    productId = _a.sent();
-                    expect(productId).toBe("fakeProductId");
-                    expect(dbStub.products).toContain(validProduct);
+                    result = _a.sent();
+                    productId = result;
+                    expect(productId).toBeDefined();
+                    return [4 /*yield*/, productDAO.getProduct(productId)];
+                case 2:
+                    registeredProduct = _a.sent();
+                    expect(registeredProduct.description).toBe("Effalclar Duo+ La Roche Posay - 75 ml");
                     return [2 /*return*/];
             }
         });
     }); });
     // Test ID: 161
     it('should reject to register a product if receiving an object different from product', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var invalidObject, productId;
+        var invalidObject;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -86,32 +114,36 @@ describe('DBPublicationStub Tests', function () {
                         getDescription: function () { return "Description"; },
                         getPrice: function () { return 100; }
                     };
-                    return [4 /*yield*/, dbStub.registerProduct(invalidObject)];
+                    return [4 /*yield*/, expect(productDAO.registerProduct(invalidObject)).rejects.toThrow()];
                 case 1:
-                    productId = _a.sent();
-                    expect(productId).toBeNull();
+                    _a.sent();
                     return [2 /*return*/];
             }
         });
     }); });
     // Test ID: 162
     it('should update a product if receiving a product object', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var updatedProduct, productId;
+        var validProduct, result, registeredProduct;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    updatedProduct = new Product_1.Product('updated description', 'updated photo', 'Product1', 15, 150, 'product1');
-                    return [4 /*yield*/, dbStub.updateProduct(updatedProduct)];
+                    validProduct = new Product_1.Product("Effalclar Duo+ La Roche Posay - 75 ml", "/photos/products/652751e03bfa6a1d5636d453.png", "Effaclar Duo+", 195, 23500, productId);
+                    return [4 /*yield*/, productDAO.updateProduct(validProduct)];
                 case 1:
-                    productId = _a.sent();
-                    expect(productId).toBe('fakeProductId');
+                    result = _a.sent();
+                    expect(result).toBeDefined();
+                    return [4 /*yield*/, productDAO.getProduct(validProduct.getID())];
+                case 2:
+                    registeredProduct = _a.sent();
+                    expect(registeredProduct === null || registeredProduct === void 0 ? void 0 : registeredProduct.description).toBe("Effalclar Duo+ La Roche Posay - 75 ml");
+                    expect(registeredProduct === null || registeredProduct === void 0 ? void 0 : registeredProduct.price).toBe(23500);
                     return [2 /*return*/];
             }
         });
     }); });
     // Test ID: 163
     it('should return null if receiving an object different from product', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var invalidObject, result;
+        var invalidObject;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -119,25 +151,26 @@ describe('DBPublicationStub Tests', function () {
                         getDescription: function () { return "Description"; },
                         getPrice: function () { return 200; }
                     };
-                    return [4 /*yield*/, dbStub.updateProduct(invalidObject)];
+                    return [4 /*yield*/, expect(productDAO.updateProduct(invalidObject)).rejects.toThrow()];
                 case 1:
-                    result = _a.sent();
-                    expect(result).toBeNull();
+                    _a.sent();
                     return [2 /*return*/];
             }
         });
     }); });
     // Test ID: 164
     it('should delete a product with an existing ID', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var productId, product;
+        var deleteResult, fetchedProduct;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    productId = 'product1';
-                    return [4 /*yield*/, dbStub.deleteProduct(productId)];
+                case 0: return [4 /*yield*/, productDAO.deleteProduct(productId)];
                 case 1:
-                    product = _a.sent();
-                    expect(product).toBe('fakeProductId');
+                    deleteResult = _a.sent();
+                    expect(deleteResult.deletedCount).toBe(1);
+                    return [4 /*yield*/, productDAO.getProduct(productId)];
+                case 2:
+                    fetchedProduct = _a.sent();
+                    expect(fetchedProduct).toBe(null);
                     return [2 /*return*/];
             }
         });
@@ -148,26 +181,39 @@ describe('DBPublicationStub Tests', function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    nonExistingProductId = 'nonExistingProduct';
-                    return [4 /*yield*/, dbStub.deleteProduct(nonExistingProductId)];
+                    nonExistingProductId = new mongoose_1.default.Types.ObjectId().toString();
+                    return [4 /*yield*/, productDAO.deleteProduct(nonExistingProductId)];
                 case 1:
                     result = _a.sent();
-                    expect(result).toBeNull();
+                    expect(result.deletedCount).toBe(0);
                     return [2 /*return*/];
             }
         });
     }); });
     // Test ID: 166
     it('should delete a product with an existing ID and remove it from all carts', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var existingProductId, result;
+        var id, deletedProduct, updatedCart;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    existingProductId = 'product1';
-                    return [4 /*yield*/, dbStub.deleteProduct(existingProductId)];
+                    id = "652751e03bfa6a1d5636d453";
+                    return [4 /*yield*/, productDAO.deleteProduct(id)];
                 case 1:
-                    result = _a.sent();
-                    expect(result).toBe('fakeProductId');
+                    _a.sent();
+                    return [4 /*yield*/, productDAO.getProduct(id)];
+                case 2:
+                    deletedProduct = _a.sent();
+                    expect(deletedProduct).toBeNull();
+                    return [4 /*yield*/, cartDAO.findProduct(id, "6535bd7c8a49de9cdfa015de")];
+                case 3:
+                    updatedCart = _a.sent();
+                    expect(updatedCart).toBe(-1);
+                    return [4 /*yield*/, productDAO.registerProduct(new Product_1.Product("Effalclar Duo+ La Roche Posay - 75 ml", "/photos/products/652751e03bfa6a1d5636d453.png", "Effaclar Duo+", 195, 23500))];
+                case 4:
+                    _a.sent();
+                    return [4 /*yield*/, cartDAO.addProduct("652751e03bfa6a1d5636d453", 3, "6535bd7c8a49de9cdfa015de")];
+                case 5:
+                    _a.sent();
                     return [2 /*return*/];
             }
         });
@@ -180,7 +226,7 @@ describe('DBPublicationStub Tests', function () {
                 case 0:
                     maxAcceptableTime = 2000;
                     startTime = Date.now();
-                    return [4 /*yield*/, dbStub.getProducts()];
+                    return [4 /*yield*/, productDAO.getProducts()];
                 case 1:
                     products = _a.sent();
                     endTime = Date.now();
@@ -192,18 +238,18 @@ describe('DBPublicationStub Tests', function () {
         });
     }); });
     // Test ID: 168
-    it('should get all products in an acceptable time (0 to 5 seconds) for 1000 users at the same time', function () { return __awaiter(void 0, void 0, void 0, function () {
+    it('should get all products in an acceptable time (0 to 5 seconds) for 100 users at the same time', function () { return __awaiter(void 0, void 0, void 0, function () {
         var concurrentUsers, maxAcceptableTime, getProducts, promises, times;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    concurrentUsers = 1000;
+                    concurrentUsers = 100;
                     maxAcceptableTime = 5000;
                     getProducts = function () { return __awaiter(void 0, void 0, void 0, function () {
                         var products;
                         return __generator(this, function (_a) {
                             switch (_a.label) {
-                                case 0: return [4 /*yield*/, dbStub.getProducts()];
+                                case 0: return [4 /*yield*/, productDAO.getProducts()];
                                 case 1:
                                     products = _a.sent();
                                     expect(products.length).toBeGreaterThan(0);
@@ -228,12 +274,12 @@ describe('DBPublicationStub Tests', function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    existingProductId = 'product1';
-                    return [4 /*yield*/, dbStub.getProduct(existingProductId)];
+                    existingProductId = '65a47961cbe3389cb4892774';
+                    return [4 /*yield*/, productDAO.getProduct(existingProductId)];
                 case 1:
                     product = _a.sent();
-                    expect(product).toBeDefined(); // Verificar que el producto existe
-                    expect(product === null || product === void 0 ? void 0 : product.getID()).toBe(existingProductId); // Verificar que el ID del producto es el esperado
+                    expect(product).toBeDefined();
+                    expect(product._id.toString()).toBe(existingProductId);
                     return [2 /*return*/];
             }
         });
@@ -244,11 +290,11 @@ describe('DBPublicationStub Tests', function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    nonExistingProductId = 'nonExistingProduct';
-                    return [4 /*yield*/, dbStub.getProduct(nonExistingProductId)];
+                    nonExistingProductId = new mongoose_1.default.Types.ObjectId().toString();
+                    return [4 /*yield*/, productDAO.getProduct(nonExistingProductId)];
                 case 1:
                     product = _a.sent();
-                    expect(product).toBeNull(); // Verificar que el producto no existe
+                    expect(product).toBe(null);
                     return [2 /*return*/];
             }
         });

@@ -1,6 +1,7 @@
 import Cart from "../schemas/cartS";
 import Order from "../schemas/orderS";
 import { ICartDAO } from "../interfaces/ICartDAO";
+import mongoose from "mongoose";
 
 class CartDAO implements ICartDAO {
   constructor() {}
@@ -48,6 +49,9 @@ class CartDAO implements ICartDAO {
 
   // Agrega un producto al carrito
   public async addProduct(idProduct: string, units: Number, idUser: string) {
+    if (!mongoose.Types.ObjectId.isValid(idUser)) {
+      return null;
+    }
     const newProduct = { productRef: idProduct, units: units };
     return await Cart.updateOne(
       { client: idUser },
@@ -57,6 +61,9 @@ class CartDAO implements ICartDAO {
 
   // Elimina un producto del carrito
   public async deleteProduct(idProduct: string, idUser: string) {
+    if (!mongoose.Types.ObjectId.isValid(idUser)) {
+      return null;
+    }
     return await Cart.updateOne(
       { client: idUser },
       { $pull: { products: { productRef: idProduct } } }
@@ -64,7 +71,10 @@ class CartDAO implements ICartDAO {
   }
 
   //Actualiza el número de unidades de un prodcuto
-  public async updateUnits(idProduct: String, units: Number, idUser: String) {
+  public async updateUnits(idProduct: String, units: Number, idUser: string) {
+    if (!mongoose.Types.ObjectId.isValid(idUser)) {
+      return null;
+    }
     const filter = {
       client: idUser,
       "products.productRef": idProduct,
@@ -79,7 +89,10 @@ class CartDAO implements ICartDAO {
 
   //Encuentra en producto, en caso de que sí exista retorna la cantidad
   //de unidades que hay del producto
-  public async findProduct(idProduct: String, idUser: String) {
+  public async findProduct(idProduct: String, idUser: string) {
+    if (!mongoose.Types.ObjectId.isValid(idUser)) {
+      return null;
+    }
     const cart = await Cart.findOne(
       { client: idUser },
       { products: { $elemMatch: { productRef: idProduct } } }
@@ -106,6 +119,9 @@ class CartDAO implements ICartDAO {
     lineProducts: { id: string; name: string; units: Number; price: Number }[],
     state: Number
   ) {
+    if (!mongoose.Types.ObjectId.isValid(client)) {
+      return null;
+    }
     const order = new Order({
       clientRef: client,
       orderDate: orderDate,
