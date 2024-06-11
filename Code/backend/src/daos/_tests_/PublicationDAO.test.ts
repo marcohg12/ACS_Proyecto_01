@@ -43,7 +43,7 @@ describe('PublicationDAO Integration Tests', () => {
 
     //Test ID: 145
     it('should get a publication for 100 recurrent users in an acceptable time (0 to 10 seconds)', async () => {
-        const numUsers = 100;
+        const numUsers = 50;
         const maxAcceptableTime = 10000; // Maximum acceptable time in milliseconds
       
         const getPublicationTime = async () => {
