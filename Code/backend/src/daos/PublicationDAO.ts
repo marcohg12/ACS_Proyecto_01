@@ -2,9 +2,8 @@ import { ObjectId } from "mongodb";
 import mongoose from "mongoose";
 import Publication from "../schemas/publicationS";
 import { Publication as PublicationModel } from "../models/Publication";
-import { IDBPublication } from "./_tests_/IDBPublication";
 
-class PublicationDAO implements IDBPublication{
+class PublicationDAO {
   constructor() {}
 
   // Retorna una publicacion por su Id

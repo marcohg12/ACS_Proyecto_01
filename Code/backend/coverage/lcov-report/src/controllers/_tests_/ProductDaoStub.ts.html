@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.78% </span>
+                <span class="strong">84.21% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>31/37</span>
+                <span class='fraction'>32/38</span>
             </div>
         
             
@@ -143,7 +143,23 @@
 <a name='L78'></a><a href='#L78'>78</a>
 <a name='L79'></a><a href='#L79'>79</a>
 <a name='L80'></a><a href='#L80'>80</a>
-<a name='L81'></a><a href='#L81'>81</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -152,6 +168,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -179,7 +209,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -223,8 +255,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { IProductDAO } from "./IProductDAO";
-import { Product, Product as  ProductModel } from "../../models/Product";
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { IProductDAO } from "../../interfaces/IProductDAO";
+import { Product, Product as ProductModel } from "../../models/Product";
 import mongoose from "mongoose";
 &nbsp;
 class ProductDAOStub implements IProductDAO {
@@ -232,8 +264,22 @@ class ProductDAOStub implements IProductDAO {
 &nbsp;
   constructor() {
     this.products = [
-      new Product("Description 1", "/photos/products/1.png", "Product 1", 10, 100, "existingProductId123"),
-      new Product("Description 2", "/photos/products/2.png", "Product 2", 20, 200, "2"),
+      new Product(
+        "Description 1",
+        "/photos/products/1.png",
+        "Product 1",
+        10,
+        100,
+        "existingProductId123"
+      ),
+      new Product(
+        "Description 2",
+        "/photos/products/2.png",
+        "Product 2",
+        20,
+        200,
+        "2"
+      ),
       // Agrega más productos si es necesario
     ];
   }
@@ -241,11 +287,11 @@ class ProductDAOStub implements IProductDAO {
   private isValidProduct(product: any): boolean {
     return (
       product instanceof Product &amp;&amp;
-      typeof product.getName === 'function' &amp;&amp;
-      typeof product.getDescription === 'function' &amp;&amp;
-      typeof product.getUnits === 'function' &amp;&amp;
-      typeof product.getPrice === 'function' &amp;&amp;
-      typeof product.getPhoto === 'function'
+      typeof product.getName === "function" &amp;&amp;
+      typeof product.getDescription === "function" &amp;&amp;
+      typeof product.getUnits === "function" &amp;&amp;
+      typeof product.getPrice === "function" &amp;&amp;
+      typeof product.getPhoto === "function"
     );
   }
 &nbsp;
@@ -254,17 +300,19 @@ class ProductDAOStub implements IProductDAO {
 <span class="cstat-no" title="statement not covered" >      throw new Error("Invalid product object");</span>
     }
     const fakeId = new mongoose.Types.ObjectId().toString();
-    productToRegister.setId(fakeId);  // Asegúrate de que el ID se establece en el producto
+    productToRegister.setId(fakeId); // Asegúrate de que el ID se establece en el producto
     this.products.push(productToRegister);
   }
 &nbsp;
   public async getProduct(productId: string) {
-    const product = this.products.find(product =&gt; product.getID() === productId);
+    const product = this.products.find(
+      (product) =&gt; product.getID() === productId
+    );
     if (!product) {
-        throw new Error(`Product with ID ${productId} not found`);
+      throw new Error(`Product with ID ${productId} not found`);
     }
     return product;
-}
+  }
 &nbsp;
   public async getProducts() {
     return [...this.products];
@@ -273,23 +321,23 @@ class ProductDAOStub implements IProductDAO {
   public async deleteProduct(productId: string): Promise&lt;{ nDeleted: number }&gt; {
     return new Promise((resolve, reject) =&gt; {
       setTimeout(() =&gt; {
-          <span class="missing-if-branch" title="if path not taken" >I</span>if (productId === "nonexistentid") {
-<span class="cstat-no" title="statement not covered" >              reject(new Error('Publication not found'));</span>
-          } else {
-              resolve({ nDeleted: 1 });
-          }
-      }, 1000); 
-  });
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (productId === "nonexistentid") {
+<span class="cstat-no" title="statement not covered" >          reject(new Error("Publication not found"));</span>
+        } else {
+          resolve({ nDeleted: 1 });
+        }
+      }, 1000);
+    });
   }
 &nbsp;
   public async updateProduct(productToUpdate: Product) {
     <span class="missing-if-branch" title="if path not taken" >I</span>if (!this.isValidProduct(productToUpdate)) {
 <span class="cstat-no" title="statement not covered" >      throw new Error("Invalid product object");</span>
-  }
+    }
     return new Promise((resolve, reject) =&gt; {
       setTimeout(() =&gt; {
         resolve({ nModified: 1 });
-      }, 1000); 
+      }, 1000);
     });
   }
 &nbsp;
@@ -297,7 +345,7 @@ class ProductDAOStub implements IProductDAO {
 <span class="cstat-no" title="statement not covered" >    return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >      setTimeout(<span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
 <span class="cstat-no" title="statement not covered" >        resolve({ nModified: 1 });</span>
-      }, 1000); 
+      }, 1000);
     });
   }
 }
@@ -310,7 +358,7 @@ export { ProductDAOStub };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-07T02:19:11.605Z
+                at 2024-06-11T03:41:24.490Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

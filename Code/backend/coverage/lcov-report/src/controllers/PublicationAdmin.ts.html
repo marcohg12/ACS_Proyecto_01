@@ -172,7 +172,11 @@
 <a name='L107'></a><a href='#L107'>107</a>
 <a name='L108'></a><a href='#L108'>108</a>
 <a name='L109'></a><a href='#L109'>109</a>
-<a name='L110'></a><a href='#L110'>110</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -215,6 +219,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -236,6 +242,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -283,7 +291,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { PublicationDAO } from "../daos/PublicationDAO";
 import { Publication } from "../models/Publication";
-import { IPublicationDAO } from "./_tests_/IPublicationDAO";
+import { IPublicationDAO } from "../interfaces/IPublicationDAO";
 const fs = require("fs");
 &nbsp;
 class PublicationAdmin {
@@ -297,13 +305,13 @@ class PublicationAdmin {
   private isValidPublication(publication: any): boolean {
     return (
       publication &amp;&amp;
-      typeof publication.getCategoryID === 'function' &amp;&amp;
-      typeof publication.getDescription === 'function' &amp;&amp;
-      typeof publication.getTags === 'function' &amp;&amp;
+      typeof publication.getCategoryID === "function" &amp;&amp;
+      typeof publication.getDescription === "function" &amp;&amp;
+      typeof publication.getTags === "function" &amp;&amp;
       Array.isArray(publication.getTags()) &amp;&amp;
-      typeof publication.getCategoryID() === 'string' &amp;&amp;
-      typeof publication.getDescription() === 'string' &amp;&amp;
-      publication.getTags().every((tag: any) =&gt; typeof tag === 'string')
+      typeof publication.getCategoryID() === "string" &amp;&amp;
+      typeof publication.getDescription() === "string" &amp;&amp;
+      publication.getTags().every((tag: any) =&gt; typeof tag === "string")
     );
   }
 &nbsp;
@@ -323,7 +331,9 @@ class PublicationAdmin {
 &nbsp;
   // Obtiene todas las publicaciones de una categoría
   public async getPublicationsByCategory(categoryId: string) {
-    const publications = await this.publicationDAO.getPublicationsByCategory(categoryId);
+    const publications = await this.publicationDAO.getPublicationsByCategory(
+      categoryId
+    );
     if (publications.length === 0) {
       throw new Error(`No publications found for category ID ${categoryId}`);
     }
@@ -334,7 +344,7 @@ class PublicationAdmin {
   public async getPublicationsByTags(tags: string[]) {
     const publications = await this.publicationDAO.getPublicationsByTags(tags);
     if (publications.length === 0) {
-      throw new Error(`No publications found for tags ${tags.join(', ')}`);
+      throw new Error(`No publications found for tags ${tags.join(", ")}`);
     }
     return publications;
   }
@@ -344,7 +354,9 @@ class PublicationAdmin {
     if (!this.isValidPublication(publication)) {
       throw new Error("Invalid publication object");
     }
-    const publicationId = await this.publicationDAO.registerPublication(publication);
+    const publicationId = await this.publicationDAO.registerPublication(
+      publication
+    );
     await fs.renameSync(
       publication.getPhoto(),
       "photos/publications/" + publicationId + ".png"
@@ -375,16 +387,16 @@ class PublicationAdmin {
   // Elimina una publicación por su Id
   public async deletePublication(publicationId: string): Promise&lt;void&gt; {
     try {
-        await fs.unlink("photos/publications/" + publicationId + ".png");
-        await this.publicationDAO.deletePublication(publicationId);
+      await fs.unlink("photos/publications/" + publicationId + ".png");
+      await this.publicationDAO.deletePublication(publicationId);
     } catch (error) {
-        // Manejar errores
-        if (error.message === 'Publication not found') {
-            throw new Error('Publication not found');
-        } else <span class="missing-if-branch" title="else path not taken" >E</span>{
-<span class="cstat-no" title="statement not covered" >            console.error("Error deleting publication:", error);</span>
-<span class="cstat-no" title="statement not covered" >            throw error;</span>
-        }
+      // Manejar errores
+      if (error.message === "Publication not found") {
+        throw new Error("Publication not found");
+      } else <span class="missing-if-branch" title="else path not taken" >E</span>{
+<span class="cstat-no" title="statement not covered" >        console.error("Error deleting publication:", error);</span>
+<span class="cstat-no" title="statement not covered" >        throw error;</span>
+      }
     }
   }
 }
@@ -397,7 +409,7 @@ export { PublicationAdmin };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-07T02:19:11.605Z
+                at 2024-06-11T03:41:24.490Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

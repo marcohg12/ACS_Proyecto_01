@@ -25,6 +25,17 @@ class Database {
         console.error("Database connection error");
       });
   }
+
+  public disconnect() {
+    return mongoose
+      .disconnect()
+      .then(() => {
+        console.log("Database disconnection successful");
+      })
+      .catch((err) => {
+        console.error("Database disconnection error", err);
+      });
+  }
 }
 
 export { Database };

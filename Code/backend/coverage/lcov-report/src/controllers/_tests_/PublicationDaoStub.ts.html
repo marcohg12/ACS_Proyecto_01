@@ -177,7 +177,8 @@
 <a name='L112'></a><a href='#L112'>112</a>
 <a name='L113'></a><a href='#L113'>113</a>
 <a name='L114'></a><a href='#L114'>114</a>
-<a name='L115'></a><a href='#L115'>115</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -226,6 +227,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -292,12 +294,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import mongoose from "mongoose";
-import { IPublicationDAO } from "./IPublicationDAO";
+import { IPublicationDAO } from "../../interfaces/IPublicationDAO";
 import { Publication as PublicationModel } from "../../models/Publication";
 &nbsp;
 class PublicationDAOStub implements IPublicationDAO {
-  private publications: any[] = []; 
-  
+  private publications: any[] = [];
+&nbsp;
   constructor() {
     this.publications = [
       {
@@ -307,7 +309,7 @@ class PublicationDAOStub implements IPublicationDAO {
         description: "Test publication 1",
         photo: "/photos/publications/60d9fbbf2b7e4e3a5c8e4f5b.png",
         tags: ["test", "publication"],
-        category: { _id: "1234567890abcdef12345678", name: "TestCategory" }
+        category: { _id: "1234567890abcdef12345678", name: "TestCategory" },
       },
       {
         _id: "60d9fbbf2b7e4e3a5c8e4f5c",
@@ -316,7 +318,7 @@ class PublicationDAOStub implements IPublicationDAO {
         description: "Test publication 2",
         photo: "/photos/publications/60d9fbbf2b7e4e3a5c8e4f5c.png",
         tags: ["test", "publication2", "tag2"],
-        category: { _id: "1234567890abcdef12345678", name: "TestCategory" }
+        category: { _id: "1234567890abcdef12345678", name: "TestCategory" },
       },
       {
         _id: "60d9fbbf2b7e4e3a5c8e4f5d",
@@ -325,13 +327,13 @@ class PublicationDAOStub implements IPublicationDAO {
         description: "Test publication 1",
         photo: "/photos/publications/60d9fbbf2b7e4e3a5c8e4f5b.png",
         tags: ["test", "publication", "tag1"],
-        category: { _id: "1234567890abcdef12345678", name: "TestCategory" }
+        category: { _id: "1234567890abcdef12345678", name: "TestCategory" },
       },
     ];
   }
 &nbsp;
   async getPublication(publicationId: string): Promise&lt;any&gt; {
-    return this.publications.find(pub =&gt; pub._id === publicationId) || null;
+    return this.publications.find((pub) =&gt; pub._id === publicationId) || null;
   }
 &nbsp;
   async getPublications(): Promise&lt;any[]&gt; {
@@ -339,14 +341,15 @@ class PublicationDAOStub implements IPublicationDAO {
   }
 &nbsp;
   async getPublicationsByCategory(categoryId: string): Promise&lt;any[]&gt; {
-    return this.publications.filter(pub =&gt; 
-      pub.categoryId === categoryId || 
-      (pub.category &amp;&amp; pub.category.fatherCategory === categoryId)
+    return this.publications.filter(
+      (pub) =&gt;
+        pub.categoryId === categoryId ||
+        (pub.category &amp;&amp; pub.category.fatherCategory === categoryId)
     );
   }
 &nbsp;
   async getPublicationsByTags(tags: string[]): Promise&lt;any[]&gt; {
-    return this.publications.filter(pub =&gt;
+    return this.publications.filter((pub) =&gt;
       pub.tags.some((tag: string) =&gt; tags.includes(tag))
     );
   }
@@ -363,7 +366,7 @@ class PublicationDAOStub implements IPublicationDAO {
       description: publication.getDescription(),
       photo: "/photos/publications/temp.png",
       tags: publication.getTags(),
-      category: { _id: publication.getCategoryID(), name: "TestCategory" }
+      category: { _id: publication.getCategoryID(), name: "TestCategory" },
     };
 &nbsp;
     this.publications.push(newPublication);
@@ -374,9 +377,9 @@ class PublicationDAOStub implements IPublicationDAO {
   private isValidPublication(publication: any): boolean {
     return (
       publication &amp;&amp;
-      typeof publication.getCategoryID === 'function' &amp;&amp;
-      typeof publication.getDescription === 'function' &amp;&amp;
-      typeof publication.getTags === 'function' &amp;&amp;
+      typeof publication.getCategoryID === "function" &amp;&amp;
+      typeof publication.getDescription === "function" &amp;&amp;
+      typeof publication.getTags === "function" &amp;&amp;
       Array.isArray(publication.getTags())
     );
   }
@@ -387,21 +390,21 @@ class PublicationDAOStub implements IPublicationDAO {
     return new Promise((resolve, reject) =&gt; {
       setTimeout(() =&gt; {
         resolve({ nModified: 1 });
-      }, 1000); 
+      }, 1000);
     });
   }
 &nbsp;
   async deletePublication(publicationId: string): Promise&lt;any&gt; {
     return new Promise((resolve, reject) =&gt; {
-        setTimeout(() =&gt; {
-            if (publicationId === "nonexistentid") {
-                reject(new Error('Publication not found'));
-            } else {
-                resolve({ nDeleted: 1 });
-            }
-        }, 1000); 
+      setTimeout(() =&gt; {
+        if (publicationId === "nonexistentid") {
+          reject(new Error("Publication not found"));
+        } else {
+          resolve({ nDeleted: 1 });
+        }
+      }, 1000);
     });
-}
+  }
 }
 &nbsp;
 export { PublicationDAOStub };
@@ -412,7 +415,7 @@ export { PublicationDAOStub };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-07T02:19:11.605Z
+                at 2024-06-11T03:41:24.490Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

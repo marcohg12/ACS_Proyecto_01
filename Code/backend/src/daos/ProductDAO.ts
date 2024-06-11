@@ -1,9 +1,8 @@
 import Product from "../schemas/productS";
 import Cart from "../schemas/cartS";
 import { Product as ProductModel } from "../models/Product";
-import { IDBProduct } from "./_tests_/IDBProduct";
 
-class ProductDAO implements IDBProduct{
+class ProductDAO {
   constructor() {}
 
   // Obtiene un producto por su id

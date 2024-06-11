@@ -1,10 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1717911958919" clover="3.2.0">
-  <project timestamp="1717911958920" name="All files">
-    <metrics statements="752" coveredstatements="631" conditionals="188" coveredconditionals="137" methods="246" coveredmethods="161" elements="1186" coveredelements="929" complexity="0" loc="752" ncloc="752" packages="7" files="27" classes="27"/>
-    <package name="controllers">
+<coverage generated="1718077284577" clover="3.2.0">
+  <project timestamp="1718077284577" name="All files">
+    <metrics statements="668" coveredstatements="565" conditionals="159" coveredconditionals="119" methods="224" coveredmethods="153" elements="1051" coveredelements="837" complexity="0" loc="668" ncloc="668" packages="7" files="27" classes="27"/>
+    <package name="src">
+      <metrics statements="17" coveredstatements="15" conditionals="1" coveredconditionals="1" methods="9" coveredmethods="7"/>
+      <file name="mongo-config.ts" path="C:\Users\paubo\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\mongo-config.ts">
+        <metrics statements="17" coveredstatements="15" conditionals="1" coveredconditionals="1" methods="9" coveredmethods="7"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="12" count="6" type="cond" truecount="1" falsecount="0"/>
+        <line num="13" count="3" type="stmt"/>
+        <line num="15" count="6" type="stmt"/>
+        <line num="18" count="3" type="stmt"/>
+        <line num="19" count="3" type="stmt"/>
+        <line num="22" count="3" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="29" count="3" type="stmt"/>
+        <line num="30" count="3" type="stmt"/>
+        <line num="33" count="3" type="stmt"/>
+        <line num="36" count="0" type="stmt"/>
+        <line num="39" count="3" type="stmt"/>
+        <line num="41" count="3" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.controllers">
       <metrics statements="228" coveredstatements="200" conditionals="85" coveredconditionals="65" methods="49" coveredmethods="39"/>
-      <file name="CartAdmin.ts" path="C:\Users\marco\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\controllers\CartAdmin.ts">
+      <file name="CartAdmin.ts" path="C:\Users\paubo\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\controllers\CartAdmin.ts">
         <metrics statements="30" coveredstatements="23" conditionals="13" coveredconditionals="7" methods="7" coveredmethods="5"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
@@ -37,7 +60,7 @@
         <line num="99" count="1" type="stmt"/>
         <line num="101" count="1" type="stmt"/>
       </file>
-      <file name="OrderAdmin.ts" path="C:\Users\marco\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\controllers\OrderAdmin.ts">
+      <file name="OrderAdmin.ts" path="C:\Users\paubo\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\controllers\OrderAdmin.ts">
         <metrics statements="80" coveredstatements="67" conditionals="22" coveredconditionals="16" methods="12" coveredmethods="9"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -120,7 +143,7 @@
         <line num="214" count="1" type="stmt"/>
         <line num="216" count="1" type="stmt"/>
       </file>
-      <file name="ProductAdmin.ts" path="C:\Users\marco\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\controllers\ProductAdmin.ts">
+      <file name="ProductAdmin.ts" path="C:\Users\paubo\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\controllers\ProductAdmin.ts">
         <metrics statements="36" coveredstatements="34" conditionals="17" coveredconditionals="15" methods="9" coveredmethods="8"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -159,7 +182,7 @@
         <line num="88" count="1" type="stmt"/>
         <line num="90" count="1" type="stmt"/>
       </file>
-      <file name="PublicationAdmin.ts" path="C:\Users\marco\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\controllers\PublicationAdmin.ts">
+      <file name="PublicationAdmin.ts" path="C:\Users\paubo\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\controllers\PublicationAdmin.ts">
         <metrics statements="46" coveredstatements="44" conditionals="22" coveredconditionals="20" methods="12" coveredmethods="11"/>
         <line num="1" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
@@ -208,7 +231,7 @@
         <line num="111" count="1" type="stmt"/>
         <line num="113" count="1" type="stmt"/>
       </file>
-      <file name="UserAdmin.ts" path="C:\Users\marco\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\controllers\UserAdmin.ts">
+      <file name="UserAdmin.ts" path="C:\Users\paubo\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\controllers\UserAdmin.ts">
         <metrics statements="36" coveredstatements="32" conditionals="11" coveredconditionals="7" methods="9" coveredmethods="6"/>
         <line num="5" count="1" type="stmt"/>
         <line num="10" count="5" type="stmt"/>
@@ -248,9 +271,9 @@
         <line num="92" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="controllers._tests_">
+    <package name="src.controllers._tests_">
       <metrics statements="128" coveredstatements="113" conditionals="26" coveredconditionals="21" methods="58" coveredmethods="48"/>
-      <file name="CartDaoStub.ts" path="C:\Users\marco\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\controllers\_tests_\CartDaoStub.ts">
+      <file name="CartDaoStub.ts" path="C:\Users\paubo\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\controllers\_tests_\CartDaoStub.ts">
         <metrics statements="25" coveredstatements="22" conditionals="0" coveredconditionals="0" methods="12" coveredmethods="9"/>
         <line num="2" count="1" type="stmt"/>
         <line num="8" count="1" type="stmt"/>
@@ -278,7 +301,7 @@
         <line num="72" count="1" type="stmt"/>
         <line num="74" count="1" type="stmt"/>
       </file>
-      <file name="EmailServiceStub.ts" path="C:\Users\marco\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\controllers\_tests_\EmailServiceStub.ts">
+      <file name="EmailServiceStub.ts" path="C:\Users\paubo\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\controllers\_tests_\EmailServiceStub.ts">
         <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
@@ -286,7 +309,7 @@
         <line num="7" count="1" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
       </file>
-      <file name="ProductDaoStub.ts" path="C:\Users\marco\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\controllers\_tests_\ProductDaoStub.ts">
+      <file name="ProductDaoStub.ts" path="C:\Users\paubo\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\controllers\_tests_\ProductDaoStub.ts">
         <metrics statements="38" coveredstatements="32" conditionals="11" coveredconditionals="8" methods="16" coveredmethods="13"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -327,7 +350,7 @@
         <line num="94" count="1" type="stmt"/>
         <line num="96" count="1" type="stmt"/>
       </file>
-      <file name="PublicationDaoStub.ts" path="C:\Users\marco\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\controllers\_tests_\PublicationDaoStub.ts">
+      <file name="PublicationDaoStub.ts" path="C:\Users\paubo\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\controllers\_tests_\PublicationDaoStub.ts">
         <metrics statements="37" coveredstatements="35" conditionals="14" coveredconditionals="12" methods="18" coveredmethods="18"/>
         <line num="1" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
@@ -367,7 +390,7 @@
         <line num="113" count="1" type="stmt"/>
         <line num="115" count="1" type="stmt"/>
       </file>
-      <file name="UserDAOStub.ts" path="C:\Users\marco\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\controllers\_tests_\UserDAOStub.ts">
+      <file name="UserDAOStub.ts" path="C:\Users\paubo\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\controllers\_tests_\UserDAOStub.ts">
         <metrics statements="23" coveredstatements="19" conditionals="1" coveredconditionals="1" methods="10" coveredmethods="6"/>
         <line num="5" count="1" type="stmt"/>
         <line num="11" count="5" type="stmt"/>
@@ -394,212 +417,98 @@
         <line num="52" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="daos">
-      <metrics statements="45" coveredstatements="24" conditionals="20" coveredconditionals="0" methods="17" coveredmethods="4"/>
-      <file name="ProductDAO.ts" path="C:\Users\marco\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\daos\ProductDAO.ts">
-        <metrics statements="21" coveredstatements="11" conditionals="9" coveredconditionals="0" methods="8" coveredmethods="2"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="11" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="15" count="1" type="stmt"/>
-        <line num="16" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="20" count="1" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="29" count="0" type="stmt"/>
-        <line num="32" count="0" type="stmt"/>
-        <line num="36" count="0" type="stmt"/>
-        <line num="40" count="1" type="stmt"/>
-        <line num="41" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="53" count="1" type="stmt"/>
-        <line num="54" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="64" count="1" type="stmt"/>
-        <line num="66" count="0" type="stmt"/>
-        <line num="76" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="78" count="1" type="stmt"/>
-        <line num="80" count="1" type="stmt"/>
-      </file>
-      <file name="PublicationDAO.ts" path="C:\Users\marco\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\daos\PublicationDAO.ts">
-        <metrics statements="24" coveredstatements="13" conditionals="11" coveredconditionals="0" methods="9" coveredmethods="2"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="11" count="1" type="stmt"/>
-        <line num="12" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="30" count="0" type="stmt"/>
-        <line num="34" count="1" type="stmt"/>
-        <line num="35" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="51" count="1" type="stmt"/>
-        <line num="52" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="76" count="1" type="stmt"/>
-        <line num="77" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="100" count="1" type="stmt"/>
-        <line num="101" count="0" type="stmt"/>
-        <line num="109" count="0" type="stmt"/>
-        <line num="112" count="0" type="stmt"/>
-        <line num="116" count="0" type="stmt"/>
-        <line num="120" count="1" type="stmt"/>
-        <line num="121" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="132" count="1" type="stmt"/>
-        <line num="133" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="135" count="1" type="stmt"/>
-        <line num="137" count="1" type="stmt"/>
-      </file>
-    </package>
-    <package name="daos._tests_">
-      <metrics statements="137" coveredstatements="133" conditionals="41" coveredconditionals="40" methods="40" coveredmethods="37"/>
-      <file name="DBCartStub.ts" path="C:\Users\marco\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\daos\_tests_\DBCartStub.ts">
-        <metrics statements="44" coveredstatements="42" conditionals="11" coveredconditionals="10" methods="9" coveredmethods="8"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="12" count="18" type="stmt"/>
-        <line num="13" count="18" type="stmt"/>
-        <line num="14" count="18" type="stmt"/>
-        <line num="15" count="18" type="stmt"/>
-        <line num="17" count="18" type="stmt"/>
-        <line num="18" count="1800" type="stmt"/>
-        <line num="19" count="1800" type="stmt"/>
-        <line num="20" count="1800" type="stmt"/>
-        <line num="24" count="1" type="stmt"/>
-        <line num="25" count="1002" type="cond" truecount="2" falsecount="0"/>
-        <line num="26" count="1001" type="cond" truecount="2" falsecount="0"/>
-        <line num="27" count="1001" type="stmt"/>
-        <line num="29" count="1" type="stmt"/>
-        <line num="33" count="1" type="stmt"/>
-        <line num="34" count="5805" type="cond" truecount="1" falsecount="0"/>
-        <line num="35" count="1" type="stmt"/>
-        <line num="37" count="5804" type="cond" truecount="1" falsecount="0"/>
-        <line num="38" count="188" type="stmt"/>
-        <line num="40" count="5804" type="stmt"/>
-        <line num="43" count="1" type="stmt"/>
-        <line num="44" count="1002" type="cond" truecount="1" falsecount="0"/>
-        <line num="45" count="1" type="stmt"/>
-        <line num="49" count="1" type="stmt"/>
-        <line num="50" count="1002" type="cond" truecount="1" falsecount="0"/>
-        <line num="51" count="1" type="stmt"/>
-        <line num="53" count="1001" type="stmt"/>
-        <line num="57" count="1001" type="stmt"/>
-        <line num="64" count="1" type="stmt"/>
-        <line num="65" count="1002" type="cond" truecount="1" falsecount="0"/>
-        <line num="66" count="1" type="stmt"/>
-        <line num="68" count="1001" type="stmt"/>
-        <line num="71" count="1" type="stmt"/>
-        <line num="72" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="73" count="0" type="stmt"/>
-        <line num="77" count="1" type="stmt"/>
-        <line num="85" count="2002" type="cond" truecount="1" falsecount="0"/>
-        <line num="86" count="1" type="stmt"/>
-        <line num="88" count="2001" type="stmt"/>
-        <line num="89" count="2001" type="stmt"/>
-        <line num="99" count="2001" type="stmt"/>
-        <line num="100" count="2001" type="stmt"/>
-        <line num="103" count="1" type="stmt"/>
-        <line num="105" count="1" type="stmt"/>
-      </file>
-      <file name="DBProductStub.ts" path="C:\Users\marco\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\daos\_tests_\DBProductStub.ts">
-        <metrics statements="42" coveredstatements="40" conditionals="15" coveredconditionals="15" methods="14" coveredmethods="12"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="9" count="11" type="stmt"/>
-        <line num="10" count="11" type="stmt"/>
-        <line num="14" count="11" type="stmt"/>
-        <line num="17" count="1" type="stmt"/>
-        <line num="18" count="2" type="stmt"/>
-        <line num="28" count="1" type="stmt"/>
-        <line num="29" count="0" type="stmt"/>
-        <line num="32" count="1" type="stmt"/>
-        <line num="33" count="11" type="stmt"/>
-        <line num="34" count="11" type="stmt"/>
-        <line num="35" count="11" type="stmt"/>
-        <line num="36" count="1100" type="stmt"/>
-        <line num="44" count="1100" type="stmt"/>
-        <line num="48" count="1" type="stmt"/>
-        <line num="49" count="103" type="stmt"/>
-        <line num="50" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="53" count="1" type="stmt"/>
-        <line num="54" count="1001" type="stmt"/>
-        <line num="57" count="1" type="stmt"/>
-        <line num="58" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="59" count="1" type="stmt"/>
-        <line num="60" count="1" type="stmt"/>
-        <line num="62" count="1" type="stmt"/>
-        <line num="66" count="1" type="stmt"/>
-        <line num="67" count="2" type="cond" truecount="2" falsecount="0"/>
+    <package name="src.daos">
+      <metrics statements="77" coveredstatements="68" conditionals="31" coveredconditionals="21" methods="26" coveredmethods="22"/>
+      <file name="CartDAO.ts" path="C:\Users\paubo\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\daos\CartDAO.ts">
+        <metrics statements="32" coveredstatements="26" conditionals="11" coveredconditionals="7" methods="9" coveredmethods="8"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="10" count="1002" type="cond" truecount="1" falsecount="0"/>
+        <line num="43" count="269" type="cond" truecount="0" falsecount="1"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="46" count="269" type="stmt"/>
+        <line num="50" count="2" type="stmt"/>
+        <line num="51" count="4006" type="stmt"/>
+        <line num="52" count="4006" type="cond" truecount="1" falsecount="0"/>
+        <line num="59" count="2" type="stmt"/>
+        <line num="60" count="1" type="cond" truecount="2" falsecount="0"/>
+        <line num="67" count="2" type="stmt"/>
         <line num="68" count="1" type="stmt"/>
-        <line num="70" count="1" type="stmt"/>
-        <line num="74" count="1" type="stmt"/>
-        <line num="75" count="0" type="stmt"/>
-        <line num="78" count="1" type="stmt"/>
-        <line num="79" count="2" type="stmt"/>
-        <line num="80" count="4" type="cond" truecount="1" falsecount="0"/>
-        <line num="81" count="8" type="stmt"/>
-        <line num="86" count="1" type="stmt"/>
-        <line num="87" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="72" count="1" type="stmt"/>
+        <line num="77" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="82" count="2" type="stmt"/>
+        <line num="83" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="87" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="88" count="1" type="stmt"/>
-        <line num="90" count="2" type="stmt"/>
-        <line num="91" count="2" type="stmt"/>
-        <line num="95" count="1" type="stmt"/>
-        <line num="97" count="1" type="stmt"/>
+        <line num="90" count="0" type="stmt"/>
+        <line num="91" count="0" type="stmt"/>
+        <line num="96" count="2" type="stmt"/>
+        <line num="97" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="101" count="2" type="stmt"/>
+        <line num="109" count="2" type="stmt"/>
+        <line num="119" count="2" type="stmt"/>
+        <line num="122" count="0" type="stmt"/>
+        <line num="127" count="0" type="stmt"/>
+        <line num="129" count="2" type="stmt"/>
+        <line num="130" count="2" type="stmt"/>
       </file>
-      <file name="DBPublicationStub.ts" path="C:\Users\marco\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\daos\_tests_\DBPublicationStub.ts">
-        <metrics statements="51" coveredstatements="51" conditionals="15" coveredconditionals="15" methods="17" coveredmethods="17"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="8" count="17" type="stmt"/>
-        <line num="9" count="17" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
-        <line num="13" count="4" type="stmt"/>
-        <line num="22" count="1" type="stmt"/>
-        <line num="23" count="1" type="stmt"/>
-        <line num="26" count="1" type="stmt"/>
-        <line num="27" count="18" type="stmt"/>
-        <line num="28" count="18" type="stmt"/>
-        <line num="29" count="18" type="stmt"/>
-        <line num="30" count="18" type="stmt"/>
-        <line num="32" count="18" type="stmt"/>
-        <line num="33" count="1800" type="stmt"/>
-        <line num="41" count="1800" type="stmt"/>
-        <line num="45" count="1" type="stmt"/>
-        <line num="46" count="3105" type="stmt"/>
-        <line num="47" count="1002" type="cond" truecount="2" falsecount="0"/>
-        <line num="50" count="1" type="stmt"/>
-        <line num="51" count="1001" type="cond" truecount="2" falsecount="0"/>
-        <line num="52" count="1" type="stmt"/>
-        <line num="54" count="1000" type="stmt"/>
-        <line num="58" count="1" type="stmt"/>
-        <line num="59" count="102204" type="stmt"/>
-        <line num="60" count="1002" type="cond" truecount="1" falsecount="0"/>
-        <line num="61" count="1" type="stmt"/>
-        <line num="63" count="1001" type="stmt"/>
-        <line num="66" count="1" type="stmt"/>
-        <line num="67" count="1002" type="stmt"/>
-        <line num="68" count="104206" type="stmt"/>
-        <line num="70" count="1002" type="cond" truecount="1" falsecount="0"/>
-        <line num="71" count="1" type="stmt"/>
-        <line num="73" count="1001" type="stmt"/>
-        <line num="76" count="1" type="stmt"/>
-        <line num="77" count="2" type="cond" truecount="1" falsecount="0"/>
-        <line num="78" count="1" type="stmt"/>
-        <line num="81" count="1" type="stmt"/>
-        <line num="82" count="1" type="stmt"/>
-        <line num="85" count="1" type="stmt"/>
-        <line num="86" count="2" type="cond" truecount="1" falsecount="0"/>
-        <line num="87" count="1" type="stmt"/>
-        <line num="89" count="1" type="stmt"/>
-        <line num="92" count="1" type="stmt"/>
-        <line num="93" count="103" type="stmt"/>
-        <line num="94" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="95" count="1" type="stmt"/>
-        <line num="96" count="1" type="stmt"/>
-        <line num="98" count="1" type="stmt"/>
-        <line num="102" count="1" type="stmt"/>
-        <line num="104" count="1" type="stmt"/>
+      <file name="ProductDAO.ts" path="C:\Users\paubo\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\daos\ProductDAO.ts">
+        <metrics statements="21" coveredstatements="20" conditionals="9" coveredconditionals="7" methods="8" coveredmethods="7"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="10" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="15" count="101" type="cond" truecount="2" falsecount="0"/>
+        <line num="19" count="2" type="stmt"/>
+        <line num="20" count="3" type="stmt"/>
+        <line num="28" count="2" type="stmt"/>
+        <line num="31" count="4" type="stmt"/>
+        <line num="35" count="2" type="stmt"/>
+        <line num="39" count="2" type="stmt"/>
+        <line num="40" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="52" count="2" type="stmt"/>
+        <line num="53" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="63" count="2" type="stmt"/>
+        <line num="65" count="6" type="stmt"/>
+        <line num="75" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="77" count="2" type="stmt"/>
+        <line num="79" count="2" type="stmt"/>
+      </file>
+      <file name="PublicationDAO.ts" path="C:\Users\paubo\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\daos\PublicationDAO.ts">
+        <metrics statements="24" coveredstatements="22" conditionals="11" coveredconditionals="7" methods="9" coveredmethods="7"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="11" count="5" type="cond" truecount="1" falsecount="0"/>
+        <line num="29" count="5" type="stmt"/>
+        <line num="33" count="2" type="stmt"/>
+        <line num="34" count="101" type="cond" truecount="2" falsecount="0"/>
+        <line num="50" count="2" type="stmt"/>
+        <line num="51" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="75" count="2" type="stmt"/>
+        <line num="76" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="99" count="2" type="stmt"/>
+        <line num="100" count="4" type="stmt"/>
+        <line num="108" count="3" type="stmt"/>
+        <line num="111" count="6" type="stmt"/>
+        <line num="115" count="3" type="stmt"/>
+        <line num="119" count="2" type="stmt"/>
+        <line num="120" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="131" count="2" type="stmt"/>
+        <line num="132" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="134" count="2" type="stmt"/>
+        <line num="136" count="2" type="stmt"/>
       </file>
     </package>
-    <package name="exceptions">
+    <package name="src.exceptions">
       <metrics statements="24" coveredstatements="21" conditionals="8" coveredconditionals="3" methods="8" coveredmethods="7"/>
-      <file name="exceptions.ts" path="C:\Users\marco\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\exceptions\exceptions.ts">
+      <file name="exceptions.ts" path="C:\Users\paubo\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\exceptions\exceptions.ts">
         <metrics statements="24" coveredstatements="21" conditionals="8" coveredconditionals="3" methods="8" coveredmethods="7"/>
         <line num="1" count="2" type="stmt"/>
         <line num="3" count="0" type="cond" truecount="0" falsecount="2"/>
@@ -627,9 +536,9 @@
         <line num="41" count="2" type="stmt"/>
       </file>
     </package>
-    <package name="models">
-      <metrics statements="178" coveredstatements="128" conditionals="8" coveredconditionals="8" methods="74" coveredmethods="26"/>
-      <file name="CalendarEvent.ts" path="C:\Users\marco\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\models\CalendarEvent.ts">
+    <package name="src.models">
+      <metrics statements="178" coveredstatements="132" conditionals="8" coveredconditionals="8" methods="74" coveredmethods="30"/>
+      <file name="CalendarEvent.ts" path="C:\Users\paubo\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\models\CalendarEvent.ts">
         <metrics statements="22" coveredstatements="15" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="2"/>
         <line num="3" count="1" type="stmt"/>
         <line num="17" count="2" type="stmt"/>
@@ -654,7 +563,7 @@
         <line num="51" count="1" type="stmt"/>
         <line num="53" count="1" type="stmt"/>
       </file>
-      <file name="DecoratedCalendarEvent.ts" path="C:\Users\marco\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\models\DecoratedCalendarEvent.ts">
+      <file name="DecoratedCalendarEvent.ts" path="C:\Users\paubo\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\models\DecoratedCalendarEvent.ts">
         <metrics statements="11" coveredstatements="8" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
@@ -668,7 +577,7 @@
         <line num="22" count="1" type="stmt"/>
         <line num="24" count="1" type="stmt"/>
       </file>
-      <file name="Decorator.ts" path="C:\Users\marco\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\models\Decorator.ts">
+      <file name="Decorator.ts" path="C:\Users\paubo\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\models\Decorator.ts">
         <metrics statements="16" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="2"/>
         <line num="3" count="1" type="stmt"/>
         <line num="7" count="10" type="stmt"/>
@@ -687,7 +596,7 @@
         <line num="33" count="1" type="stmt"/>
         <line num="35" count="1" type="stmt"/>
       </file>
-      <file name="Notification.ts" path="C:\Users\marco\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\models\Notification.ts">
+      <file name="Notification.ts" path="C:\Users\paubo\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\models\Notification.ts">
         <metrics statements="20" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
         <line num="15" count="3" type="stmt"/>
@@ -710,25 +619,25 @@
         <line num="45" count="1" type="stmt"/>
         <line num="47" count="1" type="stmt"/>
       </file>
-      <file name="Product.ts" path="C:\Users\marco\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\models\Product.ts">
-        <metrics statements="33" coveredstatements="24" conditionals="2" coveredconditionals="2" methods="14" coveredmethods="5"/>
+      <file name="Product.ts" path="C:\Users\paubo\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\models\Product.ts">
+        <metrics statements="33" coveredstatements="28" conditionals="2" coveredconditionals="2" methods="14" coveredmethods="9"/>
         <line num="1" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
-        <line num="17" count="1144" type="cond" truecount="2" falsecount="0"/>
-        <line num="18" count="1144" type="stmt"/>
-        <line num="19" count="1144" type="stmt"/>
-        <line num="20" count="1144" type="stmt"/>
-        <line num="21" count="1144" type="stmt"/>
+        <line num="17" count="23" type="cond" truecount="2" falsecount="0"/>
+        <line num="18" count="23" type="stmt"/>
+        <line num="19" count="23" type="stmt"/>
+        <line num="20" count="23" type="stmt"/>
+        <line num="21" count="23" type="stmt"/>
         <line num="24" count="2" type="stmt"/>
-        <line num="25" count="112" type="stmt"/>
+        <line num="25" count="10" type="stmt"/>
         <line num="28" count="2" type="stmt"/>
-        <line num="29" count="0" type="stmt"/>
+        <line num="29" count="3" type="stmt"/>
         <line num="32" count="2" type="stmt"/>
-        <line num="33" count="0" type="stmt"/>
+        <line num="33" count="3" type="stmt"/>
         <line num="36" count="2" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
+        <line num="37" count="3" type="stmt"/>
         <line num="40" count="2" type="stmt"/>
-        <line num="41" count="0" type="stmt"/>
+        <line num="41" count="3" type="stmt"/>
         <line num="44" count="2" type="stmt"/>
         <line num="45" count="3" type="stmt"/>
         <line num="48" count="2" type="stmt"/>
@@ -746,29 +655,29 @@
         <line num="71" count="2" type="stmt"/>
         <line num="73" count="2" type="stmt"/>
       </file>
-      <file name="Publication.ts" path="C:\Users\marco\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\models\Publication.ts">
+      <file name="Publication.ts" path="C:\Users\paubo\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\models\Publication.ts">
         <metrics statements="33" coveredstatements="27" conditionals="4" coveredconditionals="4" methods="14" coveredmethods="8"/>
         <line num="1" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
-        <line num="17" count="1840" type="cond" truecount="2" falsecount="0"/>
-        <line num="18" count="1840" type="cond" truecount="2" falsecount="0"/>
-        <line num="19" count="1840" type="stmt"/>
-        <line num="20" count="1840" type="stmt"/>
-        <line num="21" count="1840" type="stmt"/>
+        <line num="17" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="18" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="19" count="6" type="stmt"/>
+        <line num="20" count="6" type="stmt"/>
+        <line num="21" count="6" type="stmt"/>
         <line num="24" count="2" type="stmt"/>
-        <line num="25" count="4211" type="stmt"/>
+        <line num="25" count="3" type="stmt"/>
         <line num="28" count="2" type="stmt"/>
-        <line num="29" count="4" type="stmt"/>
+        <line num="29" count="8" type="stmt"/>
         <line num="32" count="2" type="stmt"/>
         <line num="33" count="0" type="stmt"/>
         <line num="36" count="2" type="stmt"/>
-        <line num="37" count="3" type="stmt"/>
+        <line num="37" count="7" type="stmt"/>
         <line num="40" count="2" type="stmt"/>
         <line num="41" count="3" type="stmt"/>
         <line num="44" count="2" type="stmt"/>
-        <line num="45" count="9" type="stmt"/>
+        <line num="45" count="11" type="stmt"/>
         <line num="48" count="2" type="stmt"/>
-        <line num="49" count="18" type="stmt"/>
+        <line num="49" count="1" type="stmt"/>
         <line num="52" count="2" type="stmt"/>
         <line num="53" count="0" type="stmt"/>
         <line num="56" count="2" type="stmt"/>
@@ -782,7 +691,7 @@
         <line num="71" count="2" type="stmt"/>
         <line num="73" count="2" type="stmt"/>
       </file>
-      <file name="User.ts" path="C:\Users\marco\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\models\User.ts">
+      <file name="User.ts" path="C:\Users\paubo\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\models\User.ts">
         <metrics statements="38" coveredstatements="25" conditionals="0" coveredconditionals="0" methods="16" coveredmethods="3"/>
         <line num="1" count="1" type="stmt"/>
         <line num="19" count="2" type="stmt"/>
@@ -823,37 +732,44 @@
         <line num="83" count="1" type="stmt"/>
         <line num="85" count="1" type="stmt"/>
       </file>
-      <file name="Viewable.ts" path="C:\Users\marco\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\models\Viewable.ts">
+      <file name="Viewable.ts" path="C:\Users\paubo\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\models\Viewable.ts">
         <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="4" type="stmt"/>
-        <line num="6" count="2984" type="stmt"/>
-        <line num="7" count="2984" type="stmt"/>
+        <line num="6" count="29" type="stmt"/>
+        <line num="7" count="29" type="stmt"/>
         <line num="9" count="4" type="stmt"/>
         <line num="11" count="4" type="stmt"/>
       </file>
     </package>
-    <package name="schemas">
-      <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="cartS.ts" path="C:\Users\marco\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\schemas\cartS.ts">
+    <package name="src.schemas">
+      <metrics statements="16" coveredstatements="16" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="cartS.ts" path="C:\Users\paubo\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\schemas\cartS.ts">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="16" count="1" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="2" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="16" count="3" type="stmt"/>
       </file>
-      <file name="productS.ts" path="C:\Users\marco\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\schemas\productS.ts">
+      <file name="orderS.ts" path="C:\Users\paubo\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\schemas\orderS.ts">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="14" count="1" type="stmt"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="22" count="2" type="stmt"/>
       </file>
-      <file name="publicationS.ts" path="C:\Users\marco\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\schemas\publicationS.ts">
+      <file name="productS.ts" path="C:\Users\paubo\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\schemas\productS.ts">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="14" count="1" type="stmt"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="14" count="2" type="stmt"/>
+      </file>
+      <file name="publicationS.ts" path="C:\Users\paubo\OneDrive\Documentos\GitHub\ACS_Proyecto_01\Code\backend\src\schemas\publicationS.ts">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="14" count="2" type="stmt"/>
       </file>
     </package>
   </project>
