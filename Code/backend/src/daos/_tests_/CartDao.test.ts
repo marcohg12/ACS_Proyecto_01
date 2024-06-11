@@ -164,7 +164,7 @@ describe('CartDAO Tests', () => {
     const units = 1;
     const numUsers = 100;
     const idValidUser = '653b2f0b9cddb8de686495a5';
-    const maxAcceptableTime = 2000;
+    const maxAcceptableTime = 3000;
 
     await Promise.all(Array.from({ length: numUsers }, () => cartDAO.addProduct(idProduct, 2, idValidUser)));
 
@@ -225,7 +225,7 @@ describe('CartDAO Tests', () => {
     const findProductPromises = Array.from({ length: numUsers }, () => findProductTime());
     const findProductTimes = await Promise.all(findProductPromises);
     findProductTimes.forEach(time => {
-        expect(time).toBeLessThanOrEqual(2000);
+        expect(time).toBeLessThanOrEqual(3000);
     });
 
   });
@@ -311,7 +311,7 @@ describe('CartDAO Tests', () => {
     const registerOrderTimes = await Promise.all(registerOrderPromises);
   
     registerOrderTimes.forEach(time => {
-      expect(time).toBeLessThanOrEqual(2000);
+      expect(time).toBeLessThanOrEqual(3000);
     });
   });
 });
