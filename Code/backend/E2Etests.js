@@ -143,6 +143,8 @@ test("Tests that the user can get rid of the filters applied to publications", a
     'input[type="search"].flex-fill.rounded.form-control-sm'
   ).withAttribute("placeholder", "Palabras clave");
 
+  const beforeApplyingFiltersCount = await Selector("a.col-lg-3.col-md-3.mb-4")
+    .count;
   // Write text in the input
   await t.typeText(searchInput, "Rojo");
   const button_filter = Selector("button").withText("Filtrar");
@@ -154,11 +156,10 @@ test("Tests that the user can get rid of the filters applied to publications", a
 
   const reboot_filter = Selector("button").withText("Reiniciar filtros");
   await t.click(reboot_filter);
-  const expectedCountAfterReboot = 14; // Change this to your expected count
   const actualCountAfterReboot = await Selector("a.col-lg-3.col-md-3.mb-4")
     .count;
 
-  await t.expect(actualCountAfterReboot).eql(expectedCountAfterReboot);
+  await t.expect(actualCountAfterReboot).eql(beforeApplyingFiltersCount);
 });
 
 test("Tests that the user can add a product to the cart from the product's page", async (t) => {
